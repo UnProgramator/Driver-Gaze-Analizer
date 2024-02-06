@@ -1,0 +1,8 @@
+WordsEntry(direction='r', noFrames=2) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=11) WordsEntry(direction='f', noFrames=2) WordsEntry(direction='r', noFrames=7) WordsEntry(direction='f', noFrames=2) WordsEntry(direction='r', noFrames=1) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=9) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=88) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=10) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=12) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=2) WordsEntry(direction='f', noFrames=2) WordsEntry(direction='r', noFrames=12) WordsEntry(direction='f', noFrames=2) WordsEntry(direction='r', noFrames=2) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=8)
+
+
+
+WordsEntry(direction='r', noFrames=11) WordsEntry(direction='r', noFrames=7) WordsEntry(direction='r', noFrames=9) WordsEntry(direction='r', noFrames=88) WordsEntry(direction='r', noFrames=10) WordsEntry(direction='r', noFrames=12) WordsEntry(direction='r', noFrames=12) WordsEntry(direction='r', noFrames=8)
+
+
+
