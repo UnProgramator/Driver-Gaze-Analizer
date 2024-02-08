@@ -8,6 +8,7 @@ from l2cs import render
 import cv2
 import os
 import torch
+import numpy as np
 
 
 @dataclass
@@ -34,7 +35,7 @@ class Processor:
         
         self.split_th:Final[int] = splitThreshold
 
-        self.action_array:list[WordsEntry] = None        
+        self.action_array:list[WordsEntry] = None  
         self.words:list[list[WordsEntry]] = None
         
         self.last_code:list[list[int]] = None
@@ -59,9 +60,10 @@ class Processor:
         #split the words into actions delimited by long face looking
         words=[]
 
+        ar = self.action_array
         s:int = 0
         f:int = 0
-        ar = self.action_array
+        
 
         for i in range(len(ar)):
             if ar[i].noFrames < self.split_th or ar[i].direction != 'f': #crt action time is in the treshold
@@ -80,9 +82,11 @@ class Processor:
                 words.append(word)
             
             s = i+1 #the start of a new word is the next action after the pause after the curent word
-
+        
+        f:int = len(ar)-1
+        
         #if a string of actions ends at the end of the action list
-        if s != f : # guard to not introduce a delimiter found as the last action
+        if s != f and s<f : # guard to not introduce a delimiter found as the last action
                 word:list[WordsEntry] = [act.copy() for act in ar[s:f]]
                 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 #formula ar trebui revizuita!
@@ -109,16 +113,21 @@ class Processor:
         actions = self.action_array
 
         for i in range(1, len(actions)-1):
-            if actions[i].noFrames < self.min_frames_no and actions[i-1].direction == actions[i+1].direction: 
+            
+            if actions[i].noFrames < self.min_frames_no:# and actions[i-1].direction == actions[i+1].direction: 
                 #ignore frame if action is to short and the frames that border it are the same
-                if len(words_f):
-                    words_f[-1].noFrames += actions[i].noFrames #if turbulent frame, consider frame to be the frame that borders it
                 continue; # if turbulent frame, then ignore
-            if len(words_f) and words_f[-1].direction == actions[i].direction:
-                words_f[-1].noFrames+=actions[i].noFrames
+            
+            if len(words_f) > 0 and words_f[-1].direction == actions[i].direction:
+                words_f[-1].noFrames += actions[i].noFrames
             else:
                 words_f.append(actions[i].copy());
         
+        #for the last word
+        if len(words_f) > 0 and words_f[-1].direction == actions[i].direction:
+            words_f[-1].noFrames += actions[i].noFrames
+        else:
+            words_f.append(actions[i].copy());
         
 
 
@@ -130,43 +139,64 @@ class Processor:
         action_list = []
         for frame in imInput.images():
             results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
-            
-            pitch = pitch[0]
+
+            if pitch.shape[0] != 1: # no face or more than one face detected
+                continue;
+
+            pitch:np.ndarray = pitch[0]
             yaw = yaw[0]
             
-            yaw = self.__codate(yaw)  #, pitch) # change after computing thresholds 
-            action_list.append(yaw)
-        
+            cod = self.__codate(pitch, yaw)  #, pitch) # change after computing thresholds 
+            action_list.append(cod)
+
         self.action_array = self.__reduce(action_list)
         self.words = None
         
         return self
     
-    def codate_aparitions(self) -> list[list[int]]  :return self.codate_words(0)
-    
-    def codate_duration(self) ->list[list[int]]     :return self.codate_words(1)
-
-    def codate_words(self, cod_type:int=0) -> list[list[int]]:
-        
+    def codate_aparitions(self) -> list[list[int]] :
         cod_words:list[list[int]]=[]
         
         for word in self.words:
             cod_word:list[int]= self.__codate_template()
             for leter in word:
                 char = leter.direction
-                if cod_type ==0:
-                    cod_word[self.__codate_template_map[char]]+=1
-                elif cod_type ==1:
-                    cod_word[self.__codate_template_map[char]]+=leter.noFrames
-                else:
-                    raise Exception(f'invalid argument cod_type = {cod_type}')
+                cod_word[self.__codate_template_map[char]]+=1
             cod_words.append(cod_word)
             
         self.last_code = cod_words
         return cod_words
     
+    def codate_duration(self) ->list[list[int]] :
+        cod_words:list[list[int]]=[]
+        sum = 0;
+        for word in self.words:
+            cod_word:list[int]= self.__codate_template()
+            for leter in word:
+                char = leter.direction
+                cod_word[self.__codate_template_map[char]]+=leter.noFrames
+                sum+=leter.noFrames
+            cod_words.append(cod_word)
+
+        filterout = lambda x : list(map(lambda y: 100*y/sum, x))
+
+        self.last_code = list(map(filterout, cod_words))
+        return self.last_code
+
     # def decode(self, code):
     #     pass
+
+    def load_array(self, action_array:list[tuple[int, int]]):
+        '''Directly input the number array'''
+        act_ar:list[str] = []
+        for X,Y in action_array:
+            act_ar.append(self.__codate(X,Y))
+                          
+        self.action_array = self.__reduce(act_ar)
+        self.words = None
+        
+        return self
+        
 
     ##########################################################################
     def __codate(self,  pitch:int, yaw:int = 0):
@@ -210,11 +240,11 @@ class Processor:
                 
             frame = render(frame, results)
             
-            cv2.putText(frame, os.path.basename(impath), (0,95), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 250), 2)
-            cv2.putText(frame, "Pitch: " + str(pitch), (0, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
-            cv2.putText(frame, "  Yaw: " + str(yaw), (0, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
-            cv2.putText(frame, "  Dir1: " + str(self.__codate(pitch)), (0, 200), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
-            cv2.putText(frame, "  Dir2: " + str(self.__codate(pitch,yaw)), (0, 235), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
+            #cv2.putText(frame, os.path.basename(impath), (0,95), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 250), 2)
+            cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+            cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+            #cv2.putText(frame, "  Dir1: " + str(self.__codate(pitch)), (0, 200), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
+            cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
 
             if savePath is not None:
                 fullPath = savePath.format(imNr=i)
@@ -231,3 +261,28 @@ class Processor:
             if key == 27:
                 break
             
+
+    def validate(self, imInput):
+        action_list = []
+        for frame, path in imInput.images(True):
+            results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+
+            if pitch.shape[0] != 1: # no face or more than one face detected
+                continue;
+
+            pitch = pitch[0]
+            yaw = yaw[0]
+            
+            gaze_dir_al:str = os.path.basename(path)
+    
+            idx = gaze_dir_al.index('.')
+            gaze_dir = gaze_dir_al[idx-2:idx]
+    
+            idx = gaze_dir_al.index('_')
+            driv = gaze_dir_al[idx+1:idx+3]
+
+            cod = self.__codate(pitch, yaw)  #, pitch) # change after computing thresholds 
+            action_list.append((path, gaze_dir, cod, driv))
+
+        
+        return action_list

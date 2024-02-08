@@ -12,13 +12,12 @@ def main():
 
     imgsrc = DrivfaceInput((1,2,3,4))
 
-    proc = Processor(-0.65, 0.01 )#,0.1, 0.4)
+    proc = Processor(-0.65, 0.2, -0.2, 0.4, 2, 30 )
 
     print("pipeline created succesfully")
     
     
-    proc.render(imgsrc)#,'D:\\Scoala\\Poli\\Doctorat\\prima_aplicatie\\results\\drivface\\image_{imNr}.png')
-
+    proc.render(imgsrc, savePath='D:\\Scoala\\Poli\\Doctorat\\prima_aplicatie\\results\\drivface_3\\image_{imNr}.png')
 
 
 if __name__ == "__main__":

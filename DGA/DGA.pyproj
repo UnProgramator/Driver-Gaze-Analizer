@@ -40,6 +40,12 @@
     <Compile Include="backbone\processor.py" />
     <Compile Include="Testing\Clustering\test_scikit.py" />
     <Compile Include="Testing\Clustering\test_nltk.py" />
+    <Compile Include="Utilities\Validation\DreyeveValidation.py" />
+    <Compile Include="Utilities\Validation\dreyeve_validation.py" />
+    <Compile Include="Utilities\Validation\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="imageReaders\" />
@@ -47,6 +53,7 @@
     <Folder Include="Testing\Clustering\" />
     <Folder Include="Utilities\" />
     <Folder Include="Testing\" />
+    <Folder Include="Utilities\Validation\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

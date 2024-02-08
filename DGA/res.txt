@@ -1,8 +1,251 @@
-WordsEntry(direction='r', noFrames=2) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=11) WordsEntry(direction='f', noFrames=2) WordsEntry(direction='r', noFrames=7) WordsEntry(direction='f', noFrames=2) WordsEntry(direction='r', noFrames=1) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=9) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=88) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=10) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=12) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=2) WordsEntry(direction='f', noFrames=2) WordsEntry(direction='r', noFrames=12) WordsEntry(direction='f', noFrames=2) WordsEntry(direction='r', noFrames=2) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=8)
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=11), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=7), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=88), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=10), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=12), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=8)]
+
+new batch
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+[WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=6), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=2), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=11), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=2), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=3), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=9), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=3), WordsEntry(direction='f', noFrames=16), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=4), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=7), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=20), WordsEntry(direction='r', noFrames=8)]
+
+new batch
+[WordsEntry(direction='f', noFrames=25), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=153)]
+
+new batch
 
 
 
-WordsEntry(direction='r', noFrames=11) WordsEntry(direction='r', noFrames=7) WordsEntry(direction='r', noFrames=9) WordsEntry(direction='r', noFrames=88) WordsEntry(direction='r', noFrames=10) WordsEntry(direction='r', noFrames=12) WordsEntry(direction='r', noFrames=12) WordsEntry(direction='r', noFrames=8)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+['f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'l', 'l', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'r', 'f', 'r', 'r', 'r', 'r', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'l', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'l', 'l', 'l', 'l', 'l', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f']
+[WordsEntry(direction='f', noFrames=14), WordsEntry(direction='l', noFrames=2), WordsEntry(direction='f', noFrames=8), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=4), WordsEntry(direction='f', noFrames=122), WordsEntry(direction='l', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='l', noFrames=5), WordsEntry(direction='f', noFrames=8)]
+
+WordsEntry(direction='f', noFrames=14) WordsEntry(direction='l', noFrames=2) WordsEntry(direction='f', noFrames=8) WordsEntry(direction='r', noFrames=1) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=4) WordsEntry(direction='f', noFrames=122) WordsEntry(direction='l', noFrames=1) WordsEntry(direction='f', noFrames=13) WordsEntry(direction='l', noFrames=5) WordsEntry(direction='f', noFrames=8)
+
+[WordsEntry(direction='f', noFrames=14), WordsEntry(direction='l', noFrames=2), WordsEntry(direction='f', noFrames=8), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=4)]
+[WordsEntry(direction='l', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='l', noFrames=5)]
+
+[3, 1, 2, 0, 0] [1, 2, 0, 0, 0]
+
+WordsEntry(direction='l', noFrames=2) WordsEntry(direction='f', noFrames=10) WordsEntry(direction='r', noFrames=4) WordsEntry(direction='f', noFrames=136) WordsEntry(direction='l', noFrames=10)
+
+[WordsEntry(direction='l', noFrames=2), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=4)]
+
+[1, 1, 1, 0, 0]
+WordsEntry(direction='f', noFrames=14) WordsEntry(direction='l', noFrames=2) WordsEntry(direction='f', noFrames=8) WordsEntry(direction='r', noFrames=1) WordsEntry(direction='f', noFrames=1) WordsEntry(direction='r', noFrames=4) WordsEntry(direction='f', noFrames=122) WordsEntry(direction='l', noFrames=1) WordsEntry(direction='f', noFrames=13) WordsEntry(direction='l', noFrames=5) WordsEntry(direction='f', noFrames=8)
+
+[WordsEntry(direction='f', noFrames=14), WordsEntry(direction='l', noFrames=2), WordsEntry(direction='f', noFrames=8), WordsEntry(direction='r', noFrames=1), WordsEntry(direction='f', noFrames=1), WordsEntry(direction='r', noFrames=4)]
+[WordsEntry(direction='l', noFrames=1), WordsEntry(direction='f', noFrames=13), WordsEntry(direction='l', noFrames=5)]
+
+[3, 1, 2, 0, 0] [1, 2, 0, 0, 0]
+
+WordsEntry(direction='l', noFrames=2) WordsEntry(direction='f', noFrames=10) WordsEntry(direction='r', noFrames=4) WordsEntry(direction='f', noFrames=137) WordsEntry(direction='l', noFrames=8)
+
+[WordsEntry(direction='l', noFrames=2), WordsEntry(direction='f', noFrames=10), WordsEntry(direction='r', noFrames=4)]
+
+[1, 1, 1, 0, 0]

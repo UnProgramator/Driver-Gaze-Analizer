@@ -1,0 +1,607 @@
+path, label, predict, driver
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_001_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_002_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_003_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_004_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_005_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_006_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_007_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_008_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_009_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_010_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_011_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_012_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_013_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_014_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_015_f .jpg , f  , l , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_016_f .jpg , f  , l , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_017_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_018_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_019_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_020_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_021_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_022_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_023_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_024_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_025_f .jpg , f  , r , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_026_lr.jpg , lr , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_027_lr.jpg , lr , r , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_028_lr.jpg , lr , r , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_029_lr.jpg , lr , r , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_030_lr.jpg , lr , r , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_031_lr.jpg , lr , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_032_lr.jpg , lr , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_033_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_034_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_035_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_036_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_037_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_038_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_039_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_040_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_041_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_042_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_043_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_044_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_045_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_046_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_047_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_048_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_049_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_050_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_051_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_052_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_053_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_054_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_055_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_056_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_057_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_058_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_059_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_060_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_061_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_062_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_063_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_064_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_065_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_066_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_067_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_068_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_069_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_070_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_071_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_072_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_073_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_074_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_075_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_076_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_077_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_078_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_079_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_080_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_081_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_082_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_083_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_084_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_085_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_086_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_087_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_088_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_089_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_090_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_091_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_092_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_093_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_094_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_095_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_096_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_097_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_098_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_099_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_100_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_101_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_102_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_103_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_104_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_105_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_106_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_107_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_108_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_109_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_110_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_111_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_112_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_113_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_114_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_115_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_116_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_117_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_118_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_119_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_120_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_121_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_122_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_123_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_124_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_125_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_126_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_127_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_128_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_129_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_130_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_131_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_132_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_133_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_134_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_135_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_136_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_137_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_138_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_139_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_140_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_141_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_142_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_143_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_144_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_145_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_146_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_147_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_148_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_149_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_150_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_151_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_152_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_153_f .jpg , f  , l , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_154_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_155_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_156_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_157_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_158_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_159_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_160_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_161_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_162_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_163_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_164_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_165_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_166_f .jpg , f  , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_167_f .jpg , f  , l , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_168_ll.jpg , ll , l , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_169_ll.jpg , ll , l , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_170_ll.jpg , ll , l , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_171_ll.jpg , ll , l , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_172_ll.jpg , ll , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_173_ll.jpg , ll , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_174_ll.jpg , ll , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_175_ll.jpg , ll , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_176_ll.jpg , ll , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_177_ll.jpg , ll , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_178_ll.jpg , ll , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_01_Driv_179_ll.jpg , ll , f , 01
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_001_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_002_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_003_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_004_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_005_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_006_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_007_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_008_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_009_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_010_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_011_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_012_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_013_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_014_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_015_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_016_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_017_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_018_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_019_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_020_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_021_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_022_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_023_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_024_f .jpg , f  , l , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_025_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_026_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_027_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_028_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_029_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_030_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_031_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_032_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_033_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_034_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_035_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_036_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_037_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_038_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_039_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_040_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_041_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_042_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_043_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_044_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_045_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_046_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_047_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_048_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_049_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_050_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_051_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_052_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_053_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_054_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_055_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_056_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_057_f .jpg , f  , l , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_058_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_059_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_060_f .jpg , f  , l , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_061_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_062_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_063_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_064_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_065_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_066_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_067_ll.jpg , ll , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_068_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_069_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_070_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_071_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_072_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_073_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_074_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_075_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_076_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_077_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_078_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_079_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_080_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_081_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_082_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_083_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_084_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_085_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_086_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_087_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_088_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_089_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_090_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_091_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_092_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_093_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_094_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_095_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_096_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_097_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_098_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_099_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_100_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_101_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_102_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_103_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_104_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_105_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_106_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_107_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_108_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_109_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_110_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_111_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_112_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_113_f .jpg , f  , l , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_114_ll.jpg , ll , l , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_115_ll.jpg , ll , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_116_ll.jpg , ll , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_117_ll.jpg , ll , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_118_ll.jpg , ll , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_119_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_120_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_121_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_122_f .jpg , f  , l , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_123_ll.jpg , ll , l , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_124_ll.jpg , ll , l , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_125_ll.jpg , ll , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_126_ll.jpg , ll , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_127_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_128_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_129_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_130_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_131_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_132_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_133_f .jpg , f  , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_134_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_135_f .jpg , f  , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_136_f .jpg , f  , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_137_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_138_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_139_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_140_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_141_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_142_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_143_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_144_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_145_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_146_lr.jpg , lr , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_147_lr.jpg , lr , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_148_lr.jpg , lr , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_149_lr.jpg , lr , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_150_lr.jpg , lr , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_151_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_152_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_153_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_154_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_155_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_156_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_157_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_158_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_159_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_160_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_161_f .jpg , f  , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_162_f .jpg , f  , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_163_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_164_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_165_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_166_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_167_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_168_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_169_f .jpg , f  , f , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130529_02_Driv_170_f .jpg , f  , r , 02
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_001_f .jpg , f  , r , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_002_f .jpg , f  , r , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_003_f .jpg , f  , r , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_004_f .jpg , f  , r , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_005_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_006_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_007_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_008_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_009_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_010_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_011_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_012_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_013_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_014_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_015_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_016_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_017_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_018_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_019_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_020_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_021_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_022_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_023_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_024_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_025_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_026_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_027_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_028_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_029_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_030_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_031_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_032_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_033_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_034_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_035_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_036_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_037_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_038_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_039_lr.jpg , lr , r , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_040_lr.jpg , lr , r , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_041_lr.jpg , lr , r , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_042_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_043_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_044_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_045_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_046_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_047_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_048_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_049_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_050_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_051_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_052_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_053_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_054_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_055_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_056_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_057_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_058_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_059_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_060_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_061_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_062_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_063_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_064_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_065_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_066_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_067_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_068_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_069_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_070_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_071_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_072_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_073_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_074_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_075_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_076_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_077_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_078_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_079_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_080_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_081_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_082_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_083_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_084_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_085_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_086_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_087_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_088_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_089_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_090_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_091_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_092_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_093_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_094_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_095_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_096_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_097_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_098_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_099_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_100_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_101_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_102_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_103_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_104_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_105_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_106_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_107_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_108_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_109_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_110_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_111_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_112_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_113_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_114_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_115_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_116_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_117_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_118_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_119_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_120_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_121_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_122_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_123_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_124_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_125_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_126_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_127_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_128_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_129_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_130_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_131_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_132_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_133_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_134_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_135_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_136_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_137_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_138_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_139_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_140_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_141_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_142_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_143_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_144_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_145_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_146_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_147_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_148_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_149_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_150_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_151_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_152_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_153_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_154_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_155_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_156_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_157_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_158_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_159_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_160_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_161_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_162_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_163_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_164_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_165_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_166_f .jpg , f  , f , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_03_Driv_167_f .jpg , f  , r , 03
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_001_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_002_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_003_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_004_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_005_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_006_lr.jpg , lr , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_007_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_008_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_009_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_010_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_011_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_012_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_013_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_014_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_015_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_016_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_017_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_018_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_019_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_020_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_021_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_022_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_023_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_024_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_025_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_026_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_027_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_028_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_029_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_030_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_031_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_032_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_033_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_034_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_035_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_036_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_037_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_038_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_039_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_040_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_041_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_042_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_043_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_044_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_045_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_046_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_047_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_048_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_049_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_050_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_051_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_052_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_053_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_054_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_055_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_056_ll.jpg , ll , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_057_ll.jpg , ll , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_058_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_059_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_060_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_061_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_062_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_063_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_064_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_065_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_066_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_067_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_068_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_069_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_070_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_071_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_072_f .jpg , f  , l , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_073_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_074_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_075_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_076_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_077_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_078_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_079_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_080_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_081_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_082_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_083_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_084_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_085_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_086_f .jpg , f  , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_087_lr.jpg , lr , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_088_lr.jpg , lr , r , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_089_f .jpg , f  , f , 04
+D:\Scoala\Poli\Doctorat\prima_aplicatie\dataset\drivface\DrivFace\DrivImages\20130530_04_Driv_090_f .jpg , f  , f , 04
