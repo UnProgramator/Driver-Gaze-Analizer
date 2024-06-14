@@ -23,5 +23,26 @@ class my_pipeline():
         
         pitch = result.pitch
         yaw = result.yaw
+        
+
+        # fir extragi de genul yaw = get_one_face(yaw) et so on
+        # sau ambele folosind get_pitch_yaw
+        # calculezi noile valori
+        # inainte sa le returnezi sa le si scrii inapoi in results, altfel nu o sa le randeze bine
+        # poti folosi write_pitch_yaw(...)
 
         return result, pitch, yaw
+    
+    def get_one_face(self, dir:np.ndarray):
+        if dir.shape[0] != 1:
+            raise Exception("More than one face detected")
+        
+        return dir[0]
+    
+    def get_pitch_yaw(self, result):
+        return self.get_one_face(result.pitch), self.get_one_face(result.yaw)
+    
+    def write_pitch_yaw(self, result, new_yaw, new_pitch):
+        result.pitch[0] = new_pitch
+        result.yaw[0]   = new_yaw
+    
