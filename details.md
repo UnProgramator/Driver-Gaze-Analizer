@@ -1,6 +1,8 @@
 The [imageReader package](https://github.com/UnProgramator/Driver-Gaze-Analizer/tree/master/DGA/imageReaders) contains the classes for reading files. 
 The [DrivfaceInput class](https://github.com/UnProgramator/Driver-Gaze-Analizer/blob/master/DGA/imageReaders/DrivfaceInput.py) contains an example of reading the files for the DriveFace dataset {[https://archive.ics.uci.edu/dataset/378/drivface](https://archive.ics.uci.edu/dataset/378/drivface)}
 
+The [drvalidation function](https://github.com/UnProgramator/Driver-Gaze-Analizer/blob/SACI/DGA/utilities/Validation/dreyeve_validation.py) is an example of testing the word encoding and clustering eficiency. This method bypass the gaze estimation using the L2CS-NET!
+
 The base interface [ImageReader](https://github.com/UnProgramator/Driver-Gaze-Analizer/blob/master/DGA/imageReaders/ImageReader.py) contains the methoods which need to be implemented for the program to work as intended, to be more specific the two methods defined in the interface are called by the [Processor class](https://github.com/UnProgramator/Driver-Gaze-Analizer/blob/master/DGA/backbone/processor.py). The prototiyes also contain the expected return type.
 
 In the [main.py file](https://github.com/UnProgramator/Driver-Gaze-Analizer/blob/master/DGA/main.py) are 4 function (f1 to f4) with examples of howw to call the Processor for different operations.
