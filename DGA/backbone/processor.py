@@ -23,9 +23,15 @@ class WordsEntry:
 class Processor:
     
     def __codate_template(_) -> list[int] : return [0, 0, 0, 0, 0,].copy()
-    __codate_template_map:Final[dict[str,int]] = {'f':0, 'l':1, 'r':2, 'u':3, 'd':4}
-
+    __codate_template_map:Final[dict[str,int]] = {'f':0, 'l':1, 'r':2, 'u':3, 'd':4} 
+    
     def __init__(self,  left:int=0, right:int=0, down:int=0, up:int=0, minFames:int=1, splitThreshold:int=40):
+        '''
+            @params:
+                left, right, down, up - thresholds for looking in each direction
+                minFrames - minimum duration in frame for filtration (is bellow, then the action is removed)
+                splitThreshold - thrreshold for looking in a certain direction used to split the action words
+        '''
         self.left:Final[int] = left
         self.right:Final[int]  = right 
         self.down:Final[int] = down
@@ -57,7 +63,7 @@ class Processor:
         return self.action_array
 
     def split_words(self) -> Self:
-        #split the words into actions delimited by long face looking
+        '''split the words into actions delimited by long face looking'''
         words=[]
 
         ar = self.action_array
@@ -101,7 +107,7 @@ class Processor:
         return self
 
     def reduce_noise(self) -> Self:
-        
+        '''remove actions that which lasted less than a threshold'''
         words_f:list[WordsEntry] =[]
 
         # for word in actions:
@@ -136,6 +142,7 @@ class Processor:
         return self
 
     def process(self,imInput) -> Self:
+        '''extracts the gaze from the images and saaves it acordingly for furthure processing. generates the action list'''
         action_list = []
         for frame in imInput.images():
             results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
@@ -155,6 +162,7 @@ class Processor:
         return self
     
     def codate_aparitions(self) -> list[list[int]] :
+        '''generates the actions words'''
         cod_words:list[list[int]]=[]
         
         for word in self.words:
@@ -168,6 +176,7 @@ class Processor:
         return cod_words
     
     def codate_duration(self) ->list[list[int]] :
+        '''codates the aparitions considering the percentage of durations foor looking in each direction'''
         cod_words:list[list[int]]=[]
         sum = 0;
         for word in self.words:
@@ -200,6 +209,7 @@ class Processor:
 
     ##########################################################################
     def __codate(self,  pitch:int, yaw:int = 0):
+        '''codate the direction using a character, for conviniecne'''
         if yaw < self.down:
             return 'd'
         if yaw > self.up:
@@ -213,6 +223,7 @@ class Processor:
         return 'f'
     
     def __reduce(self, ar:list[str]):
+        '''reduce the gaze list to the action list?'''
         crt:str = None
         nr:int = None
         result:list[WordsEntry] = []
@@ -230,6 +241,7 @@ class Processor:
 
     ##########################################################################
     def render(self,imInput:ImageReader, savePath:str=None) -> None:
+        '''render the adnotated frames, mostly for validation or visual verification'''
         i=0;
         for frame,impath in imInput.images(True):
             results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
@@ -262,7 +274,8 @@ class Processor:
                 break
             
 
-    def validate(self, imInput):
+    def validate(self, imInput) -> list[tuple[str, str,str,str]]:
+        '''Forms an action list to be printed to the screen. For writing into a file, simply redirect the standard output'''
         action_list = []
         for frame, path in imInput.images(True):
             results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
