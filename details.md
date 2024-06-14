@@ -1,4 +1,4 @@
-Reteaua folosita este [https://github.com/Ahmednull/L2CS-Net](https://github.com/Ahmednull/L2CS-Net). Pitch corespunde miscarii pe orizontala, yaw corespunde miscarii pe verticala.
+Reteaua folosita este [https://github.com/Ahmednull/L2CS-Net](https://github.com/Ahmednull/L2CS-Net). Pitch corespunde miscarii pe orizontala, yaw corespunde miscarii pe verticala. Valorile sunt in intervalul [-1, 1], valorile corespunnd intervalului [-180&deg;, 180&deg;] 
 
 The [imageReader package](https://github.com/UnProgramator/Driver-Gaze-Analizer/tree/master/DGA/imageReaders) contains the classes for reading files. 
 The [DrivfaceInput class](https://github.com/UnProgramator/Driver-Gaze-Analizer/blob/master/DGA/imageReaders/DrivfaceInput.py) contains an example of reading the files for the DriveFace dataset {[https://archive.ics.uci.edu/dataset/378/drivface](https://archive.ics.uci.edu/dataset/378/drivface)}
