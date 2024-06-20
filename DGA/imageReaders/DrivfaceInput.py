@@ -41,7 +41,7 @@ class DrivfaceInput(ImageReader):
         return "{0}_{1:02}_Driv_{2:03}_{3}.jpg".format(nrs,driver,nr,sufix)
         
     def __path(self):
-        return r'D:\Programming\VisualStudio\Python\Driver-Gaze-Analizer\DGA\dataset\drivface\DrivFace\DrivImages\\'
+        return r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\dataset\drivface\DrivImages\\'
         
     def __get_im(self,nr:int, driver:int = 1):
         pat = self.__path() + self.__get_im_format(driver, nr)

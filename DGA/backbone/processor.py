@@ -142,7 +142,7 @@ class Processor:
         return self
 
     def process(self,imInput) -> Self:
-        '''extracts the gaze from the images and saaves it acordingly for furthure processing. generates the action list'''
+        '''extracts the gaze from the images and saves it acordingly for furthure processing. generates the action list'''
         action_list = []
         for frame in imInput.images():
             results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
