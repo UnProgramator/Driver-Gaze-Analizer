@@ -17,7 +17,7 @@ def main():
     print("pipeline created succesfully")
     
     
-    proc.render(imgsrc, savePath='D:\\Scoala\\Poli\\Doctorat\\prima_aplicatie\\results\\drivface_3\\image_{imNr}.png')
+    proc.render(imgsrc, savePath='C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\image_{imNr}.png')
 
 
 if __name__ == "__main__":

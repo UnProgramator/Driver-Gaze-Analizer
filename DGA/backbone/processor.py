@@ -246,17 +246,18 @@ class Processor:
         for frame,impath in imInput.images(True):
             results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
             
-            pitch = pitch[0]
-            yaw = yaw[0]
-
-                
-            frame = render(frame, results)
+            #pitch = pitch[0]
+            #yaw = yaw[0]
+   
+            frame = render(frame, results, color=(0, 255, 0))
             
-            #cv2.putText(frame, os.path.basename(impath), (0,95), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 250), 2)
-            cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-            cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-            #cv2.putText(frame, "  Dir1: " + str(self.__codate(pitch)), (0, 200), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
-            cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+            # Draw text annotations for original vectors
+            cv2.putText(frame, "Original Pitch: " + str(pitch), (10, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+            cv2.putText(frame, "Original Yaw: " + str(yaw), (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+
+            # Draw text annotations for estimated vectors
+            cv2.putText(frame, "System Pitch: " + str(results.pitch), (10, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 250, 0), 1)
+            cv2.putText(frame, "System Yaw: " + str(results.yaw), (10, 150), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 250, 0), 1)
 
             if savePath is not None:
                 fullPath = savePath.format(imNr=i)
@@ -264,12 +265,8 @@ class Processor:
                 cv2.imwrite(fullPath, frame)
                 
             cv2.imshow("Demo", frame)
-            
 
             key = cv2.waitKey(40)
-            
-            
-
             if key == 27:
                 break
             

@@ -1,6 +1,6 @@
 import numpy as np
-
-class GazeEstimator:
+"""
+class ParticleFilter:
     def __init__(self, num_particles=1000, state_dim=2, motion_std=0.1, measurement_std=0.1):
         self.num_particles = num_particles
         self.state_dim = state_dim
@@ -43,7 +43,7 @@ class GazeEstimator:
         return frame
 
     def filter_gaze(self, pitch, yaw):
-        """Apply particle filter to refine the pitch and yaw estimates."""
+        Apply particle filter to refine the pitch and yaw estimates.
         measurement = np.array([pitch, yaw])
         
         self.predict()
@@ -54,3 +54,41 @@ class GazeEstimator:
         
         estimated_gaze = self.estimate()
         return estimated_gaze[0], estimated_gaze[1]
+"""
+
+class ParticleFilter:
+    def __init__(self, num_particles, initial_state):
+        self.num_particles = num_particles
+        self.transition_std = 0.1  # Example value
+        self.measurement_std = 0.5  # Example value
+
+        self.particles = np.random.randn(num_particles, len(initial_state)) * self.transition_std + initial_state
+        self.weights = np.ones(num_particles) / num_particles
+
+
+    def predict(self):
+         # Apply Gaussian noise to each particle
+         #self.particles += np.random.randn(self.num_particles, self.particles.shape[1]) * self.transition_std  
+         noise = np.random.normal(0, self.transition_std, self.particles.shape)
+         self.particles += noise 
+
+    def update(self, measurement):
+        for i, particle in enumerate(self.particles):
+            distance = np.linalg.norm(particle - measurement)
+            self.weights[i] = self.gaussian(distance, self.measurement_std)
+        self.weights += 1.e-300  # avoid round-off to zero
+        self.weights /= np.sum(self.weights)  # normalize
+
+        if (1. / np.sum(np.square(self.weights))) < self.num_particles / 2:
+            self.resample()
+
+        return np.average(self.particles, weights=self.weights, axis=0)
+
+    def resample(self):
+        indices = np.random.choice(range(self.num_particles), size=self.num_particles, p=self.weights)
+        self.particles = self.particles[indices]
+        self.weights.fill(1.0 / self.num_particles)
+
+    @staticmethod
+    def gaussian(x, std):
+        return (1.0 / (np.sqrt(2 * np.pi) * std)) * np.exp(-0.5 * (x / std) ** 2)

@@ -8,7 +8,7 @@ from yellowbrick.cluster import SilhouetteVisualizer, KElbowVisualizer
 def drvalidation():
     dv = DreyeveValidation()
     
-    points = dv.load_files([r'D:\Programming\VisualStudio\Python\Driver-Gaze-Analizer\DGA\dataset\dreyeve\etg_samples_{}.txt'.format(i) for i in range(1,5)])
+    points = dv.load_files([r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\dataset\dreyeve\etg_samples_{}.txt'.format(i) for i in range(1,5)])
     
     # no up/down verification
     proc = Processor(480,1440,0,1080,1,30) #30 frames = 1 sec, video la 30 fps 1080p: 1920x1080, 1920:4=480 480l|960f|480r l:[0-480], f:(480,1440), r:[1440,1920] 

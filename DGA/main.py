@@ -84,11 +84,14 @@ def main():
     
     # f4(imgsrc)
     # print("3A 4V")
-    # imgsrc = DrivfaceInput((1,2,3,4))
+    imgsrc = DrivfaceInput((1,2,3,4))
+    proc = gproc()
+    #proc.render(imgsrc)
+    proc.render(imgsrc, savePath=r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\image_{imNr}.png')
     
-    # f4(imgsrc)
+    #f4(imgsrc)
 
-    drvalidation()
+    # drvalidation()
 
     return 0
 
