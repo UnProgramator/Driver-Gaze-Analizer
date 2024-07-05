@@ -6,6 +6,8 @@ from imageReaders.ImageReader import ImageReader
 from .my_pipeline import my_pipeline
 from l2cs import render
 import cv2
+import matplotlib.pyplot as plt
+import csv
 import os
 import torch
 import numpy as np
@@ -245,9 +247,8 @@ class Processor:
         i=0;
         for frame,impath in imInput.images(True):
             results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
-            
-            #pitch = pitch[0]
-            #yaw = yaw[0]
+            if pitch is None or pitch is None:
+                continue;
    
             frame = render(frame, results, color=(0, 255, 0))
             
@@ -271,6 +272,77 @@ class Processor:
                 break
             
 
+    def saveResults(self,imInput:ImageReader, savePath:str=None) -> None:
+        '''plot the results, mostly for validation or visual verification'''
+        pitches = []
+        yaws = []
+        results_pitches = []
+        results_yaws = []
+
+        for frame, impath in imInput.images(True):
+            results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+            if pitch is None or pitch is None:
+                continue;
+
+            # Append values to lists
+            pitches.append(pitch)
+            yaws.append(yaw)
+            results_pitches.append(results.pitch[0])
+            results_yaws.append(results.yaw[0])
+
+        # Save to CSV
+        csv_filename = "gaze_estimations.csv"
+        if savePath is not None:
+            csv_filename = savePath
+
+        with open(csv_filename, 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            # Write the rows for pitches and yaws
+            csv_writer.writerow(['Original Pitch'] + pitches)
+            csv_writer.writerow(['Original Yaw'] + yaws)
+            csv_writer.writerow(['PF Pitch'] + results_pitches)
+            csv_writer.writerow(['PF Yaw'] + results_yaws)
+            
+        return csv_filename
+
+    def plot_gaze_estimations_from_csv(self, csv_filename):
+        parent_dir = os.path.dirname(csv_filename)
+        with open(csv_filename, 'r') as csvfile:
+            csv_reader = csv.reader(csvfile)
+            data = {rows[0]: rows[1:] for rows in csv_reader}
+
+        # Convert string values to float
+        pitches = list(map(float, data['Original Pitch']))
+        yaws = list(map(float, data['Original Yaw']))
+        results_pitches = list(map(float, data['System Pitch']))
+        results_yaws = list(map(float, data['System Yaw']))
+
+        frames = list(range(len(pitches)))
+
+        # Plot pitch and results.pitch
+        plt.figure(figsize=(10, 5))
+        plt.plot(frames, pitches, label='Original Pitch', color='red')
+        plt.plot(frames, results_pitches, label='System Pitch', color='green')
+        plt.xlabel('Frame')
+        plt.ylabel('Pitch')
+        plt.title('Original Pitch vs. System Pitch')
+        plt.legend()
+        plt.grid(True)
+        plt.savefig(os.path.join(parent_dir, 'pitch.png'))
+        plt.show()
+
+        # Plot yaw and results.yaw
+        plt.figure(figsize=(10, 5))
+        plt.plot(frames, yaws, label='Original Yaw', color='red')
+        plt.plot(frames, results_yaws, label='System Yaw', color='green')
+        plt.xlabel('Frame')
+        plt.ylabel('Yaw')
+        plt.title('Original Yaw vs. System Yaw')
+        plt.legend()
+        plt.grid(True)
+        plt.savefig(os.path.join(parent_dir, 'yaw.png'))
+        plt.show()
+            
     def validate(self, imInput) -> list[tuple[str, str,str,str]]:
         '''Forms an action list to be printed to the screen. For writing into a file, simply redirect the standard output'''
         action_list = []

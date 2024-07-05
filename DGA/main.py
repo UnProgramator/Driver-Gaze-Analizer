@@ -87,7 +87,10 @@ def main():
     imgsrc = DrivfaceInput((1,2,3,4))
     proc = gproc()
     #proc.render(imgsrc)
-    proc.render(imgsrc, savePath=r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\image_{imNr}.png')
+    #proc.render(imgsrc, savePath=r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\image_{imNr}.png')
+    #proc.saveResults(imgsrc, savePath=r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\gaze_estimations.csv')
+    #proc.plot_gaze_estimations_from_csv(r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\gaze_estimations.csv')
+    
     
     #f4(imgsrc)
 
