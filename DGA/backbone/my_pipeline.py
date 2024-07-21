@@ -8,6 +8,7 @@ from typing import Union
 
 import cv2
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 from dataclasses import dataclass
@@ -35,11 +36,14 @@ class my_pipeline():
 
 
         raw_pitch, raw_yaw = self.get_pitch_yaw(result)
+        if raw_pitch is None or raw_yaw is None:
+            print("Warning: Raw Pitch or Raw Yaw is None")
+            return result, None, None
+
         particleFilterPitch = ParticleFilter(1000, np.array([self.pitch_system]))
         particleFilterYaw = ParticleFilter(1000, np.array([self.yaw_system]))
         pitch_PF = particleFilterPitch.update(np.array([self.pitch_system]))
         yaw_PF = particleFilterYaw.update(np.array([self.yaw_system]))
-
         
         if abs(self.pitch_system - raw_pitch) > self.xtreshold or abs(self.yaw_system - raw_yaw) > self.xtreshold:
             self.cntCorections += 1
@@ -56,8 +60,8 @@ class my_pipeline():
         return result, raw_pitch, raw_yaw
     
     def get_one_face(self, dir:np.ndarray):
-        if dir.shape[0] != 1:
-            raise Exception("More than one face detected")
+        #if dir.shape[0] != 1:
+        #    raise Exception("More than one face detected")
         if dir.shape[0] == 1:
             return dir[0]
     
