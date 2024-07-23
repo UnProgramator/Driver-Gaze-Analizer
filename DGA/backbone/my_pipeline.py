@@ -23,13 +23,18 @@ class my_pipeline():
         self.pipeline = l2cs.Pipeline(**kwargs)
         self.cntCorections = 0
         self.MAXCORECTIONS = 3  # Example value
-        self.xtreshold = 0.1  # Example value
-
-    def get_gaze(self, frame: np.ndarray, return_adnotate_frame:bool = False) -> (l2cs_GazeResultContainer):
+        self.xtreshold = 0.2  # Example value
         
+        self.particleFilterPitch = ParticleFilter(1000, np.empty((1,)))
+        self.particleFilterYaw = ParticleFilter(1000, np.empty((1,)))
+
+    def get_gaze(self, frame: np.ndarray, return_adnotate_frame:bool = False) -> Tuple[l2cs_GazeResultContainer, float, float]:
+        """
+        return the l2cs rezult containerm together with the pitch and yaw, int this order
+        """
         result = self.pipeline.step(frame)
  
-        frame = l2cs.render(frame, result, color=(0, 0,255))
+        frame = l2cs.render(frame, result)
 
         if not hasattr(self, 'pitch_system') or not hasattr(self, 'yaw_system'):
             self.pitch_system, self.yaw_system = self.get_pitch_yaw(result)
@@ -40,10 +45,9 @@ class my_pipeline():
             print("Warning: Raw Pitch or Raw Yaw is None")
             return result, None, None
 
-        particleFilterPitch = ParticleFilter(1000, np.array([self.pitch_system]))
-        particleFilterYaw = ParticleFilter(1000, np.array([self.yaw_system]))
-        pitch_PF = particleFilterPitch.update(np.array([self.pitch_system]))
-        yaw_PF = particleFilterYaw.update(np.array([self.yaw_system]))
+        
+        pitch_PF = self.particleFilterPitch.update(np.array([self.pitch_system]))
+        yaw_PF = self.particleFilterYaw.update(np.array([self.yaw_system]))
         
         if abs(self.pitch_system - raw_pitch) > self.xtreshold or abs(self.yaw_system - raw_yaw) > self.xtreshold:
             self.cntCorections += 1
@@ -51,12 +55,17 @@ class my_pipeline():
                 # correction
                 self.pitch_system = pitch_PF
                 self.yaw_system = yaw_PF
+                self.write_pitch_yaw(result, self.yaw_system, self.pitch_system)
             else:
                 self.pitch_system = raw_pitch
                 self.yaw_system = raw_yaw
                 self.cntCorections = 0
+        else:
+            self.pitch_system = raw_pitch
+            self.yaw_system = raw_yaw
+            self.cntCorections = 0
 
-        self. write_pitch_yaw(result, self.yaw_system, self.pitch_system)
+        
         return result, raw_pitch, raw_yaw
     
     def get_one_face(self, dir:np.ndarray):

@@ -62,7 +62,7 @@ class ParticleFilter:
         self.transition_std = 0.1  # Example value
         self.measurement_std = 0.5  # Example value
 
-        self.particles = np.random.randn(num_particles, len(initial_state)) * self.transition_std + initial_state
+        self.particles = np.random.randn(num_particles, 1) * self.transition_std + initial_state
         self.weights = np.ones(num_particles) / num_particles
 
 
