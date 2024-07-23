@@ -81,8 +81,9 @@ def f3(imgsrc):
     
  
 def plot_gaze_errors():
-        parent_dir = os.path.dirname(r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\gaze_estimations.csv')
-        with open(r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\gaze_estimations.csv', 'r') as csvfile:
+        # parent_dir = os.path.dirname(r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\gaze_estimations.csv')
+        parent_dir = os.path.dirname(r'results\trying\gaze_estimations.csv')
+        with open(r'results\trying\gaze_estimations.csv', 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
             data = {rows[0]: rows[1:] for rows in csv_reader}
         pitches = np.array(list(map(float, data['Original Pitch'])))
@@ -91,13 +92,13 @@ def plot_gaze_errors():
         system_yaws = np.array(list(map(float, data['System Yaw'])))
         frames = list(range(len(pitches)))
         
-        with open(r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\pitch_and_yaw.csv', 'r') as csvfile:
+        with open(r'results\trying\pitch_and_yaw.csv', 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
             data = {rows[0]: rows[1:] for rows in csv_reader}
         pf_pitches = np.array(list(map(float, data['PF Pitch'])))
         pf_yaws = np.array(list(map(float, data['PF Yaw'])))
         
-        with open(r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\gt.csv', 'r') as csvfile:
+        with open(r'results\trying\gt.csv', 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
             data = {rows[0]: rows[1:] for rows in csv_reader}
         gt_pitches = np.array(list(map(float, data['Ground Truth Pitch'])))
@@ -122,6 +123,8 @@ def plot_gaze_errors():
         asolute_errors_pitch_pf = abs(gt_pitches - pf_pitches)
         asolute_errors_yaw_pf = abs(gt_yaws - pf_yaws)
 
+        val_ = 1.4 # the height of the graph on 0Y
+
         # Plot MSE for Pitch Original
         plt.subplot(1, 3, 1)
         plt.bar(frames, asolute_errors_pitch_original, color='blue', label='Original')
@@ -129,6 +132,7 @@ def plot_gaze_errors():
         plt.ylabel('Absolute error')
         plt.legend()
         plt.grid(axis='y')
+        plt.ylim(top=val_)
         # Plot MSE for Pitch System
         plt.subplot(1, 3, 2)
         plt.bar(frames, asolute_errors_pitch_system, color='green', alpha=0.6, label='System')
@@ -136,6 +140,7 @@ def plot_gaze_errors():
         plt.ylabel('Absolute error')
         plt.legend()
         plt.grid(axis='y')
+        plt.ylim(top=val_)
         # Plot MSE for Pitch PF
         plt.subplot(1, 3, 3)
         plt.bar(frames, asolute_errors_pitch_pf, color='red', alpha=0.6, label='PF')
@@ -143,6 +148,7 @@ def plot_gaze_errors():
         plt.ylabel('Absolute error')
         plt.legend()
         plt.grid(axis='y')
+        plt.ylim(top=val_)
         plt.tight_layout()
         plt.show() 
 
@@ -152,14 +158,18 @@ def main():
     
     # f4(imgsrc)
     # print("3A 4V")
-    imgsrc = DrivfaceInput((1,2,3,4))
-    proc = gproc()
+    #imgsrc = DrivfaceInput((1,2,3,4))
+    #proc = gproc()
     #proc.render(imgsrc)
-    proc.render(imgsrc, savePath=r'C:\Users\dpatrut\source\repos\Driver-Gaze-Analizer\DGA\results\trying\image_{imNr}.png')
+    #proc.render(imgsrc, savePath=r'results\trying\image_{imNr}.png')
     
     #f4(imgsrc)
 
     # drvalidation()
+
+    #plot_gaze_errors()
+
+    plot_gaze_errors()
 
     return 0
 
