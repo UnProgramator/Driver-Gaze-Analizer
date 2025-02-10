@@ -5,7 +5,7 @@
     <ProjectGuid>91a3806a-0e3f-4f56-997c-bf3f7b22ba70</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>main.py</StartupFile>
+    <StartupFile>backbone\corector\main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -15,6 +15,7 @@
     <TestFramework>unittest</TestFramework>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <InterpreterId>CondaEnv|CondaEnv|dga</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,15 +26,28 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="backbone\corector\CorectionNetwork1.py" />
+    <Compile Include="backbone\corector\CorectionUtilities.py" />
+    <Compile Include="backbone\corector\main.py" />
+    <Compile Include="backbone\corector\__init__.py" />
     <Compile Include="backbone\__init__.py" />
-    <Compile Include="imageReaders\ImageReader.py" />
-    <Compile Include="imageReaders\__init__.py" />
+    <Compile Include="Utilities\PathGenerators\DreyeveInput.py" />
+    <Compile Include="Utilities\PathGenerators\InputPathGeneratorReader.py" />
+    <Compile Include="Utilities\PathGenerators\__init__.py" />
     <Compile Include="Testing\camera_test.py" />
     <Compile Include="backbone\clustering.py" />
+    <Compile Include="Testing\Clustering\clustering.py" />
+    <Compile Include="Testing\Clustering\multidim_wc.py" />
+    <Compile Include="Testing\Clustering\uneven_word_clustering.py" />
     <Compile Include="Testing\Clustering\__init__.py" />
     <Compile Include="Testing\__init__.py" />
+    <Compile Include="Utilities\Adnotator_app\adnotator.py" />
+    <Compile Include="Utilities\ImageReaders\ImageReader.py" />
+    <Compile Include="Utilities\ImageReaders\IReader.py" />
+    <Compile Include="Utilities\ImageReaders\VideoReader.py" />
+    <Compile Include="Utilities\config.py" />
     <Compile Include="Utilities\determine_limits.py" />
-    <Compile Include="imageReaders\DrivfaceInput.py" />
+    <Compile Include="Utilities\PathGenerators\DrivfaceInput.py" />
     <Compile Include="Testing\image_test.py" />
     <Compile Include="main.py" />
     <Compile Include="backbone\my_pipeline.py" />
@@ -48,12 +62,22 @@
     <Compile Include="Utilities\__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="imageReaders\" />
+    <Folder Include="backbone\corector\" />
+    <Folder Include="Utilities\ImageReaders\" />
+    <Folder Include="Utilities\PathGenerators\" />
     <Folder Include="backbone\" />
     <Folder Include="Testing\Clustering\" />
     <Folder Include="Utilities\" />
     <Folder Include="Testing\" />
+    <Folder Include="Utilities\Adnotator_app\" />
     <Folder Include="Utilities\Validation\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="CondaEnv|CondaEnv|dga" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config_file.ini" />
+    <Content Include="env.info" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

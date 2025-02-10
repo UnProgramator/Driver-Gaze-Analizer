@@ -2,7 +2,7 @@ from calendar import c
 from multiprocessing import process
 
 from sklearn.cluster import KMeans
-from imageReaders.DrivfaceInput import DrivfaceInput
+from .Utilities.PathGenerators.DrivfaceInput import DrivfaceInput
 from backbone.clustering import clustering
 from backbone.my_pipeline import my_pipeline
 import os

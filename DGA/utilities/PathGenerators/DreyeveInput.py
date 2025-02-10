@@ -1,35 +1,16 @@
 from typing_extensions import override
 import cv2
 import os
-from .ImageReader import ImageReader
-
-#20130529_01_Driv_001_f  20130529_01_Driv_179_ll
-#20130529_02_Driv_001_f  20130529_02_Driv_170_f 
-#20130530_03_Driv_001_f  20130530_03_Driv_167_f 
-#20130530_04_Driv_001_f  20130530_04_Driv_090_f 
+from .InputPathGeneratorReader import InputPathGeneratorReader
 
 
-class DrivfaceInput(ImageReader):
-    set_dim = (0, 179, 170, 167, 90) # the driver number ranges from 1 to 4. 0 is put for convenience only
+class DrivfaceInput(InputPathGeneratorReader):
 
-    def __init__(self, iterSet:{tuple:int}=None):
+    def __init__(self):
         self.change_set(1)
         self.iterCrt = None
         
-        if iterSet is None:
-            self.iterSet = (1,2,3,4)
-        else:
-            if isinstance(iterSet, tuple):
-                self.iterSet =  iterSet
-            elif isinstance(iterSet, int):
-                self.iterSet = (iterSet,)
-            else:
-                raise TypeError("Attribute iterSet was expected as int or tuple of ints, but {} was givven".format(type(iterSet)))
-                
-            #verify the elements in iterSet
-            for i in self.iterSet:
-                if i >= len(self.set_dim) or i<=0: #we selected an invalid set number
-                    raise Exception("The colection contains only {} [0-{}] sets of drivers' pictures, but set with number {} was requested".format(len(set_dim), len(set_dim), i))      
+            
         
     def __get_im_format(self,driver:int,nr:int,sufix:str='f '):
         if driver in [1,2]:

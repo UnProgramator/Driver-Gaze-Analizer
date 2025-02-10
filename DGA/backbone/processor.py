@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Final
 from typing_extensions import Self
 
-from imageReaders.ImageReader import ImageReader
+from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
 from .my_pipeline import my_pipeline
 from l2cs import render
 import cv2
@@ -161,36 +161,67 @@ class Processor:
         
         return self
     
-    def codate_aparitions(self) -> list[list[int]] :
-        '''generates the actions words'''
+    def codate_aparitions(self, add_tt:bool=False) -> list[list[int]] :
+        '''codates the number of transitions to each general direction of gaze, and concat the total time at the end if requested'''
         cod_words:list[list[int]]=[]
         
+        
+
         for word in self.words:
+            if add_tt : sum_t = 0
             cod_word:list[int]= self.__codate_template()
             for leter in word:
                 char = leter.direction
+                if add_tt: sum_t += leter.noFrames
                 cod_word[self.__codate_template_map[char]]+=1
+            if add_tt: cod_word.append(sum_t) #add total time, if requested
             cod_words.append(cod_word)
             
         self.last_code = cod_words
         return cod_words
     
-    def codate_duration(self) ->list[list[int]] :
-        '''codates the aparitions considering the percentage of durations foor looking in each direction'''
+    #original
+    # def codate_duration(self) ->list[list[int]] :
+    #     '''codates the aparitions considering the percentage of durations foor looking in each direction'''
+    #     cod_words:list[list[int]]=[]
+    #     sum = 0;
+    #     for word in self.words:
+    #         cod_word:list[int]= self.__codate_template()
+    #         for leter in word:
+    #             char = leter.direction
+    #             cod_word[self.__codate_template_map[char]]+=leter.noFrames
+    #             sum+=leter.noFrames
+    #         cod_words.append(cod_word)
+
+    #     filterout = lambda x : list(map(lambda y: 100*y/sum, x))
+
+    #     self.last_code = list(map(filterout, cod_words))
+    #     return self.last_code
+
+    #debugged?
+    def codate_duration_tt(self, add_tt:bool=False) ->list[list[int]] :
+        '''codates the aparitions considering the percentage of durations foor looking in each direction, and concat the total time at the end if requested'''
         cod_words:list[list[int]]=[]
-        sum = 0;
+        sum_t = 0
+        filterout = lambda t : ( lambda x : 100*x/t )
         for word in self.words:
             cod_word:list[int]= self.__codate_template()
             for leter in word:
                 char = leter.direction
                 cod_word[self.__codate_template_map[char]]+=leter.noFrames
-                sum+=leter.noFrames
+                sum_t+=leter.noFrames
+            cod_word = list(map(filterout, cod_words))
+            if add_tt: cod_word.append(sum_t) #add total time, if requested
             cod_words.append(cod_word)
-
-        filterout = lambda x : list(map(lambda y: 100*y/sum, x))
-
-        self.last_code = list(map(filterout, cod_words))
+        
+        self.last_code = cod_words
+        
         return self.last_code
+    
+    
+
+
+
 
     # def decode(self, code):
     #     pass
@@ -240,7 +271,7 @@ class Processor:
 
 
     ##########################################################################
-    def render(self,imInput:ImageReader, savePath:str=None) -> None:
+    def render(self,imInput:InputPathGeneratorReader, savePath:str=None) -> None:
         '''render the adnotated frames, mostly for validation or visual verification'''
         i=0;
         for frame,impath in imInput.images(True):
