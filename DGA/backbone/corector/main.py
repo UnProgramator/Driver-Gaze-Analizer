@@ -8,6 +8,8 @@ infile1:str = "C:/Users/apesc/Downloads/pitch_train_data.csv"
 
 infile:str = "C:/Users/apesc/Downloads/Err_gaze.csv"
 
+print_train = False
+
 def train(epocs, model, data, gt):
     # NN loss and optimizer
     criterion = nn.MSELoss()  # Mean Squared Error Loss
@@ -22,7 +24,7 @@ def train(epocs, model, data, gt):
         loss.backward()               # backpropagation
         optimizer.step()              # weights adjustement
     
-        if (epoch + 1) % (epocs/10) == 0:
+        if print_train and (epoch + 1) % (epocs/10) == 0:
             print(f"Epoch {epoch+1}/{epocs}, Loss: {loss.item():.4f}") # display loss during training
 
     return model
