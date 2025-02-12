@@ -58,10 +58,10 @@ def validate(model, invals, gtv, err_ok):
     graph = vdf.plot(title='Err correction')
     plt.show()
 
-def test1():
+def test1(drv:int = 3):
     #inp,gt = readCSV_gt_evaled(infile1)
 
-    inp, gt, intt, gttt = readCSV_gt_evaled_loo_drivface(infile, 5, 3)
+    inp, gt, intt, gttt = readCSV_gt_evaled_loo_drivface(infile, 5, drv)
 
     # print(inp)
     # print(gt)
@@ -96,5 +96,6 @@ def test1():
     validate(model, intt, gttt, err_ok)
 
     
-
-test1()
+for i in range(4):
+    print(f'i = {i}')
+    test1(i)
