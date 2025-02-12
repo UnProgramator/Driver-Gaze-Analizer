@@ -31,6 +31,58 @@ def readCSV_gt_evaled(fpath:str) -> Tuple[torch.Tensor, torch.Tensor]:
 
     return Vals, GT
 
+# 179, 170, 167, 90 total 606, in csv = 605 ???
+# 178, 170, 167, 90
+__pic_idx = {0:(1,178), 1:(179,348), 2:(349,515), 3:(516,605)}
+
+def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int = 0) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    '''
+        Return tensors with the input values and ground truth
+
+        Args:
+            fpath: str, file path to the CSV format file
+            inputDims: int, number of input values processed in one go
+            iset: int, index of the set let out of training
+
+        Returns:
+            (Vals, GT, Test, GTTest): (Tensor, Tensor), 
+                Vals: the training values
+                GT: the ground truth
+                Test: test values
+                GTTest: Ground truth pentru test
+    '''
+
+    i1,i2 = __pic_idx[iset]
+    i1 = i1-1
+
+    df = pd.read_csv(fpath) # load pitch training data (csv {Index, OPWnd, GT})
+    _vals = df['Original Pitch'].values
+
+    _vals_set = [None, None, None, None]
+    _gt_set = [None, None, None, None]
+
+    for i in range(4):
+        i1,i2 = __pic_idx[i]
+        _vals_set[i] = [_vals[j:j+inputDim] for j in range(i1-1, i2-inputDim)]
+        _gt_set[i] = df['Ground Truth Pitch'].values[i1+inputDim-1:i2].tolist()
+        
+    _vals = []
+    _gt = []
+
+    for i in [0,1,2,3]:
+        if i == iset:
+            continue
+        _vals += _vals_set[i]
+        _gt += _gt_set[i]
+ 
+    Vals_train = torch.tensor(_vals, dtype=torch.float32)
+    GT_train = torch.tensor(_gt, dtype=torch.float32).view(-1, 1)
+
+    Vals_test = torch.tensor(_vals_set[iset], dtype=torch.float32)
+    GT_test = torch.tensor(_gt_set[iset], dtype=torch.float32).view(-1, 1)
+
+    return Vals_train, GT_train, Vals_test, GT_test
+
 
 def readCSV_gt(fpath:str, inputDim:int, field_v:str='Original Pitch', field_gt:str='Ground Truth Pitch') -> Tuple[torch.Tensor, torch.Tensor]:
     '''
