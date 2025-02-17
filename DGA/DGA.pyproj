@@ -28,6 +28,7 @@
   <ItemGroup>
     <Compile Include="backbone\corector\CorectionNetwork1.py" />
     <Compile Include="backbone\corector\CorectionUtilities.py" />
+    <Compile Include="backbone\corector\losfucts.py" />
     <Compile Include="backbone\corector\main.py" />
     <Compile Include="backbone\corector\__init__.py" />
     <Compile Include="backbone\__init__.py" />

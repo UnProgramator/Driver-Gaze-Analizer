@@ -52,9 +52,6 @@ def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int = 0) -> Tup
                 GTTest: Ground truth pentru test
     '''
 
-    i1,i2 = __pic_idx[iset]
-    i1 = i1-1
-
     df = pd.read_csv(fpath) # load pitch training data (csv {Index, OPWnd, GT})
     _vals = df['Original Pitch'].values
 
@@ -64,7 +61,7 @@ def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int = 0) -> Tup
     for i in range(4):
         i1,i2 = __pic_idx[i]
         _vals_set[i] = [_vals[j:j+inputDim] for j in range(i1-1, i2-inputDim)]
-        _gt_set[i] = df['Ground Truth Pitch'].values[i1+inputDim-1:i2].tolist()
+        _gt_set[i] = df['Ground Truth Pitch'].values[(i1-1)+inputDim-1:i2].tolist()
         
     _vals = []
     _gt = []
@@ -101,7 +98,7 @@ def readCSV_gt(fpath:str, inputDim:int, field_v:str='Original Pitch', field_gt:s
     df = pd.read_csv(fpath) # load pitch training data (csv {Index, OPWnd, GT})
 
     _vals = df['Original Pitch'].values
-    _vals = [_vals[i:i+inputDim] for i in range(len(_vals)-inputDim)] # cause _vals[i:i+inputDim] takes the elems with the index in [i, i+inputDim)
+    _vals = [_vals[i:i+inputDim] for i in range(len(_vals)-inputDim+1)] # cause _vals[i:i+inputDim] takes the elems with the index in [i, i+inputDim), why +1?
     _gt = df['Ground Truth Pitch'].values[inputDim-1:]
 
     Vals = torch.tensor(_vals, dtype=torch.float32)

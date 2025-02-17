@@ -4,15 +4,21 @@ from torch import nn, optim
 import matplotlib.pyplot as plt
 import math
 
+from losfucts import CustomLoss, CustomLoss_v
+
 infile1:str = "C:/Users/apesc/Downloads/pitch_train_data.csv"
 
 infile:str = "C:/Users/apesc/Downloads/Err_gaze.csv"
 
 print_train = False
 
-def train(epocs, model, data, gt):
+epocs = 8000  # training epocs
+err_ok = 0.05 # estimated pitch - maximum admited error
+
+def train(epocs, model, data, gt, criterion = nn.MSELoss()):
     # NN loss and optimizer
-    criterion = nn.MSELoss()  # Mean Squared Error Loss
+    #criterion = nn.MSELoss()  # Mean Squared Error Loss
+    #criterion = CustomLoss(err_ok)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     # NN training
@@ -80,10 +86,10 @@ def test1(drv:int = 3):
 
     #model:nn.Module = cn1.CNN1([5, 30]) # 11
 
-    epocs = 8000  # training epocs
-    err_ok = 0.05 # estimated pitch - maximum admited error
+    
 
-    model = train(10000, model, inp, gt)    
+    #model = train(10000, model, inp, gt)    
+    model = train(10000, model, inp, gt, CustomLoss(err_ok))    
     #model = train(20000, model ,inp, gt)
     #model = train(16000, model ,inp, gt)
 
@@ -97,7 +103,9 @@ def test1(drv:int = 3):
 
     validate(model, intt, gttt, err_ok)
 
-    
-for i in range(4):
-    print(f'i = {i}')
-    test1(i)
+
+test1(0)
+  
+# for i in range(4):
+#     print(f'i = {i}')
+#     test1(i)
