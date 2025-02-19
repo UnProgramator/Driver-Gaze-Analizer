@@ -60,7 +60,7 @@ def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int = 0) -> Tup
 
     for i in range(4):
         i1,i2 = __pic_idx[i]
-        _vals_set[i] = [_vals[j:j+inputDim] for j in range(i1-1, i2-inputDim)]
+        _vals_set[i] = [_vals[j:j+inputDim] for j in range(i1-1, i2-inputDim+1)]
         _gt_set[i] = df['Ground Truth Pitch'].values[(i1-1)+inputDim-1:i2].tolist()
         
     _vals = []
