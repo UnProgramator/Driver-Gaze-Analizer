@@ -1,8 +1,10 @@
-from calendar import c
 from multiprocessing import process
 
+from cv2.typing import MatLike
 from sklearn.cluster import KMeans
-from .Utilities.PathGenerators.DrivfaceInput import DrivfaceInput
+
+from utilities.ImageReaders.VideoReader import VideoReader
+from utilities.PathGenerators.DrivfaceInput import DrivfaceInput
 from backbone.clustering import clustering
 from backbone.my_pipeline import my_pipeline
 import os
@@ -11,8 +13,15 @@ import numpy as np
 
 from backbone.processor import Processor
 
-from utilities.Validation.dreyeve_validation import drvalidation
+#from utilities.Validation.dreyeve_validation import drvalidation
 
+
+def darken(img:MatLike) -> MatLike:
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    value = -80 #whatever value you want to add
+    hsv[:,:,2] = cv2.add(hsv[:,:,2], value)
+    image:MatLike = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+    return image
 
 def gproc():
     return Processor(-0.65, 0.2, -0.5, 0.8, 2, 30 )
@@ -74,13 +83,26 @@ def f3(imgsrc):
     cod = proc.process(imgsrc)
     print(proc.get_action_list())
     print()
+
+def my_videos_test():
+
+    proc= gproc()
+
+    pat = r'D:\DCIM\DCIMC/'
+
+    sidx = 0
+
+
+    for i in range(4,6):
+        imInput = VideoReader(pat+'MOVC{:04d}.avi'.format(i))
+        imInput.setFilters([darken])
+        sidx += proc.render(imInput, 'D:/test/im_{imNr:04d}.png')
     
-    
-    
+ 
 
 def main():
     
-    # imgsrc = DrivfaceInput((1,2,3))
+    #imgsrc = DrivfaceInput((1,2,3))
     
     # f4(imgsrc)
     # print("3A 4V")
@@ -88,7 +110,11 @@ def main():
     
     # f4(imgsrc)
 
-    drvalidation()
+    #drvalidation()
+
+    #f1(imgsrc) 
+
+    my_videos_test()
 
     return 0
 

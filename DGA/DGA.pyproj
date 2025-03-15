@@ -5,7 +5,7 @@
     <ProjectGuid>91a3806a-0e3f-4f56-997c-bf3f7b22ba70</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>backbone\corector\main.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

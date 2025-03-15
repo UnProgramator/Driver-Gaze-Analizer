@@ -1,3 +1,4 @@
+from typing import Iterable
 from typing_extensions import override
 import cv2
 import os
@@ -12,7 +13,7 @@ from .InputPathGeneratorReader import InputPathGeneratorReader
 class DrivfaceInput(InputPathGeneratorReader):
     set_dim = (0, 179, 170, 167, 90) # the driver number ranges from 1 to 4. 0 is put for convenience only
 
-    def __init__(self, iterSet:{tuple:int}=None):
+    def __init__(self, iterSet:tuple[int]|int|None=None):
         self.change_set(1)
         self.iterCrt = None
         
@@ -41,7 +42,7 @@ class DrivfaceInput(InputPathGeneratorReader):
         return "{0}_{1:02}_Driv_{2:03}_{3}.jpg".format(nrs,driver,nr,sufix)
         
     def __path(self):
-        return r'%DATASETS%\drivface\DrivFace\DrivImages\\'
+        return os.environ['DATASETS']+ r'/drivface/DrivFace/DrivImages/DrivImages/'
         
     def __get_im(self,nr:int, driver:int = 1):
         pat = self.__path() + self.__get_im_format(driver, nr)
@@ -55,6 +56,8 @@ class DrivfaceInput(InputPathGeneratorReader):
         pat = self.__path() + self.__get_im_format(driver, nr, 'll')
         if os.path.exists(pat):
             return pat
+
+        raise Exception(f'bad arguments for function __get_im')
             
     
     def change_set(self, new_im_set:int):
@@ -66,15 +69,15 @@ class DrivfaceInput(InputPathGeneratorReader):
         self.set_size = self.set_dim[self.im_set]
     
     @override
-    def get_next_image_path(self):
+    def get_next_image_path(self) -> str:
         if self.last_im < self.set_size:
             self.last_im+=1
             return self.__get_im(self.last_im, self.im_set)
         else:
-            return None
+            raise IndexError()
     
     @override
-    def images(self, returnPath:bool = False):
+    def images(self, returnPath:bool = False) -> Iterable:
         return DriverfaceInputImageIterator(self, returnPath)
         
     def __iter__(self): #set the curent set to the first iteration set
@@ -85,28 +88,30 @@ class DrivfaceInput(InputPathGeneratorReader):
     def __next__(self):
         if self.iterCrt is None:
             raise Exception("iterator not intialized or incorectly initialized")
-            
-        path = self.get_next_image_path()
-        if path is not None: # valid path
-            
+        
+        try:
+            path = self.get_next_image_path()
             return path
-        #paths in the curent set consumed, go to next set
-        self.iterCrt+=1
-        if self.iterCrt >= len(self.iterSet): # we consumed all elements
-            raise StopIteration
-        # still have elements   
-        self.change_set(self.iterSet[self.iterCrt])
-        path = self.get_next_image_path()
-        if path is not None: # valid path
-            return path
-        raise Exception("internal exception has occured")
+        except IndexError:
+            try:
+                #paths in the curent set consumed, go to next set
+                self.iterCrt+=1
+                if self.iterCrt >= len(self.iterSet): # we consumed all elements
+                    raise StopIteration
+                # still have elements   
+                self.change_set(self.iterSet[self.iterCrt])
+                path = self.get_next_image_path()
+                return path
+            except:
+                raise Exception("internal exception has occured")
     
     
 
-class DriverfaceInputImageIterator:
-    def __init__(self, drivfaceInput, returnPath:bool):
-        self.dfInput = drivfaceInput
-        self.dfIter = None
+class DriverfaceInputImageIterator(Iterable):
+    dfIter:DrivfaceInput
+
+    def __init__(self, drivfaceInput:DrivfaceInput, returnPath:bool):
+        self.dfInput:DrivfaceInput = drivfaceInput
         self.returnPath = returnPath
         
     def __iter__(self):
@@ -115,8 +120,6 @@ class DriverfaceInputImageIterator:
         
     def __next__(self):
         nextImgPath = next(self.dfIter)
-        if nextImgPath is None:
-            raise StopIteration
         
         img = cv2.imread(nextImgPath)
 

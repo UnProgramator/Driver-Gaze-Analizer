@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Final
 from typing_extensions import Self
 
+from utilities.ImageReaders.IReader import IReader
 from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
 from .my_pipeline import my_pipeline
 from l2cs import render
@@ -45,12 +46,15 @@ class Processor:
         self.words:list[list[WordsEntry]] = None
         
         self.last_code:list[list[int]] = None
-
-        self.gaze_pipeline = my_pipeline(
-            weights=os.getcwd() +'/models/Gaze360/L2CSNet_gaze360.pkl',
-            arch='ResNet50',
-            device=torch.device('cpu')
-        )
+        try:
+            self.gaze_pipeline = my_pipeline(
+                weights=os.environ['L2CS_weights'] +'Gaze360/L2CSNet_gaze360.pkl',
+                arch='ResNet50',
+                device=torch.device('cpu')
+            )
+        except KeyError as e:
+            print('L2CS_eights envrionemtnal variable not set. please set as the directory containing the weights files (eg. Gaze360/L2CSNet_gaze360.pkl)' )
+            exit(100)
 
     def get_words(self) ->list[list[WordsEntry]]:
         if self.words is None:
@@ -271,38 +275,70 @@ class Processor:
 
 
     ##########################################################################
-    def render(self,imInput:InputPathGeneratorReader, savePath:str=None) -> None:
-        '''render the adnotated frames, mostly for validation or visual verification'''
-        i=0;
-        for frame,impath in imInput.images(True):
-            results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+    def render(self,imInput:InputPathGeneratorReader|IReader, savePath:str=None, start_idx=0) -> int:
+        '''render the adnotated frames, mostly for validation or visual verification, returns the last used index'''
+
+        if isinstance(imInput, InputPathGeneratorReader):
+            for frame,impath in imInput.images(True):
+
+
+
+                results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
             
-            pitch = pitch[0]
-            yaw = yaw[0]
+                pitch = pitch[0]
+                yaw = yaw[0]
 
                 
-            frame = render(frame, results)
+                frame = render(frame, results)
             
-            #cv2.putText(frame, os.path.basename(impath), (0,95), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 250), 2)
-            cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-            cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-            #cv2.putText(frame, "  Dir1: " + str(self.__codate(pitch)), (0, 200), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
-            cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+                #cv2.putText(frame, os.path.basename(impath), (0,95), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 250), 2)
+                cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+                cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+                #cv2.putText(frame, "  Dir1: " + str(self.__codate(pitch)), (0, 200), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
+                cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
 
-            if savePath is not None:
-                fullPath = savePath.format(imNr=i)
-                i+=1
-                cv2.imwrite(fullPath, frame)
+                if savePath is not None:
+                    fullPath = savePath.format(imNr=(start_idx+start_idx))
+                    start_idx+=1
+                    cv2.imwrite(fullPath, frame)
                 
-            cv2.imshow("Demo", frame)
+                cv2.imshow("Demo", frame)
             
 
-            key = cv2.waitKey(40)
-            
-            
+                key = cv2.waitKey(40)
 
-            if key == 27:
-                break
+                if key == 27:
+                    break
+            return start_idx
+        elif isinstance(imInput, IReader):
+            for fr_id, frame in imInput:
+
+                results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+            
+                pitch = pitch[0]
+                yaw = yaw[0]
+
+                
+                frame = render(frame, results)
+           
+                cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+                cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+                cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+
+                if savePath is not None:
+                    fullPath = savePath.format(imNr=(start_idx+start_idx))
+                    start_idx+=1
+                    cv2.imwrite(fullPath, frame)
+                
+                cv2.imshow("Demo", frame)
+
+                key = cv2.waitKey(40)
+
+                if key == 27:
+                    break
+            return start_idx
+        else:
+            raise Exception()
             
 
     def validate(self, imInput) -> list[tuple[str, str,str,str]]:
