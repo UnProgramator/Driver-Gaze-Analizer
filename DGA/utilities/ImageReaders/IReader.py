@@ -1,8 +1,8 @@
-from typing import Callable, List, Self, Tuple
+from typing import Callable, Iterator, List, Tuple
 from types import NotImplementedType
 from cv2.typing import MatLike
 
-class IReader:
+class IReader(Iterator[Tuple[int, MatLike]]):
     def getNextFrame(self) -> Tuple[int, MatLike]: raise NotImplementedType()
     def getPrevFrame(self)-> Tuple[int, MatLike]:  raise NotImplementedType()
     def getCrtFrame(self)-> Tuple[int, MatLike]:   raise NotImplementedType()
@@ -21,7 +21,7 @@ class IReader:
                 frame = f(frame)
         return frame
 
-    def __iter__(self) -> Self:
+    def __iter__(self):
         self.reset()
         return self
 

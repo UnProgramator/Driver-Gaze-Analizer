@@ -34,6 +34,8 @@
     <Compile Include="backbone\corector\__init__.py" />
     <Compile Include="backbone\__init__.py" />
     <Compile Include="Utilities\PathGenerators\DreyeveInput.py" />
+    <Compile Include="Utilities\PathGenerators\FolderParserPathGenerator.py" />
+    <Compile Include="Utilities\PathGenerators\TemplatePathGenerator.py" />
     <Compile Include="Utilities\PathGenerators\InputPathGeneratorReader.py" />
     <Compile Include="Utilities\PathGenerators\__init__.py" />
     <Compile Include="Testing\camera_test.py" />

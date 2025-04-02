@@ -23,7 +23,7 @@ class VideoReader(IReader):
             (major_ver, _, _) = (cv2.__version__).split('.')
 
             if int(major_ver)  < 3 :
-                self.crtFps = int(self.video.get(cv2.cv.CV_CAP_PROP_FPS))
+                self.crtFps = int(self.video.get(cv2.cv.CV_CAP_PROP_FPS)) # type: ignore # some warning for the variable type was not declared in the cv library
             else :
                 self.crtFps = int(self.video.get(cv2.CAP_PROP_FPS))
 
@@ -93,4 +93,14 @@ class VideoReader(IReader):
         if not self.video.set(cv2.CAP_PROP_POS_FRAMES, 0):
             self.fid = -1
             raise Exception('Unexpted exception')
+
+    def save_frames(self, outPath:str, starting_idx:int=0) -> int:
+        '''returnes the next index after the last one used if any given, or the number of frames saved if none is given'''
+        idx:int = starting_idx
+        for _,im in self:
+            succes:bool = cv2.imwrite(outPath.format(idx=idx), im)
+            idx+=1
+            if not succes:
+                raise Exception("couldn't write an immage")
+        return idx
 

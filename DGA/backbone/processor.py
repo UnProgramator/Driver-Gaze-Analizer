@@ -1,15 +1,16 @@
 from dataclasses import dataclass
-from typing import Final
+from typing import Any, Callable, Final, List, Tuple
+from cv2.typing import MatLike
 from typing_extensions import Self
 
 from utilities.ImageReaders.IReader import IReader
 from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
 from .my_pipeline import my_pipeline
 from l2cs import render
+import numpy as np
 import cv2
 import os
 import torch
-import numpy as np
 
 
 @dataclass
@@ -23,36 +24,39 @@ class WordsEntry:
 
 class Processor:
     
-    def __codate_template(_) -> list[int] : return [0, 0, 0, 0, 0,].copy()
+    @staticmethod
+    def __codate_template() -> list[int] : return [0, 0, 0, 0, 0,].copy()
     __codate_template_map:Final[dict[str,int]] = {'f':0, 'l':1, 'r':2, 'u':3, 'd':4} 
     
-    def __init__(self,  left:int=0, right:int=0, down:int=0, up:int=0, minFames:int=1, splitThreshold:int=40):
+    action_array:list[WordsEntry]|None = None
+    words:list[list[WordsEntry]]|None = None   
+    last_code:list[list[int]]|None = None
+    gaze_pipeline:my_pipeline
+
+    def __init__(self,  left:float=0, right:float=0, down:float=0, up:float=0, minFames:int=1, splitThreshold:int=40):
         '''
             @params:
                 left, right, down, up - thresholds for looking in each direction
                 minFrames - minimum duration in frame for filtration (is bellow, then the action is removed)
                 splitThreshold - thrreshold for looking in a certain direction used to split the action words
         '''
-        self.left:Final[int] = left
-        self.right:Final[int]  = right 
-        self.down:Final[int] = down
-        self.up:Final[int] = up
+        self.left:Final[float] = left
+        self.right:Final[float]  = right 
+        self.down:Final[float] = down
+        self.up:Final[float] = up
         
         self.min_frames_no:Final[int] = minFames
         
         self.split_th:Final[int] = splitThreshold
 
-        self.action_array:list[WordsEntry] = None  
-        self.words:list[list[WordsEntry]] = None
         
-        self.last_code:list[list[int]] = None
         try:
             self.gaze_pipeline = my_pipeline(
                 weights=os.environ['L2CS_weights'] +'Gaze360/L2CSNet_gaze360.pkl',
                 arch='ResNet50',
                 device=torch.device('cpu')
             )
-        except KeyError as e:
+        except KeyError:
             print('L2CS_eights envrionemtnal variable not set. please set as the directory containing the weights files (eg. Gaze360/L2CSNet_gaze360.pkl)' )
             exit(100)
 
@@ -68,7 +72,10 @@ class Processor:
 
     def split_words(self) -> Self:
         '''split the words into actions delimited by long face looking'''
-        words=[]
+        words:list[list[WordsEntry]]=[]
+
+        if self.action_array is None:
+            raise Exception()
 
         ar = self.action_array
         s:int = 0
@@ -120,6 +127,9 @@ class Processor:
         #     else:
         #         words_f.append(word)
 
+        if self.action_array is None:
+            raise Exception()
+
         actions = self.action_array
 
         for i in range(1, len(actions)-1):
@@ -134,6 +144,7 @@ class Processor:
                 words_f.append(actions[i].copy());
         
         #for the last word
+        i = len(actions)-1
         if len(words_f) > 0 and words_f[-1].direction == actions[i].direction:
             words_f[-1].noFrames += actions[i].noFrames
         else:
@@ -145,19 +156,21 @@ class Processor:
         
         return self
 
-    def process(self,imInput) -> Self:
+    def process(self,imInput:IReader) -> Self:
         '''extracts the gaze from the images and saaves it acordingly for furthure processing. generates the action list'''
-        action_list = []
-        for frame in imInput.images():
-            results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+        action_list:list[str] = []
+        for _,frame in imInput:
+            pitch:np.ndarray[Any, np.dtype[np.float32]]
+            yaw:np.ndarray[Any, np.dtype[np.float32]]
+            _,pitch,yaw= self.gaze_pipeline.get_gaze(frame, True) # type: ignore
 
             if pitch.shape[0] != 1: # no face or more than one face detected
                 continue;
 
-            pitch:np.ndarray = pitch[0]
-            yaw = yaw[0]
+            _pitch:float = pitch[0]
+            _yaw:float = yaw[0]
             
-            cod = self.__codate(pitch, yaw)  #, pitch) # change after computing thresholds 
+            cod = self.__codate(_pitch, _yaw)  #, pitch) # change after computing thresholds 
             action_list.append(cod)
 
         self.action_array = self.__reduce(action_list)
@@ -169,10 +182,11 @@ class Processor:
         '''codates the number of transitions to each general direction of gaze, and concat the total time at the end if requested'''
         cod_words:list[list[int]]=[]
         
-        
+        if self.words is None:
+            raise Exception()
 
         for word in self.words:
-            if add_tt : sum_t = 0
+            sum_t = 0
             cod_word:list[int]= self.__codate_template()
             for leter in word:
                 char = leter.direction
@@ -202,19 +216,23 @@ class Processor:
     #     self.last_code = list(map(filterout, cod_words))
     #     return self.last_code
 
-    #debugged?
     def codate_duration_tt(self, add_tt:bool=False) ->list[list[int]] :
         '''codates the aparitions considering the percentage of durations foor looking in each direction, and concat the total time at the end if requested'''
+
+        if self.words is None:
+            raise Exception()
+
         cod_words:list[list[int]]=[]
-        sum_t = 0
-        filterout = lambda t : ( lambda x : 100*x/t )
+        filterout:Callable[[int], Callable[[int],int]] = lambda t : ( lambda x : int(100*x/t) )
+
         for word in self.words:
             cod_word:list[int]= self.__codate_template()
+            sum_t = 0
             for leter in word:
                 char = leter.direction
                 cod_word[self.__codate_template_map[char]]+=leter.noFrames
                 sum_t+=leter.noFrames
-            cod_word = list(map(filterout, cod_words))
+            cod_word = list(map(filterout(sum_t), cod_word))
             if add_tt: cod_word.append(sum_t) #add total time, if requested
             cod_words.append(cod_word)
         
@@ -243,7 +261,7 @@ class Processor:
         
 
     ##########################################################################
-    def __codate(self,  pitch:int, yaw:int = 0):
+    def __codate(self,  pitch:float, yaw:float = 0):
         '''codate the direction using a character, for conviniecne'''
         if yaw < self.down:
             return 'd'
@@ -259,8 +277,8 @@ class Processor:
     
     def __reduce(self, ar:list[str]):
         '''reduce the gaze list to the action list?'''
-        crt:str = None
-        nr:int = None
+        crt:str|None = None
+        nr:int = 0
         result:list[WordsEntry] = []
         for i in ar:
             if i == crt:
@@ -270,88 +288,57 @@ class Processor:
                     result.append(WordsEntry(crt, nr))
                 crt = i
                 nr = 1
+        if crt is None:
+            raise Exception
         result.append(WordsEntry(crt, nr))
         return result
 
 
     ##########################################################################
-    def render(self,imInput:InputPathGeneratorReader|IReader, savePath:str=None, start_idx=0) -> int:
+    def render(self,imInput:IReader, savePath:str|None=None, start_idx:int=0) -> int:
         '''render the adnotated frames, mostly for validation or visual verification, returns the last used index'''
+        for _ , frame in imInput:
 
-        if isinstance(imInput, InputPathGeneratorReader):
-            for frame,impath in imInput.images(True):
-
-
-
-                results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+            pitch_a:np.ndarray[Any, np.dtype[np.float32]]
+            yaw_a:np.ndarray[Any, np.dtype[np.float32]]
+            results, pitch_a, yaw_a = self.gaze_pipeline.get_gaze(frame, True)
             
-                pitch = pitch[0]
-                yaw = yaw[0]
+            pitch:float = pitch_a[0]
+            yaw:float = yaw_a[0]
 
                 
-                frame = render(frame, results)
-            
-                #cv2.putText(frame, os.path.basename(impath), (0,95), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 250), 2)
-                cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-                cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-                #cv2.putText(frame, "  Dir1: " + str(self.__codate(pitch)), (0, 200), cv2.FONT_HERSHEY_DUPLEX, 0.9, (100, 0, 250), 1)
-                cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-
-                if savePath is not None:
-                    fullPath = savePath.format(imNr=(start_idx+start_idx))
-                    start_idx+=1
-                    cv2.imwrite(fullPath, frame)
-                
-                cv2.imshow("Demo", frame)
-            
-
-                key = cv2.waitKey(40)
-
-                if key == 27:
-                    break
-            return start_idx
-        elif isinstance(imInput, IReader):
-            for fr_id, frame in imInput:
-
-                results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
-            
-                pitch = pitch[0]
-                yaw = yaw[0]
-
-                
-                frame = render(frame, results)
+            frame:MatLike = render(frame, results)
            
-                cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-                cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-                cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+            cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+            cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+            cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
 
-                if savePath is not None:
-                    fullPath = savePath.format(imNr=(start_idx+start_idx))
-                    start_idx+=1
-                    cv2.imwrite(fullPath, frame)
+            if savePath is not None:
+                fullPath = savePath.format(imNr=(start_idx+start_idx))
+                start_idx+=1
+                cv2.imwrite(fullPath, frame)
                 
-                cv2.imshow("Demo", frame)
+            cv2.imshow("Demo", frame)
 
-                key = cv2.waitKey(40)
+            key = cv2.waitKey(40)
 
-                if key == 27:
-                    break
-            return start_idx
-        else:
-            raise Exception()
+            if key == 27:
+                break
+        return start_idx
             
 
-    def validate(self, imInput) -> list[tuple[str, str,str,str]]:
+    def validate(self, imInput:IReader, pat:InputPathGeneratorReader) -> list[tuple[str, str,str,str]]:
         '''Forms an action list to be printed to the screen. For writing into a file, simply redirect the standard output'''
-        action_list = []
-        for frame, path in imInput.images(True):
-            results, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+        action_list:List[Tuple[str,str,str,str]] = []
+        for _, frame in imInput:
+            _, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
 
             if pitch.shape[0] != 1: # no face or more than one face detected
                 continue;
 
             pitch = pitch[0]
             yaw = yaw[0]
+            path = pat.get_crt_image_path()
             
             gaze_dir_al:str = os.path.basename(path)
     
@@ -366,3 +353,16 @@ class Processor:
 
         
         return action_list
+
+
+    def get_pitch_yaw_list(self, imInput:IReader) -> list[tuple[int, float, float]]:
+        '''get an IReader or an InputPathGeneratorReader'''
+        res:list[tuple[int, float, float]] = []
+        for frid, frame in imInput:
+            _, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+            pitch = pitch[0]
+            yaw = yaw[0]
+
+            res += [(frid, pitch, yaw)]
+
+        return res
