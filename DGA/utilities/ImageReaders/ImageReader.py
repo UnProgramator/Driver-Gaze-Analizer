@@ -3,7 +3,7 @@ from typing import Tuple, override
 import cv2
 from cv2.typing import MatLike
 from .IReader import IReader
-from PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
+from ..PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
 
 
 class ImageReager(IReader):

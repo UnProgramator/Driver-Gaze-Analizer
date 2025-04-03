@@ -3,6 +3,7 @@ from multiprocessing import process
 from cv2.typing import MatLike
 from sklearn.cluster import KMeans
 
+from utilities.ImageReaders.ImageReader import ImageReager
 from utilities.ImageReaders.VideoReader import VideoReader
 from utilities.PathGenerators.DrivfaceInput import DrivfaceInput
 from backbone.clustering import clustering
@@ -10,15 +11,25 @@ from backbone.my_pipeline import my_pipeline
 import os
 import torch
 import numpy as np
+import cv2
 
 from backbone.processor import Processor
+from utilities.PathGenerators.TemplatePathGenerator import TemplatePathGenerator
 
 #from utilities.Validation.dreyeve_validation import drvalidation
 
 
 def darken(img:MatLike) -> MatLike:
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    value = -80 #whatever value you want to add
+    # value = -80 #whatever value you want to add
+    value = -50 #whatever value you want to add
+    hsv[:,:,2] = cv2.add(hsv[:,:,2], value)
+    image:MatLike = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+    return image
+
+def lighten(img:MatLike) -> MatLike:
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    value = 30 #whatever value you want to add
     hsv[:,:,2] = cv2.add(hsv[:,:,2], value)
     image:MatLike = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
     return image
@@ -98,7 +109,100 @@ def my_videos_test():
         imInput.setFilters([darken])
         sidx += proc.render(imInput, 'D:/test/im_{imNr:04d}.png')
     
- 
+# Frame,
+# Original Pitch,Ground Truth Pitch,Pitch Err
+# Original Yaw,  Ground Truth Yaw,  Yaw Err
+
+def video_parameters():
+    target_framerate:int|None = None
+    track_no:int = 4
+    video_no:list[int] = []
+
+    csv_header = 'Frame,Original Pitch,Ground Truth Pitch,Pitch Err,Original Yaw,Ground Truth Yaw,Yaw Err'
+
+    proc:Processor = gproc()
+
+    paths = r'D:\DCIM\DCIMC{nr_t}/'
+    video_form = r'D:\DCIM\DCIMC{nr_t}/MOVC{nr_v:04d}.avi'
+    outFile = r'D:\DCIM\results.csv'
+
+    with open(outFile, 'w') as csv_file:
+
+        csv_frid = 1
+        print(csv_header,file=csv_file)
+
+        for t in range(track_no):
+            for v in range(video_no[t]):
+                imIn = VideoReader(video_form.format(nr_t=t, nrv = v), target_framerate)
+            
+                vals = proc.get_pitch_yaw_list(imIn)
+
+                for _, y, p in vals:
+                    print(csv_frid, p, 0, 0, y, 0, 0,file=csv_file)
+
+
+def im_save():
+    video_form = r'D:\DCIM\DCIMC{nr_t}/MOVC{nr_v:04d}.avi'
+    outFolder = 'D:\\DCIM\\images\\'
+    img_form = r'_{idx:05d}.png'
+    target_framerate=12
+
+    dcim_nr=['','1','2','3']
+    dcim_sn=[(0,6), (2,8) ,(0,13),(0,5)]
+
+
+    letter = ['A', 'B', 'C', 'D']
+
+    for i in range(4):
+        nr = dcim_nr[i]
+        sn = dcim_sn[i]
+        idx=0
+        for v in range(sn[0],sn[1]):
+            imIn = VideoReader(video_form.format(nr_t=nr, nr_v = v), target_framerate)
+            imIn.setFilters([darken])
+            idx = imIn.save_frames(outFolder + letter[i] + img_form, idx)
+        print(letter[i]+str(idx))
+        
+
+def im_save2():
+    video_form = r'D:\DCIM\DCIMC{nr_t}/MOVC{nr_v:04d}.avi'
+    outFolder = 'D:\\DCIM\\poze_test\\'
+    img_form = r'_{idx:05d}.png'
+    target_framerate=12
+
+    dcim_nr=['','1','2','3']
+    dcim_sn=[(0,6), (2,8) ,(0,13),(0,5)]
+
+
+    letter = ['A', 'B', 'C', 'D']
+
+    i=0
+
+    for i in range(1):
+        nr = dcim_nr[i]
+        sn = dcim_sn[i]
+        idx=0
+        for v in range(0,1):
+            imIn = VideoReader(video_form.format(nr_t=nr, nr_v = v), target_framerate)
+            imIn.setFilters([darken])
+            idx = imIn.save_frames(outFolder + letter[i] + img_form, idx)
+
+        print(letter[i]+str(idx))
+
+def my_im_test():
+    dire = r'D:\DCIM\poze_test'
+    pt = dire + r'\A_{:05d}.png'
+
+    tpg = TemplatePathGenerator(pt, 84, 1346)
+
+    imps = ImageReager(tpg)
+
+    pc = gproc()
+
+    pc.render(imps)
+    
+
+    
 
 def main():
     
@@ -114,7 +218,10 @@ def main():
 
     #f1(imgsrc) 
 
-    my_videos_test()
+    #my_videos_test()
+
+    #im_save2()
+    my_im_test()
 
     return 0
 

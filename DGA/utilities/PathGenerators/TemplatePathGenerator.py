@@ -23,19 +23,25 @@ class TemplatePathGenerator(InputPathGeneratorReader, Iterable[str]):
 
     @override
     def get_next_image_path(self) -> str:
+        if self.crt_idx >= self.high:
+            raise IndexError()
+
         ct_id = self.crt_idx
         self.crt_idx += 1
 
-        raise NotImplemented() # verify index validity
+        #raise NotImplemented() # verify index validity
 
         return self.temp_path.format(ct_id)
 
     @override
     def get_prev_image_path(self) -> str:
+        if self.crt_idx <= self.low:
+            raise IndexError()
+
         ct_id = self.crt_idx
         self.crt_idx -= 1
 
-        raise NotImplemented() # verify index validity
+        #raise NotImplemented() # verify index validity
 
         return self.temp_path.format(ct_id)
 
