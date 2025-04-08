@@ -1,3 +1,4 @@
+import os
 from typing import Iterable, Final
 from typing_extensions import override
 
@@ -18,39 +19,43 @@ class TemplatePathGenerator(InputPathGeneratorReader, Iterable[str]):
         else:
             self.low = 0
             self.high = end_a
-        self.crt_idx = self.low
+        self.crt_idx = self.low-1
 
 
     @override
     def get_next_image_path(self) -> str:
-        if self.crt_idx >= self.high:
-            raise IndexError()
-
-        ct_id = self.crt_idx
-        self.crt_idx += 1
-
-        #raise NotImplemented() # verify index validity
-
-        return self.temp_path.format(ct_id)
+        fl:str
+        lidx:Final[int] = self.crt_idx
+        while True:
+            if self.crt_idx >= self.high-1:
+                self.crt_idx = lidx
+                raise IndexError()
+            self.crt_idx += 1
+            fl = self.temp_path.format(self.crt_idx) # verify index validity   
+            if os.path.isfile(fl):
+                return fl
 
     @override
     def get_prev_image_path(self) -> str:
-        if self.crt_idx <= self.low:
-            raise IndexError()
-
-        ct_id = self.crt_idx
-        self.crt_idx -= 1
-
-        #raise NotImplemented() # verify index validity
-
-        return self.temp_path.format(ct_id)
+        fl:str
+        lidx:Final[int] = self.crt_idx
+        while True:
+            if self.crt_idx <= self.low+1:
+                self.crt_idx = lidx
+                raise IndexError()
+            self.crt_idx -= 1
+            fl = self.temp_path.format(self.crt_idx) # verify index validity
+            if os.path.isfile(fl):
+                return fl
 
     @override
     def get_crt_image_path(self):
+        if self.crt_idx < self.low or self.crt_idx > self.high:
+            raise IndexError()
         return self.temp_path.format(self.crt_idx)
 
     @override
     def reset(self):
-        self.crt_idx = self.low
+        self.crt_idx = self.low-1
 
     
