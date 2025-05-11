@@ -193,7 +193,7 @@ def my_im_test():
     dire = r'D:\DCIM\poze_test'
     pt = dire + r'\A_{:05d}.png'
 
-    tpg = TemplatePathGenerator(pt, 84, 1346)
+    tpg = TemplatePathGenerator(pt, 159, 1346)
 
     imps = ImageReager(tpg)
 
@@ -202,7 +202,20 @@ def my_im_test():
     pc.render(imps)
     
 
+def some_func():
+    dire = r'D:\DCIM\images'
+    pt = dire + r'\B_{:05d}.png'
+
+
+    tpg = TemplatePathGenerator(pt, 0, 10)
+
+    imps = ImageReager(tpg)
     
+    print('gproc init begin')
+    pc = gproc()
+    print('gproc created')
+
+    pc.render(imps)
 
 def main():
     
@@ -221,6 +234,8 @@ def main():
     #my_videos_test()
 
     #im_save2()
+    #my_im_test()
+
     my_im_test()
 
     return 0

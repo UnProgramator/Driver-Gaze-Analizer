@@ -5,7 +5,7 @@ from typing_extensions import Self
 
 from utilities.ImageReaders.IReader import IReader
 from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
-from .my_pipeline import my_pipeline
+from .my_pipeline import my_pipeline, FirstFrameNoFaceException, NoFaceException
 from l2cs import render
 import numpy as np
 import cv2
@@ -297,33 +297,42 @@ class Processor:
     ##########################################################################
     def render(self,imInput:IReader, savePath:str|None=None, start_idx:int=0) -> int:
         '''render the adnotated frames, mostly for validation or visual verification, returns the last used index'''
+        fidx = 0;
         for _ , frame in imInput:
+            fidx += 1
+            try:
 
-            pitch_a:np.ndarray[Any, np.dtype[np.float32]]
-            yaw_a:np.ndarray[Any, np.dtype[np.float32]]
-            results, pitch_a, yaw_a = self.gaze_pipeline.get_gaze(frame, True)
+                pitch_a:np.ndarray[Any, np.dtype[np.float32]]
+                yaw_a:np.ndarray[Any, np.dtype[np.float32]]
+                results, pitch_a, yaw_a = self.gaze_pipeline.get_gaze(frame, True)
             
-            pitch:float = pitch_a[0]
-            yaw:float = yaw_a[0]
+                pitch:float = pitch_a[0]
+                yaw:float = yaw_a[0]
 
                 
-            frame:MatLike = render(frame, results)
+                frame:MatLike = render(frame, results)
            
-            cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-            cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
-            cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+                cv2.putText(frame, "        Pitch: " + str(pitch), (0, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+                cv2.putText(frame, "         Yaw: " + str(yaw), (0, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
+                cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
 
-            if savePath is not None:
-                fullPath = savePath.format(imNr=(start_idx+start_idx))
-                start_idx+=1
-                cv2.imwrite(fullPath, frame)
+                if savePath is not None:
+                    fullPath = savePath.format(imNr=(start_idx+start_idx))
+                    start_idx+=1
+                    cv2.imwrite(fullPath, frame)
                 
-            cv2.imshow("Demo", frame)
+                cv2.imshow("Demo", frame)
 
-            key = cv2.waitKey(40)
+                key = cv2.waitKey(40)
 
-            if key == 27:
-                break
+                if key == 27:
+                    break
+            except FirstFrameNoFaceException:
+                print(f'No face present from the start, now at frame {fidx}');
+                continue
+            except NoFaceException:
+                print(f'frame {fidx} has no face present');
+                continue
         return start_idx
             
 
