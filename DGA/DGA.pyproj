@@ -33,6 +33,7 @@
     <Compile Include="backbone\corector\main.py" />
     <Compile Include="backbone\corector\__init__.py" />
     <Compile Include="backbone\__init__.py" />
+    <Compile Include="Utilities\Adnotator_app\ImagegazeGT_Labeling.py" />
     <Compile Include="Utilities\PathGenerators\DreyeveInput.py" />
     <Compile Include="Utilities\PathGenerators\FileListGenerator.py" />
     <Compile Include="Utilities\PathGenerators\TemplatePathGenerator.py" />
