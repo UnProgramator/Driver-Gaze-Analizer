@@ -15,6 +15,12 @@ class IReader(Iterator[Tuple[int, MatLike]]):
     def setFilters(self, filters:List[Callable[[MatLike], MatLike]]) -> None:
         self.filters = filters
 
+    def addFilters(self, filters:List[Callable[[MatLike], MatLike]]|Callable[[MatLike], MatLike]) -> None:
+        if self.filters is not None:
+            self.filters += filters if isinstance(filters,List) else [filters]
+        else:
+            self.filters = filters if isinstance(filters,List) else [filters]
+
     def _apply(self, frame:MatLike) -> MatLike:
         if self.filters is not None:
             for f in self.filters:

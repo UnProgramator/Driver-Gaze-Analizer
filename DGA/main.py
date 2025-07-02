@@ -1,19 +1,16 @@
-from multiprocessing import process
 
 from cv2.typing import MatLike
 from sklearn.cluster import KMeans
 
+from utilities.ImageReaders import ImageReader
+from utilities.ImageReaders.IReader import IReader
 from utilities.ImageReaders.ImageReader import ImageReager
 from utilities.ImageReaders.VideoReader import VideoReader
-from utilities.PathGenerators.DrivfaceInput import DrivfaceInput
-from backbone.clustering import clustering
-from backbone.my_pipeline import my_pipeline
-import os
-import torch
 import numpy as np
 import cv2
 
 from backbone.processor import Processor
+from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
 from utilities.PathGenerators.TemplatePathGenerator import TemplatePathGenerator
 
 #from utilities.Validation.dreyeve_validation import drvalidation
@@ -37,7 +34,7 @@ def lighten(img:MatLike) -> MatLike:
 def gproc():
     return Processor(-0.65, 0.2, -0.5, 0.8, 2, 30 )
 
-def f1(imgsrc):
+def f1(imgsrc:IReader):
     
 
     proc = gproc()
@@ -51,10 +48,10 @@ def f1(imgsrc):
     print()
     print(*cod)
 
-def f4(imgsrc):
+def f4(imgsrc:IReader):
     proc = gproc()
     sum = 0
-    ar = proc.validate(imgsrc)
+    ar:list[tuple[str,str,str,str]] = proc.validate(imgsrc, '')
     for pair in ar:
         print(pair[0],',',pair[1],',',pair[2],',',pair[3])
         
@@ -63,7 +60,7 @@ def f4(imgsrc):
         
     print(sum / len(ar))
 
-def f2(imgsrc):
+def f2(imgsrc:IReader):
     proc = gproc()
 
     cod = proc.process(imgsrc).reduce_noise().split_words().codate_aparitions()
@@ -88,10 +85,10 @@ def f2(imgsrc):
     m2 = kmean2.fit(words2)
     print(m2.labels_)
 
-def f3(imgsrc):
+def f3(imgsrc:IReader):
     proc = gproc()
 
-    cod = proc.process(imgsrc)
+    proc.process(imgsrc)
     print(proc.get_action_list())
     print()
 
@@ -123,7 +120,7 @@ def video_parameters():
     proc:Processor = gproc()
 
     paths = r'D:\DCIM\DCIMC{nr_t}/'
-    video_form = r'D:\DCIM\DCIMC{nr_t}/MOVC{nr_v:04d}.avi'
+    video_form = paths + r'MOVC{nr_v:04d}.avi'
     outFile = r'D:\DCIM\results.csv'
 
     with open(outFile, 'w') as csv_file:
@@ -140,6 +137,21 @@ def video_parameters():
                 for _, y, p in vals:
                     print(csv_frid, p, 0, 0, y, 0, 0,file=csv_file)
 
+
+def im_test_fps():
+    video_form = r'D:\DCIM\DCIMC{nr_t}/MOVC{nr_v:04d}.avi'
+    outFolder = 'D:/DCIM/images_12fps/'
+    img_form = r'_{idx:05d}.png'
+    target_framerate=12
+
+
+    letter = ['A', 'B', 'C', 'D']
+
+    i=3
+    v=1
+    imIn = VideoReader(video_form.format(nr_t=i, nr_v = v), None)
+    imIn.setFilters([darken])
+    imIn.save_frames(outFolder + letter[i] + img_form, 0)
 
 def im_save():
     video_form = r'D:\DCIM\DCIMC{nr_t}/MOVC{nr_v:04d}.avi'
@@ -193,13 +205,42 @@ def my_im_test():
     dire = r'D:\DCIM\poze_test'
     pt = dire + r'\A_{:05d}.png'
 
-    tpg = TemplatePathGenerator(pt, 159, 1346)
+    tpg = TemplatePathGenerator(pt, 159, 1177)
 
     imps = ImageReager(tpg)
 
     pc = gproc()
 
     pc.render(imps)
+    
+
+# batch 1 A+ 159 1177 (1004 poze)
+# batch 2 A+ 1631 - 2518 (~ 888 poze)
+# batch 3 B+ 1390 - 2439 (~ 1050 poze)
+# batch 4 D+ 10153 - 11140 (~ 988 poze)
+
+def save_im_py():
+    dire = r'D:\DCIM\poze_test_batch_{}'
+    pt = dire + r'\{}_'
+    ext = '{:05d}.png'
+    batch:int=2
+
+    tpg:list[InputPathGeneratorReader] = [None]*5
+    letter=['A','A','B','D']
+
+    tpg[1] = TemplatePathGenerator(pt.format(1,'A')+ext, 159, 1177)
+    tpg[2] = TemplatePathGenerator(pt.format(2,'A')+ext, 1631, 2518)
+    tpg[3] = TemplatePathGenerator(pt.format(3,'B')+ext, 1390, 2439)
+    tpg[4] = TemplatePathGenerator(pt.format(4,'D')+ext, 10153, 11160)
+
+    imps = [None]+[ImageReager(tpg[batch]) for batch in range(1,5)]
+
+    pc = gproc()
+
+    #pc.write_info_to_csv(imps[1],r'D:\DCIM\pitch_and_yaw_b1.csv',tpg[1])
+    #pc.write_info_to_csv(imps[2],r'D:\DCIM\pitch_and_yaw_b2.csv',tpg[2])
+    #pc.write_info_to_csv(imps[3],r'D:\DCIM\pitch_and_yaw_b3.csv',tpg[3])
+    #pc.write_info_to_csv(imps[4],r'D:\DCIM\pitch_and_yaw_b4.csv',tpg[4])
     
 
 def some_func():
@@ -236,7 +277,8 @@ def main():
     #im_save2()
     #my_im_test()
 
-    my_im_test()
+    #save_im_py()
+    im_test_fps()
 
     return 0
 

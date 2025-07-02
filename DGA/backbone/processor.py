@@ -375,3 +375,43 @@ class Processor:
             res += [(frid, pitch, yaw)]
 
         return res
+
+    def write_pitch_yaw_to_csv(self, imInput:IReader, outFile:str,imPathGen:InputPathGeneratorReader|None = None)->None:
+        res:list[tuple[int,float,float]]=self.get_pitch_yaw_list(imInput)
+        name:str = '-'
+        if imPathGen is not None:
+            imPathGen.reset()
+        with open(outFile,'w+') as of:
+            print('Frame id,Yaw,Pitch,FileName',file=of)
+            for fid,pitch,yaw in res:
+                if imPathGen is not None:
+                    name = imPathGen.get_next_image_path()
+                    idx:int
+                    try: idx = name.rindex('/') 
+                    except: 
+                        try: idx = name.rindex('\\') 
+                        except: idx = -1
+                    name = name[idx+1:]
+                print(fid,',', yaw, ',', pitch,',',name,file=of)
+
+    def write_info_to_csv(self, imInput:IReader, outFile:str,imPathGen:InputPathGeneratorReader|None = None)->None:
+        with open(outFile,'w+') as of:
+            name:str = '-'
+            print('Frame id,Yaw,Pitch,FileName,B1,B2,B3,B4',file=of)
+            for frid, frame in imInput:
+                try:
+                    res, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
+                    pitch = pitch[0]
+                    yaw = yaw[0]
+                    bbs:np.ndarray = res.bboxes[0]
+                    if imPathGen is not None:
+                        name = imPathGen.get_crt_image_path()
+                        idx:int
+                        try: idx = name.rindex('/') 
+                        except: 
+                            try: idx = name.rindex('\\') 
+                            except: idx = -1
+                        name = name[idx+1:]
+                    print(frid,',', yaw, ',', pitch,',',name, ',',bbs[0], ',',bbs[1], ',',bbs[2], ',',bbs[3], file=of)
+                except NoFaceException:
+                    print(f'No face was detected for {imPathGen.get_crt_image_path() if imPathGen is not None else 'file unkown'}')

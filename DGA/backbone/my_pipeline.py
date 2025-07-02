@@ -1,5 +1,6 @@
 import l2cs  #Pipeline
 from l2cs.results import GazeResultContainer as l2cs_GazeResultContainer
+from l2cs import draw_gaze
 
 from typing import Any, Tuple
 
@@ -92,6 +93,47 @@ class my_pipeline():
                 idx = i
 
         return idx
+
+    @staticmethod
+    def my_render(frame: np.ndarray, results: l2cs_GazeResultContainer,color:Tuple[int,int,int]=(0,0,255)):
+        '''
+            copy and modification of the function l2cs.render, so it includes the posibility to draw different color arrows
+        '''
+        # Draw bounding boxes
+        for bbox in results.bboxes:
+            x_min=int(bbox[0])
+            if x_min < 0:
+                x_min = 0
+            y_min=int(bbox[1])
+            if y_min < 0:
+                y_min = 0
+            x_max=int(bbox[2])
+            y_max=int(bbox[3])
+
+            cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), (0,255,0), 1)
+
+        # Draw Gaze
+        for i in range(results.pitch.shape[0]):
+
+            bbox = results.bboxes[i]
+            pitch = results.pitch[i]
+            yaw = results.yaw[i]
+        
+            # Extract safe min and max of x,y
+            x_min=int(bbox[0])
+            if x_min < 0:
+                x_min = 0
+            y_min=int(bbox[1])
+            if y_min < 0:
+                y_min = 0
+            x_max=int(bbox[2])
+            y_max=int(bbox[3])
+
+            # Compute sizes
+            bbox_width = x_max - x_min
+            bbox_height = y_max - y_min
+
+            draw_gaze(x_min,y_min,bbox_width, bbox_height,frame,(pitch,yaw),color=color)
     
 
 
@@ -100,3 +142,4 @@ class NoFaceException(Exception):
 
 class FirstFrameNoFaceException(Exception):
     pass
+

@@ -1,4 +1,4 @@
-from typing import Tuple, override
+from typing import Final, Tuple, override
 import cv2
 from .IReader import IReader
 
@@ -7,12 +7,14 @@ from .IReader import IReader
 class VideoReader(IReader):
     video:cv2.VideoCapture
     frame:cv2.typing.MatLike
-    ret:bool
-    fid=-1
-    stop=False
-    targetFPS:int|None=None
+    imValid:bool=False
+    crtFid=-1
+    nextFid=0
+    targetFPS:Final[int|None]
     crtFps:int|None=None
-    skip:int=1
+    skip:Final[float|None]
+    nextfskip:float
+    length:int
 
     def __init__(self, videoPath:str, targetFPS:int|None=None):
         self.video = cv2.VideoCapture(videoPath)
@@ -27,71 +29,91 @@ class VideoReader(IReader):
             else :
                 self.crtFps = int(self.video.get(cv2.CAP_PROP_FPS))
 
-            self.skip = self.crtFps//self.targetFPS if self.crtFps>self.targetFPS else 1
+            if self.crtFps > self.targetFPS:
+                self.skip = self.crtFps/self.targetFPS
+                self.nextfskip=0.0
+            else:
+                self.skip=None
+        else:
+            self.skip=None
 
     def __del__(self):
         self.video.release()
      
+    def __incFid(self):
+        self.crtFid = self.nextFid
+        if self.skip != None:
+            self.nextfskip += self.skip
+            self.nextFid = int(self.nextfskip)
+            self.video.set(cv2.CAP_PROP_POS_FRAMES, self.nextFid)
+        else:
+            self.nextFid+=1
+        
+
+    def __decFid(self):
+        self.crtFid = self.nextFid
+        if self.skip != None:
+            self.nextfskip -= self.skip
+            self.nextFid = int(self.nextfskip)
+            self.video.set(cv2.CAP_PROP_POS_FRAMES, self.nextFid)
+        else:
+            self.nextFid-=1
+
     @override
     def getNextFrame(self) -> Tuple[int, cv2.typing.MatLike]:
-        if self.stop:
-            if self.fid == 0:     # if it is put to stop and the index is 0, then I can go forward. 
-                self.stop = False
-            else:                 # If the index is not 0 and the stop is true, then I it means I am on the last frame and if I try to go forwards it will overflow
-                raise IndexError
-        
-        if self.skip>1: self.video.set(cv2.CAP_PROP_POS_FRAMES, self.fid+self.skip)
+        if self.nextFid >= self.length:
+            print(f'stop{self.nextFid}')
+            raise IndexError()
+        print(f'{self.nextFid} with id {self.video.get(cv2.CAP_PROP_POS_FRAMES)}')
+        self.imValid, self.frame = self.video.read() # get next frame
 
-        self.ret, self.frame = self.video.read() # get next frame
-
-        if self.ret:  
-            self.fid += self.skip    
+        if self.imValid:  
+            self.__incFid()
             self.frame = self._apply(self.frame)
-            return self.fid,self.frame
+            return self.crtFid,self.frame
         else:
-            self.stop = True
+            if self.nextFid < self.length:
+                raise Exception('error has occured when reading frames')
             raise IndexError
     
     @override
     def getPrevFrame(self)-> Tuple[int, cv2.typing.MatLike]:
-        if self.stop:
-            if self.fid > 0:     # if it is put to stop and the index is the actual last index (I am yet to know or care), then I can go backward. 
-                self.stop = False
-            else:                # If the index is 0 and I want to go forwards than it will underflow
-                raise IndexError
+        if self.nextFid <=0:
+            raise IndexError()
 
-        self.video.set(cv2.CAP_PROP_POS_FRAMES, self.fid-self.skip) # move to the last captured frame
-        self.ret, self.frame = self.video.read() # get that frame
+        self.imValid, self.frame = self.video.read() # get that frame
 
-        if self.ret:
-            self.fid -= self.skip
-            return self.fid,self.frame
+        if self.imValid:
+            self.__decFid()
+            return self.crtFid,self.frame
         else:
-            self.stop = True
-            raise IndexError
+            if self.nextFid >=0:
+                raise Exception('error has occured when reading frames')
+            raise IndexError()
 
     @override
     def getCrtFrame(self)-> Tuple[int, cv2.typing.MatLike]:
-        if self.ret and not self.stop:
-            return self.fid,self.frame
+        if self.imValid:
+            return self.crtFid,self.frame
         else:
-            self.stop = True
-            raise IndexError
+            raise IndexError()
 
     @override
     def getCrtIndex(self)-> int:
-        if self.fid != -1:
-            return self.fid
+        if self.imValid:
+            return self.crtFid
         else:
-            raise IndexError
+            raise IndexError()
     
     @override
     def reset(self) -> None:
-        if self.fid == -1:
+        if self.crtFid == -1:
             return
-        self.fid = -1
+        self.imValid = False
+        self.crtFid = -1
+        if self.skip is not None:
+            self.nextfskip = 0.0
         if not self.video.set(cv2.CAP_PROP_POS_FRAMES, 0):
-            self.fid = -1
             raise Exception('Unexpted exception')
 
     def save_frames(self, outPath:str, starting_idx:int=0) -> int:

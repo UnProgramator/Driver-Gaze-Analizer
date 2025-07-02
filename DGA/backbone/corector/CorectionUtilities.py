@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import ast
 
-from typing import Any, List, Tuple
+from typing import Any, Iterable, List, Tuple
 
 
 
@@ -35,7 +35,7 @@ def readCSV_gt_evaled(fpath:str) -> Tuple[torch.Tensor, torch.Tensor]:
 # 178, 170, 167, 90
 __pic_idx = {0:(1,178), 1:(179,348), 2:(349,515), 3:(516,605)}
 
-def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int = 0) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int|None = 0, vf:str='Original Pitch',gtf:str='Ground Truth Pitch') -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor|None, torch.Tensor|None]:
     '''
         Return tensors with the input values and ground truth
 
@@ -53,7 +53,7 @@ def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int = 0) -> Tup
     '''
 
     df = pd.read_csv(fpath) # load pitch training data (csv {Index, OPWnd, GT})
-    _vals = df['Original Pitch'].values
+    _vals = df[vf].values
 
     _vals_set = [None, None, None, None]
     _gt_set = [None, None, None, None]
@@ -61,7 +61,7 @@ def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int = 0) -> Tup
     for i in range(4):
         i1,i2 = __pic_idx[i]
         _vals_set[i] = [_vals[j:j+inputDim] for j in range(i1-1, i2-inputDim+1)]
-        _gt_set[i] = df['Ground Truth Pitch'].values[(i1-1)+inputDim-1:i2].tolist()
+        _gt_set[i] = df[gtf].values[(i1-1)+inputDim-1:i2].tolist()
         
     _vals = []
     _gt = []
@@ -75,19 +75,25 @@ def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int, iset:int = 0) -> Tup
     Vals_train = torch.tensor(_vals, dtype=torch.float32)
     GT_train = torch.tensor(_gt, dtype=torch.float32).view(-1, 1)
 
-    Vals_test = torch.tensor(_vals_set[iset], dtype=torch.float32)
-    GT_test = torch.tensor(_gt_set[iset], dtype=torch.float32).view(-1, 1)
+    Vals_test:torch.Tensor|None = None
+    GT_test:torch.Tensor|None = None
+
+    if iset is not None:
+        Vals_test = torch.tensor(_vals_set[iset], dtype=torch.float32)
+        GT_test = torch.tensor(_gt_set[iset], dtype=torch.float32).view(-1, 1)
 
     return Vals_train, GT_train, Vals_test, GT_test
 
 
-def readCSV_gt(fpath:str, inputDim:int, field_v:str='Original Pitch', field_gt:str='Ground Truth Pitch') -> Tuple[torch.Tensor, torch.Tensor]:
+def readCSV_pitch_or_yaw(fpath:str, inputDim:int, field_v:str|None='Original Pitch', field_gt:str='Ground Truth Pitch') -> Tuple[torch.Tensor, torch.Tensor]:
     '''
         Returns tensors with the input values and the ground turth, for either training or validation
 
         Args:
             fpath: str, file path to the CSV format file
             inputDims: int, number of input values processed in one go
+            field_v: str, name of the vals field
+            field_gt: str, name of the gt field
 
         Returns:
             (Vals, GT): (Tensor, Tensor), 
@@ -97,37 +103,86 @@ def readCSV_gt(fpath:str, inputDim:int, field_v:str='Original Pitch', field_gt:s
 
     df = pd.read_csv(fpath) # load pitch training data (csv {Index, OPWnd, GT})
 
-    _vals = df['Original Pitch'].values
-    _vals = [_vals[i:i+inputDim] for i in range(len(_vals)-inputDim+1)] # cause _vals[i:i+inputDim] takes the elems with the index in [i, i+inputDim), why +1?
-    _gt = df['Ground Truth Pitch'].values[inputDim-1:]
+    _vals = df[field_v].values
+    _vals1 = [_vals[i:i+inputDim] for i in range(len(_vals)-inputDim+1)] # cause _vals[i:i+inputDim] takes the elems with the index in [i, i+inputDim), why +1?
+    _gt = df[field_gt].values[inputDim-1:]
 
-    Vals = torch.tensor(_vals, dtype=torch.float32)
+    Vals = torch.tensor(_vals1, dtype=torch.float32)
     GT = torch.tensor(_gt, dtype=torch.float32).view(-1, 1)
 
     return Vals, GT
 
-def readCSV(fpath:str, inputDim:int) -> Tuple[torch.Tensor, torch.Tensor]:
+
+
+def readCSV_pitch_and_yaw(fpath:str, inputDim:int, pvf:str='Original Pitch', 
+                                                   pgf:str='Ground Truth Pitch', 
+                                                   yvf:str='Original Yaw', 
+                                                   ygf:str='Ground Truth Yaw') \
+                    -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
     '''
-        Returns a tensor with the input values and the ground turth, for either training or validation
+        Returns tensors with the input values and the ground turth, for either training or validation
 
         Args:
             fpath: str, file path to the CSV format file
             inputDims: int, number of input values processed in one go
+            pvf, pgf, yvf, ygf: str = name of the corespoding fileds (f) in the csv for the pitch (p) or yaw (y) values (v) or ground truth (g)
 
         Returns:
-            Vals: Tensor, the input values
+            (pitch, pGT, yaw, yGT): (Tensor, Tensor, Tensor, Tensor) 
     '''
+
     df = pd.read_csv(fpath) # load pitch training data (csv {Index, OPWnd, GT})
 
-    _vals = df['Original Pitch'].values
-    _vals = [_vals[i:i+inputDim] for i in range(len(_vals)-inputDim)]
+    p_vals = df[pvf].values
+    p_vals_tup = [p_vals[i:i+inputDim] for i in range(len(p_vals)-inputDim+1)] # cause _vals[i:i+inputDim] takes the elems with the index in [i, i+inputDim), why +1?
+    p_gt = df[pgf].values[inputDim-1:]
 
-    Vals = torch.tensor(_vals, dtype=torch.float32)
+    y_vals = df[yvf].values
+    y_vals_tup = [y_vals[i:i+inputDim] for i in range(len(y_vals)-inputDim+1)] # cause _vals[i:i+inputDim] takes the elems with the index in [i, i+inputDim), why +1?
+    y_gt = df[ygf].values[inputDim-1:]
 
-    return Vals
+    pVals = torch.tensor(p_vals_tup, dtype=torch.float32)
+    pGT = torch.tensor(p_gt, dtype=torch.float32).view(-1, 1)
 
+    yVals = torch.tensor(y_vals_tup, dtype=torch.float32)
+    yGT = torch.tensor(y_gt, dtype=torch.float32).view(-1, 1)
 
+    return pVals, pGT, yVals, yGT
 
+def readCSV_pitch_and_yaw_many_files(fpaths:Iterable[str], inputDim:int, pvf:str='Original Pitch', 
+                                                   pgf:str='Ground Truth Pitch', 
+                                                   yvf:str='Original Yaw', 
+                                                   ygf:str='Ground Truth Yaw') \
+        -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    '''
+        Returns tensors with the input values and the ground turth, for either training or validation
+
+        Args:
+            fpaths: iterable[str], file paths to the CSV format files
+            inputDims: int, number of input values processed in one go
+            pvf, pgf, yvf, ygf: str = name of the corespoding fileds (f) in the csv for the pitch (p) or yaw (y) values (v) or ground truth (g)
+
+        Returns:
+            (pitch, pGT, yaw, yGT): (Tensor, Tensor, Tensor, Tensor) 
+            where the results are the tensors for each file concatenated in one
+    '''
+    p:list[torch.Tensor] = []
+    pgt:list[torch.Tensor] = []
+    y:list[torch.Tensor] = []
+    ygt:list[torch.Tensor] = []
+    for fpath in fpaths:
+        p1, pgt1, y1, ygt1 = readCSV_pitch_and_yaw(fpath, inputDim, pvf, pgf, yvf, ygf)
+        p.append(p1)
+        pgt.append(pgt1)
+        y.append(y1)
+        ygt.append(ygt1)
+
+    po = torch.cat(p)
+    pgto= torch.cat(pgt)
+    yo = torch.cat(y)
+    ygto= torch.cat(ygt)
+
+    return po, pgto, yo, ygto
 
 def tensorFromArray(ar):
     return torch.tensor(ar, dtype=torch.float32)

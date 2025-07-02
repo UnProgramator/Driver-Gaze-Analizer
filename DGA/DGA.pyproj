@@ -27,12 +27,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="backbone\corector\blur.py" />
-    <Compile Include="backbone\corector\CorectionNetwork1.py" />
+    <Compile Include="backbone\corector\SimpleNN.py" />
     <Compile Include="backbone\corector\CorectionUtilities.py" />
+    <Compile Include="backbone\corector\corectors.py" />
     <Compile Include="backbone\corector\losfucts.py" />
     <Compile Include="backbone\corector\main.py" />
     <Compile Include="backbone\corector\__init__.py" />
     <Compile Include="backbone\__init__.py" />
+    <Compile Include="Utilities\Adnotator_app\fileCatUtilities.py" />
     <Compile Include="Utilities\Adnotator_app\ImagegazeGT_Labeling.py" />
     <Compile Include="Utilities\PathGenerators\DreyeveInput.py" />
     <Compile Include="Utilities\PathGenerators\FileListGenerator.py" />
