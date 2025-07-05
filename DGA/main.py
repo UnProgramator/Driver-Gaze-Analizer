@@ -241,14 +241,36 @@ def save_im_py():
     #pc.write_info_to_csv(imps[2],r'D:\DCIM\pitch_and_yaw_b2.csv',tpg[2])
     #pc.write_info_to_csv(imps[3],r'D:\DCIM\pitch_and_yaw_b3.csv',tpg[3])
     #pc.write_info_to_csv(imps[4],r'D:\DCIM\pitch_and_yaw_b4.csv',tpg[4])
+
+def save_im_py2():
+    basePath='D:/DCIM/images_12fps/'
+    pt = basePath+'batch{}/'
+    ext = '{:05d}.png'
+
+    tpg:list[TemplatePathGenerator] = []
+    tpg.append(TemplatePathGenerator(pt.format(1)+ext, 1053,1436))
+    tpg.append(TemplatePathGenerator(pt.format(2)+ext, 475,1167))
+    tpg.append(TemplatePathGenerator(pt.format(3)+ext, 2899,3519))
+    tpg.append(TemplatePathGenerator(pt.format(4)+ext, 686,883))
+    tpg.append(TemplatePathGenerator(pt.format(5)+ext, 1170,1609))
+    tpg.append(TemplatePathGenerator(pt.format(6)+ext, 529,814))
+    tpg.append(TemplatePathGenerator(pt.format(7)+ext, 3047,3380))
+    tpg.append(TemplatePathGenerator(pt.format(8)+ext, 683,946))
+
+    imps = [ImageReager(tpg[batch]) for batch in range(len(tpg))]
+
+    pc = gproc()
+
+    for i in range(len(tpg)):
+        pc.write_info_to_csv(imps[i],basePath+f'pitch_and_yaw_b{i+1}.csv',tpg[i])
     
 
-def some_func():
-    dire = r'D:\DCIM\images'
-    pt = dire + r'\B_{:05d}.png'
+def some_func(render:bool=True):
+    dire = r'D:\DCIM\images_12fps\batch8 - 264 - 3'
+    pt = dire + r'\MOVC0006DCIMC_0{:04d}.png'
 
 
-    tpg = TemplatePathGenerator(pt, 0, 10)
+    tpg = TemplatePathGenerator(pt, 842, 880)
 
     imps = ImageReager(tpg)
     
@@ -256,7 +278,10 @@ def some_func():
     pc = gproc()
     print('gproc created')
 
-    pc.render(imps)
+    if render:
+        pc.render(imps)
+    else:
+        pc.verifyImages(imps)
 
 def main():
     
@@ -278,7 +303,11 @@ def main():
     #my_im_test()
 
     #save_im_py()
-    im_test_fps()
+    #im_test_fps()
+
+    #some_func(False)
+
+    save_im_py2()
 
     return 0
 

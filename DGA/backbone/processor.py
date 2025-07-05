@@ -334,7 +334,21 @@ class Processor:
                 print(f'frame {fidx} has no face present');
                 continue
         return start_idx
-            
+     
+    
+    def verifyImages(self,imInput:IReader):
+        badFrNo:int=0
+        for fidx , frame in imInput:
+            try:
+                self.gaze_pipeline.get_gaze(frame, True)
+            except FirstFrameNoFaceException:
+                badFrNo+=1
+                print(f'No face present from the start, now at frame {fidx}');
+            except NoFaceException:
+                badFrNo+=1
+                print(f'frame {fidx} has no face present');
+        print(f'Number of bad frames is {badFrNo}')
+
 
     def validate(self, imInput:IReader, pat:InputPathGeneratorReader) -> list[tuple[str, str,str,str]]:
         '''Forms an action list to be printed to the screen. For writing into a file, simply redirect the standard output'''
