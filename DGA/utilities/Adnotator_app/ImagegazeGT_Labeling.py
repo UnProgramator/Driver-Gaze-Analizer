@@ -13,13 +13,13 @@ from backbone import my_pipeline
 
 # Parameters
 
-batch = 2 # 1-4
+batch = 4 # 1-4
 
 basePath = 'D:/DCIM/images_12fps/'
 
 inTestFile = basePath+'pitch_and_yaw_b{}.csv'.format(batch)
 gtTestFile = basePath+'gt_b{}.csv'.format(batch)
-imgDir     = basePath+'poze_test_batch_{}/'.format(batch)
+imgDir     = basePath+'batch{}/'.format(batch)
 gtWndName:Final[str] = 'Ground Truth'
 imgWndName:Final[str] = 'Current Farme'
 
