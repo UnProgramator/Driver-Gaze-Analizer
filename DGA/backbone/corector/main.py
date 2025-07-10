@@ -12,7 +12,7 @@ import torch
 
 # infile1:str = "C:/Users/apesc/Downloads/pitch_train_data.csv"
 
-resultsPath='D:/DCIM/results/'
+resultsPath='D:/DCIM/images_12fps/experiment/'
 
 plotfile:str  = resultsPath+"plots/{}.png"
 logFolder = resultsPath+'logs/'
@@ -21,14 +21,19 @@ modelFile:str = resultsPath+"models/"
 
 dataPath=resultsPath+'data/'
 
-infile:str = dataPath+"Err_gaze.csv"
+infile:str = "D:/DCIM/results/data/Err_gaze.csv"
 
 print_train = False
 
 datasets:list[str] = [dataPath+'err_b1.csv',
                       dataPath+'err_b2.csv',
                       dataPath+'err_b3.csv',
-                      dataPath+'err_b4.csv']
+                      dataPath+'err_b4.csv',
+                      dataPath+'err_b5.csv',
+                      dataPath+'err_b6.csv',
+                      dataPath+'err_b7.csv',
+                      dataPath+'err_b8.csv',
+                      dataPath+'err_b9.csv']
 
 epocs = 8000  # training epocs
 err_ok = 0.05 # estimated pitch - maximum admited error
@@ -111,7 +116,7 @@ def test2():
         nm = loadModel("D:/DCIM/models/save_test.model",lf)
         print(nm,file=lf)
 
-models:dict[int,tuple[type[torch.nn.Module],list[int],torch.nn.Module|None]] 
+models:dict[int,tuple[type[torch.nn.Module],list[int],list[type[torch.nn.Module]]|type[torch.nn.Module]|None]] 
 
 check_points:list[int]
 #checkpoint_temp_name = 'D:/DCIM/models/tests/'
@@ -119,16 +124,16 @@ check_points:list[int]
 
 exp_msg = 'experiment {exp_name}, starting at {tm}'
 
-def exp1(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss()):
+def exp1(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None):
     flog = open(logfile, 'a+')
-    pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,5)
+    pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,5,offset=offset)
 
     modtp,layers,losfun = models[exp_no]
     model_p=modtp(layers,losfun)
     print(exp_msg.format(exp_name='exp1'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S")), file=flog)
-    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+'-exp1-yaw-epoch{}.model')
+    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp1-yaw-offset{offset}'+'-epoch{}.model')
     model_y=modtp(layers,losfun)
-    model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+'-exp1-pitch-epoch{}.model')
+    model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp1-pitch-offset{offset}'+'-epoch{}.model')
 
 def exp2(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss()):
     flog = open(logfile, 'a+')
@@ -153,6 +158,16 @@ def exp3(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss()):
     model_y=modtp(layers,losfun)
     model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+'-exp3-pitch-epoch{}.model')
 
+def exp4(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None):
+    flog = open(logfile, 'a+')
+    pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets,5,offset=offset)
+
+    modtp,layers,losfun = models[exp_no]
+    model_p=modtp(layers,losfun)
+    print(exp_msg.format(exp_name='exp1'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S")), file=flog)
+    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+'-exp1-pitch_and_yaw-epoch{}.model')
+
+
 
 import ntpath
 import os
@@ -171,19 +186,22 @@ def validateAllModels(folder:str|None=None, files:list[str]|None=None, log:IO[st
     def __validate_model(filePath:str, valiName:str, vals:torch.Tensor, gt:torch.Tensor):
         print(f'Testing model {filePath} with dataset {valiName}',file=results)
         model=loadModel(filePath,log)
-        filename=ntpath.basename(filePath) +'__' + valiName
+        filename=ntpath.basename(filePath)
         iacc,ialoss,tacc,taloss = validate(model,vals,gt,logFile=results,plotSavefile=(plotfile.format(filename) if plot_on else None) )
         print(exp_code,filename,valiName,iacc,ialoss,tacc,taloss,sep=',',file=csvFile)
         print('--------------------------------------------------------------------\n', file=results)
 
     def __validate_wrap(filePath:str):
-        if 'yaw' in filePath:
-            __validate_model(filePath,'OURS_4',yv4,ygt4)
-            __validate_model(filePath,'OURS_3',yv3,ygt3)
+        if 'yaw' in file and 'pitch' in file:
+            __validate_model(filePath,'OURS',yv4,ygt4)
+            __validate_model(filePath,'Drivface',yvd,ygtd)
+        elif 'yaw' in filePath:
+            __validate_model(filePath,'OURS',yv4,ygt4)
+            # __validate_model(filePath,'OURS_3',yv3,ygt3)
             __validate_model(filePath,'Drivface',yvd,ygtd)
         elif 'pitch' in filePath:
-            __validate_model(filePath,'OURS_4',pv4,pgt4)
-            __validate_model(filePath,'OURS_3',pv3,pgt3)
+            __validate_model(filePath,'OURS',pv4,pgt4)
+            # __validate_model(filePath,'OURS_3',pv3,pgt3)
             __validate_model(filePath,'Drivface',pvd,pgtd)
         else: raise Exception()
         print('\n======================================================================\n\n', file=results)
@@ -215,15 +233,24 @@ def defaultValidation():
         validateAllModels(folder=modelFile,log=lf,results=resf)
 
 
-check_points= [2000, 5000, 10_000, 15_000, 20_000, 25_000, 30_000, 40_000, 50_000]
+#check_points= [2000, 5000, 10_000, 15_000, 20_000, 25_000, 30_000, 40_000, 50_000]
+check_points= [5000, 10_000, 15_000, 20_000, 30_000, 40_000, 50_000]
 models= {
-        0:(SimpleNN,[5, 15],None),
-        1:(SimpleNN,[5, 25],None),
-        2:(SimpleNN,[5, 25, 15],None),
-        3:(SimpleNN,[5, 15, 25],None),
-        4:(SimpleNN,[5, 15, 5],None),
-        5:(SimpleNN,[5, 15, 1],None),
-        6:(SimpleNN,[5, 15, 25, 5],None)
+         1:(SimpleNN,[5, 15, 1],None),
+         2:(SimpleNN,[5, 25, 1],None),
+         3:(SimpleNN,[5, 25, 15, 1],None),
+         4:(SimpleNN,[5, 15, 25, 1],None),
+         5:(SimpleNN,[5, 15, 5, 1],None),
+         6:(SimpleNN,[5, 15, 1, 1],None),
+         7:(SimpleNN,[5, 15, 25, 5, 1],None),
+         8:(SimpleNN,[5, 25, 1],torch.nn.Tanh),
+         9:(SimpleNN,[5, 25, 15, 1],torch.nn.Tanh),
+        10:(SimpleNN,[5, 15, 25, 1],torch.nn.Tanh),
+        20:(SimpleNN,[10,25,2],None),
+        21:(SimpleNN,[10,25,25,2],None),
+        22:(SimpleNN,[10,25,25,2],torch.nn.Tanh),
+        23:(SimpleNN,[10,25,25,2],[torch.nn.Tanh,torch.nn.ReLU]),
+        24:(SimpleNN,[10,25,25,2],[torch.nn.ReLU,torch.nn.Tanh])
 }
 
 if __name__ == '__main__':
@@ -243,5 +270,28 @@ if __name__ == '__main__':
     # exp2(exp_no=4, epocs=40_000)
     # exp1(exp_no=6, epocs=40_000)
     # exp2(exp_no=6, epocs=40_000)
+
+    # exp1(exp_no=1, epocs=30_000)
+    # exp1(exp_no=1, epocs=30_000,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=2, epocs=30_000)
+    # exp1(exp_no=2, epocs=30_000,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=3, epocs=50_000)
+    # exp1(exp_no=3, epocs=50_000,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=7, epocs=30_000)
+    # exp1(exp_no=7, epocs=30_000,losFn=CustomLoss_v(err_ok))
+
+    exp1(exp_no=1, epocs=30_000, offset=3)
+    exp1(exp_no=1, epocs=30_000, offset=3, losFn=CustomLoss_v(err_ok))
+    exp1(exp_no=7, epocs=30_000, offset=3)
+    exp1(exp_no=7, epocs=30_000, offset=3, losFn=CustomLoss_v(err_ok))
+    exp4(exp_no=20, epocs=50_000)
+    exp4(exp_no=20, epocs=50_000,losFn=CustomLoss_v(err_ok))
+    exp4(exp_no=20, epocs=50_000, offset=3)
+    exp4(exp_no=20, epocs=50_000, offset=3 ,losFn=CustomLoss_v(err_ok))
+    exp4(exp_no=21, epocs=50_000)
+    exp4(exp_no=21, epocs=50_000,losFn=CustomLoss_v(err_ok))
+    exp4(exp_no=21, epocs=50_000, offset=3)
+    exp4(exp_no=21, epocs=50_000, offset=3, losFn=CustomLoss_v(err_ok))
+
     
-    defaultValidation()
+    # defaultValidation()

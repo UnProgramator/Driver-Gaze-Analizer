@@ -5,7 +5,7 @@
     <ProjectGuid>91a3806a-0e3f-4f56-997c-bf3f7b22ba70</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>Utilities\Adnotator_app\ImagegazeGT_Labeling.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -16,6 +16,9 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterId>CondaEnv|CondaEnv|dga</InterpreterId>
+    <UnitTestPattern>test_*.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,8 +35,17 @@
     <Compile Include="backbone\corector\corectors.py" />
     <Compile Include="backbone\corector\losfucts.py" />
     <Compile Include="backbone\corector\main.py" />
+    <Compile Include="backbone\corector\test\test_1.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="backbone\corector\test\test_csvReader.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="backbone\corector\__init__.py" />
     <Compile Include="backbone\__init__.py" />
+    <Compile Include="backbone\corector\test\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utilities\Adnotator_app\fileCatUtilities.py" />
     <Compile Include="Utilities\Adnotator_app\ImagegazeGT_Labeling.py" />
     <Compile Include="Utilities\PathGenerators\DreyeveInput.py" />
@@ -70,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="backbone\corector\" />
+    <Folder Include="backbone\corector\tests\" />
+    <Folder Include="backbone\corector\test\" />
     <Folder Include="Utilities\ImageReaders\" />
     <Folder Include="Utilities\PathGenerators\" />
     <Folder Include="backbone\" />
@@ -83,6 +97,8 @@
     <InterpreterReference Include="CondaEnv|CondaEnv|dga" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="backbone\corector\test\position_test.csv" />
+    <Content Include="backbone\corector\test\testdata_err.csv" />
     <Content Include="config_file.ini" />
     <Content Include="env.info" />
   </ItemGroup>
