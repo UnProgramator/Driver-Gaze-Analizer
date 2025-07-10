@@ -227,7 +227,7 @@ def saveGt(gtFilePath:str):
         for i in range(len(gtp)):
             point1 = gtp[i]
             point2 = gty[i]
-            print(point1,',',point2,file=fid,sep=None)
+            print(point1,point2,file=fid,sep=',')
     print(f'Ground Truth saved in {gtFilePath} !')
 
 def readInFile(inFileName:str,normalCsv:bool=False) -> tuple[list[str],list[str]]:

@@ -26,7 +26,7 @@ class ImageReager(IReader):
         path = self.imReader.get_next_image_path()
         self.im = cv2.imread(path)
         self.fid += 1
-
+        self.im=self._apply(self.im)
         return self.fid, self.im
 
     @override
@@ -34,7 +34,7 @@ class ImageReager(IReader):
         path = self.imReader.get_prev_image_path()
         self.im = cv2.imread(path)
         self.fid -= 1
-
+        self.im=self._apply(self.im)
         return self.fid, self.im
 
     @override

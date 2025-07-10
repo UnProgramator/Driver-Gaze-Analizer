@@ -24,6 +24,14 @@ def darken(img:MatLike) -> MatLike:
     image:MatLike = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
     return image
 
+def correct_blue(image:MatLike) -> MatLike:
+    image[:,:,0] = image[:,:,0]/200*150 #blue channel
+    return image
+
+def correct_green(image:MatLike) -> MatLike:
+    image[:,:,1] = image[:,:,1]/180*150 #green channel
+    return image
+
 def lighten(img:MatLike) -> MatLike:
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     value = 30 #whatever value you want to add
@@ -250,16 +258,20 @@ def save_im_py2():
     tpg:list[TemplatePathGenerator] = []
     tpg.append(TemplatePathGenerator(pt.format(1)+ext, 1053,1436))
     tpg.append(TemplatePathGenerator(pt.format(2)+ext, 475,1167))
-    tpg.append(TemplatePathGenerator(pt.format(3)+ext, 2899,3519))
+    tpg.append(TemplatePathGenerator(pt.format(3)+ext, 3019,3408))
     tpg.append(TemplatePathGenerator(pt.format(4)+ext, 686,883))
     tpg.append(TemplatePathGenerator(pt.format(5)+ext, 1170,1609))
     tpg.append(TemplatePathGenerator(pt.format(6)+ext, 529,814))
-    tpg.append(TemplatePathGenerator(pt.format(7)+ext, 3047,3380))
-    tpg.append(TemplatePathGenerator(pt.format(8)+ext, 683,946))
+    tpg.append(TemplatePathGenerator(pt.format(7)+ext, 3047,3307))
+    tpg.append(TemplatePathGenerator(pt.format(8)+ext, 725,946))
 
     imps = [ImageReager(tpg[batch]) for batch in range(len(tpg))]
+    for i in imps: i.addFilters([darken, correct_blue])
 
     pc = gproc()
+
+
+    #pc.render(imps[3])
 
     for i in range(len(tpg)):
         pc.write_info_to_csv(imps[i],basePath+f'pitch_and_yaw_b{i+1}.csv',tpg[i])
@@ -307,7 +319,7 @@ def main():
 
     #some_func(False)
 
-    save_im_py2()
+    #save_im_py2()
 
     return 0
 
