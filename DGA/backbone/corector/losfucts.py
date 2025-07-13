@@ -1,10 +1,18 @@
 from torch import Tensor, nn
 import torch
 
-class CustomLoss(nn.Module):
+class INamedModule:
+    def name(self)->str:
+        return f'{type(self).__name__}_default'
+
+
+class CustomLoss(nn.Module, INamedModule):
     def __init__(self, error_ok:float):
-        super().__init__()
+        super(nn.Module).__init__()
         self.error_ok = error_ok
+
+    def name(self)->str:
+        return f'CustomLoss_{self.error_ok}'
 
     def forward(self, inputs:Tensor, targets:Tensor) -> Tensor:
         if len(inputs) != len(targets):
@@ -16,7 +24,7 @@ class CustomLoss(nn.Module):
         return stepmse
 
 
-class CustomLoss_v(nn.Module):
+class CustomLoss_v(nn.Module, INamedModule):
     def __init__(self, error_ok:float):
         super().__init__()
         self.error_ok = error_ok
@@ -35,13 +43,16 @@ class CustomLoss_v(nn.Module):
         # Calculate the mean of the squared differences
         stepmse = torch.sum(squared_diffs) / len(inputs)
         return stepmse
+    
+    def name(self)->str:
+        return f'CustomLoss_v_{self.error_ok}'
 
 
 class CustomLossFilter_1(nn.Module):
         def __init__(self):
-            super(CustomLossFilter_1, self).__init__()
+            super().__init__()
 
-        def forward(self, inputs, targets) -> Tensor:
+        def forward(self, inputs:Tensor, targets:Tensor) -> Tensor:
             size = len(inputs)
             if len(targets) != size:
                 raise ValueError("The length of actual values and predicted values must be the same")
@@ -51,11 +62,14 @@ class CustomLossFilter_1(nn.Module):
             stepmse = sum(squared_diffs) / size
             return stepmse
 
+        def name(self)->str:
+            return f'CustomLossFilter_1'
+
 class CustomLossFilter_2(nn.Module):
         def __init__(self):
             super(CustomLossFilter_2, self).__init__()
 
-        def forward(self, inputs, targets) -> Tensor:
+        def forward(self, inputs:Tensor, targets:Tensor) -> Tensor:
             size = len(inputs)
             if len(targets) != size:
                 raise ValueError("The length of actual values and predicted values must be the same")
@@ -64,3 +78,6 @@ class CustomLossFilter_2(nn.Module):
             # Calculate the mean of the squared differences
             stepmse = sum(squared_diffs) / size
             return stepmse
+
+        def name(self)->str:
+            return f'CustomLossFilter_2'

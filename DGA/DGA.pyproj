@@ -5,7 +5,7 @@
     <ProjectGuid>91a3806a-0e3f-4f56-997c-bf3f7b22ba70</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>main.py</StartupFile>
+    <StartupFile>backbone\corector\main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -41,6 +41,7 @@
     <Compile Include="backbone\corector\test\test_csvReader.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="backbone\corector\test\validation.py" />
     <Compile Include="backbone\corector\__init__.py" />
     <Compile Include="backbone\__init__.py" />
     <Compile Include="backbone\corector\test\__init__.py">

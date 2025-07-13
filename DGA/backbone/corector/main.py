@@ -1,5 +1,6 @@
 from typing import IO
-from losfucts import CustomLoss, CustomLoss_v
+from backbone.corector.test.validation import Validation
+from losfucts import CustomLoss, CustomLoss_v, INamedModule
 from CorectionUtilities import *
 from corectors import train, validate, loadModel, saveModel
 
@@ -124,16 +125,19 @@ check_points:list[int]
 
 exp_msg = 'experiment {exp_name}, starting at {tm}'
 
-def exp1(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None):
+def exp1(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None, inputDims:int=5):
     flog = open(logfile, 'a+')
-    pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,5,offset=offset)
+    pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+
+    losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
     modtp,layers,losfun = models[exp_no]
+    layers[0]=inputDims
     model_p=modtp(layers,losfun)
     print(exp_msg.format(exp_name='exp1'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S")), file=flog)
-    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp1-yaw-offset{offset}'+'-epoch{}.model')
+    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp1-yaw-input{inputDims}-offset{offset}-losfn{losName}'+'-epoch{}.model')
     model_y=modtp(layers,losfun)
-    model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp1-pitch-offset{offset}'+'-epoch{}.model')
+    model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp1-pitch-input{inputDims}-offset{offset}-losfn{losName}'+'-epoch{}.model')
 
 def exp2(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss()):
     flog = open(logfile, 'a+')
@@ -158,83 +162,28 @@ def exp3(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss()):
     model_y=modtp(layers,losfun)
     model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+'-exp3-pitch-epoch{}.model')
 
-def exp4(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None):
+def exp4(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None,inputDims:int=5):
     flog = open(logfile, 'a+')
-    pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets,5,offset=offset)
+    pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets,inputDims,offset=offset)
+
+    losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
     modtp,layers,losfun = models[exp_no]
+    layers[0]=2*inputDims
     model_p=modtp(layers,losfun)
     print(exp_msg.format(exp_name='exp1'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S")), file=flog)
-    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+'-exp1-pitch_and_yaw-epoch{}.model')
+    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp1-pitch_and_yaw-input{inputDims}-offset{offset}-losfn{losName}'+'-epoch{}.model')
 
 
 
-import ntpath
-import os
-import time
+def validate2():
+    Validation().validateManyModels(folder=modelFile)
 
 
-def validateAllModels(folder:str|None=None, files:list[str]|None=None, log:IO[str]|None=None, results:IO[str]|None=None, plot_on:bool=False, resCSV:IO[str]|None=None):
-    pv4, pgt4, yv4, ygt4 = readCSV_pitch_and_yaw_many_files(datasets,5)
-    pv3, pgt3, yv3, ygt3 = readCSV_pitch_and_yaw_many_files(datasets[1:],5)
-    pvd, pgtd, _, _ = readCSV_gt_evaled_loo_drivface(infile, 5, None)
-    yvd, ygtd, _, _ = readCSV_gt_evaled_loo_drivface(infile, 5, None, 'Original Yaw', 'Ground Truth Yaw')
-
-    exp_code:str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    csvFile:IO[str]
-
-    def __validate_model(filePath:str, valiName:str, vals:torch.Tensor, gt:torch.Tensor):
-        print(f'Testing model {filePath} with dataset {valiName}',file=results)
-        model=loadModel(filePath,log)
-        filename=ntpath.basename(filePath)
-        iacc,ialoss,tacc,taloss = validate(model,vals,gt,logFile=results,plotSavefile=(plotfile.format(filename) if plot_on else None) )
-        print(exp_code,filename,valiName,iacc,ialoss,tacc,taloss,sep=',',file=csvFile)
-        print('--------------------------------------------------------------------\n', file=results)
-
-    def __validate_wrap(filePath:str):
-        if 'yaw' in file and 'pitch' in file:
-            __validate_model(filePath,'OURS',yv4,ygt4)
-            __validate_model(filePath,'Drivface',yvd,ygtd)
-        elif 'yaw' in filePath:
-            __validate_model(filePath,'OURS',yv4,ygt4)
-            # __validate_model(filePath,'OURS_3',yv3,ygt3)
-            __validate_model(filePath,'Drivface',yvd,ygtd)
-        elif 'pitch' in filePath:
-            __validate_model(filePath,'OURS',pv4,pgt4)
-            # __validate_model(filePath,'OURS_3',pv3,pgt3)
-            __validate_model(filePath,'Drivface',pvd,pgtd)
-        else: raise Exception()
-        print('\n======================================================================\n\n', file=results)
-
-    d1 = time.time()
-    tm = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(f'~~~~~~~~~~~~~~~Validation at {tm}~~~~~~~~~~~~~~~n\n', file=results)
-    
-
-    if files is None:
-        if folder is not None:
-            files = [folder+f for f in os.listdir(folder)]
-        else:
-            raise Exception
-
-    csvFile = open(logFolder+'mean_error_and_loss.csv','w+')
-    #print('Experiemnt Code,Model Name,Validation Set,Initial Accracy,Initial Average Average Loss,Test Average Accracy,Test Avergae Loss',file=csvFile)
-    print('expcode,model,validset,iacc,ialoss,tacc,taloss',file=csvFile)
-
-    for f in files:
-        print(f'Validate mode {f}', file=results)
-        __validate_wrap(f)
-
-    print(f'Total time: {time.time()-d1} sec', file=results)
-    print(f'~~~~~~~~~~~~~~~End of validation at {tm}~~~~~~~~~~~~~~~n\n', file=results)
-
-def defaultValidation():
-    with open(logFolder+'validationsLogs.log','a+') as lf, open(logFolder+'validationResults.log','a+') as resf:
-        validateAllModels(folder=modelFile,log=lf,results=resf)
 
 
 #check_points= [2000, 5000, 10_000, 15_000, 20_000, 25_000, 30_000, 40_000, 50_000]
-check_points= [5000, 10_000, 15_000, 20_000, 30_000, 40_000, 50_000]
+check_points= [5000, 10_000, 15_000, 20_000, 30_000, 40_000, 50_000, 75_000, 100_000, 125_000, 150_000]
 models= {
          1:(SimpleNN,[5, 15, 1],None),
          2:(SimpleNN,[5, 25, 1],None),
@@ -250,7 +199,11 @@ models= {
         21:(SimpleNN,[10,25,25,2],None),
         22:(SimpleNN,[10,25,25,2],torch.nn.Tanh),
         23:(SimpleNN,[10,25,25,2],[torch.nn.Tanh,torch.nn.ReLU]),
-        24:(SimpleNN,[10,25,25,2],[torch.nn.ReLU,torch.nn.Tanh])
+        24:(SimpleNN,[10,25,25,2],[torch.nn.ReLU,torch.nn.Tanh]),
+        25:(SimpleNN,[10,25,45,45,2],None),
+        26:(SimpleNN,[10,25,45,45,2],torch.nn.Tanh),
+        27:(SimpleNN,[10,25,25,45,45,2],None),
+        28:(SimpleNN,[10,25,25,45,45,2],torch.nn.Tanh)
 }
 
 if __name__ == '__main__':
@@ -271,6 +224,8 @@ if __name__ == '__main__':
     # exp1(exp_no=6, epocs=40_000)
     # exp2(exp_no=6, epocs=40_000)
 
+    #experiment new rerun
+    #exp1 - failed to save los fun name
     # exp1(exp_no=1, epocs=30_000)
     # exp1(exp_no=1, epocs=30_000,losFn=CustomLoss_v(err_ok))
     # exp1(exp_no=2, epocs=30_000)
@@ -279,19 +234,101 @@ if __name__ == '__main__':
     # exp1(exp_no=3, epocs=50_000,losFn=CustomLoss_v(err_ok))
     # exp1(exp_no=7, epocs=30_000)
     # exp1(exp_no=7, epocs=30_000,losFn=CustomLoss_v(err_ok))
-
-    exp1(exp_no=1, epocs=30_000, offset=3)
-    exp1(exp_no=1, epocs=30_000, offset=3, losFn=CustomLoss_v(err_ok))
-    exp1(exp_no=7, epocs=30_000, offset=3)
-    exp1(exp_no=7, epocs=30_000, offset=3, losFn=CustomLoss_v(err_ok))
-    exp4(exp_no=20, epocs=50_000)
-    exp4(exp_no=20, epocs=50_000,losFn=CustomLoss_v(err_ok))
-    exp4(exp_no=20, epocs=50_000, offset=3)
-    exp4(exp_no=20, epocs=50_000, offset=3 ,losFn=CustomLoss_v(err_ok))
-    exp4(exp_no=21, epocs=50_000)
-    exp4(exp_no=21, epocs=50_000,losFn=CustomLoss_v(err_ok))
-    exp4(exp_no=21, epocs=50_000, offset=3)
-    exp4(exp_no=21, epocs=50_000, offset=3, losFn=CustomLoss_v(err_ok))
-
     
+    # #exp2 - failed to save los fun name
+    # exp1(exp_no=1, epocs=30_000, offset=3)
+    # exp1(exp_no=1, epocs=30_000, offset=3, losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=7, epocs=30_000, offset=3)
+    # exp1(exp_no=7, epocs=30_000, offset=3, losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=1, epocs=30_000, offset=2)
+    # exp1(exp_no=1, epocs=30_000, offset=2,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=2, epocs=30_000, offset=2)
+    # exp1(exp_no=2, epocs=30_000, offset=2,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=4, epocs=50_000, offset=2)
+    # exp1(exp_no=4, epocs=50_000, offset=2,losFn=CustomLoss_v(err_ok))
+
+    # print('ex1')
+    # exp1(exp_no=1, epocs=30_000, offset=2, inputDims=6)
+    # exp1(exp_no=1, epocs=30_000, offset=2, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=2, epocs=30_000, offset=2, inputDims=6)
+    # exp1(exp_no=2, epocs=30_000, offset=2, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=4, epocs=50_000, offset=2, inputDims=6)
+    # exp1(exp_no=4, epocs=50_000, offset=2, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=1, epocs=30_000, offset=3, inputDims=6)
+    # exp1(exp_no=1, epocs=30_000, offset=3, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=2, epocs=30_000, offset=3, inputDims=6)
+    # exp1(exp_no=2, epocs=30_000, offset=3, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=4, epocs=50_000, offset=3, inputDims=6)
+    # exp1(exp_no=4, epocs=50_000, offset=3, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=1, epocs=30_000, offset=3, inputDims=7)
+    # exp1(exp_no=1, epocs=30_000, offset=3, inputDims=7,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=2, epocs=30_000, offset=3, inputDims=7)
+    # exp1(exp_no=2, epocs=30_000, offset=3, inputDims=7,losFn=CustomLoss_v(err_ok))
+    # exp1(exp_no=4, epocs=50_000, offset=3, inputDims=7)
+    # exp1(exp_no=4, epocs=50_000, offset=3, inputDims=7,losFn=CustomLoss_v(err_ok))
+
+    # print('ex20')
+    # exp4(exp_no=20, epocs=125_000)
+    # exp4(exp_no=20, epocs=125_000,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=20, epocs=125_000, offset=3)
+    # exp4(exp_no=20, epocs=125_000, offset=3 ,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=20, epocs=125_000, offset=2, inputDims=6)
+    # exp4(exp_no=20, epocs=125_000, offset=2, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=20, epocs=125_000, offset=3, inputDims=6)
+    # exp4(exp_no=20, epocs=125_000, offset=3, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=20, epocs=125_000, offset=3, inputDims=7)
+    # exp4(exp_no=20, epocs=125_000, offset=3, inputDims=7,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=20, epocs=125_000, offset=2)
+    # exp4(exp_no=20, epocs=125_000, offset=2,losFn=CustomLoss_v(err_ok))
+    # print('ex21')
+    # exp4(exp_no=21, epocs=150_000)
+    # exp4(exp_no=21, epocs=150_000,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=21, epocs=150_000, offset=3)
+    # exp4(exp_no=21, epocs=150_000, offset=3, losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=21, epocs=150_000, offset=2, inputDims=6)
+    # exp4(exp_no=21, epocs=150_000, offset=2, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=21, epocs=150_000, offset=3, inputDims=6)
+    # exp4(exp_no=21, epocs=150_000, offset=3, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=21, epocs=150_000, offset=3, inputDims=7)
+    # exp4(exp_no=21, epocs=150_000, offset=3, inputDims=7,losFn=CustomLoss_v(err_ok))
+
+    # print('ex22')
+    # exp4(exp_no=22, epocs=150_000)
+    # exp4(exp_no=22, epocs=150_000,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=22, epocs=150_000, offset=3)
+    # exp4(exp_no=22, epocs=150_000, offset=3, losFn=CustomLoss_v(err_ok))
+
+    # exp4(exp_no=22, epocs=150_000, offset=2, inputDims=6)
+    # exp4(exp_no=22, epocs=150_000, offset=2, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=22, epocs=150_000, offset=3, inputDims=6)
+    # exp4(exp_no=22, epocs=150_000, offset=3, inputDims=6,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=22, epocs=150_000, offset=3, inputDims=7)
+    # exp4(exp_no=22, epocs=150_000, offset=3, inputDims=7,losFn=CustomLoss_v(err_ok))
+
+    # print('ex23-24')
+    # exp4(exp_no=23, epocs=150_000)
+    # exp4(exp_no=23, epocs=150_000,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=23, epocs=150_000, offset=3)
+    # exp4(exp_no=23, epocs=150_000, offset=3, losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=24, epocs=150_000)
+    # exp4(exp_no=24, epocs=150_000,losFn=CustomLoss_v(err_ok))
+    # exp4(exp_no=24, epocs=150_000, offset=3)
+    # exp4(exp_no=24, epocs=150_000, offset=3, losFn=CustomLoss_v(err_ok))  
+
+    # exp4(exp_no=24, epocs=150_000)
+    # exp4(exp_no=24, epocs=150_000,inputDims=7,offset=4)
+    # exp4(exp_no=25, epocs=150_000)
+    # exp4(exp_no=25, epocs=150_000,inputDims=7,offset=4)
+    # exp4(exp_no=26, epocs=150_000)
+    # exp4(exp_no=26, epocs=150_000,inputDims=7,offset=4)
+    # exp4(exp_no=27, epocs=150_000)
+    # exp4(exp_no=27, epocs=150_000,inputDims=7,offset=4)
+
+    # exp4(exp_no=21, epocs=150_000, offset=4, inputDims=7)
+    # exp4(exp_no=22, epocs=150_000, offset=4, inputDims=7)
+
+    # #exp3
+
+    validate2()
+
     # defaultValidation()
