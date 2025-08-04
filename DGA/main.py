@@ -10,6 +10,7 @@ import numpy as np
 import cv2
 
 from backbone.processor import Processor
+from utilities.PathGenerators.DrivfaceInput import DrivfaceInput
 from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
 from utilities.PathGenerators.TemplatePathGenerator import TemplatePathGenerator
 
@@ -275,6 +276,21 @@ def save_im_py2():
 
     for i in range(len(tpg)):
         pc.write_info_to_csv(imps[i],basePath+f'pitch_and_yaw_b{i+1}.csv',tpg[i])
+
+
+def save_im_py3():
+    basePath='D:/Programming/Datasets/drivface/DrivFace/DrivImages/DrivImages/'
+
+    tpg = [DrivfaceInput(basePath,i,False) for i in range(1,5)]
+    imps = [ImageReager(tpg[i]) for i in range(4)] 
+    for i in range(4): imps[i].addFilters([darken, correct_blue])
+
+    pc = gproc()
+
+    #pc.render(imps[3])
+
+    for i in range(len(tpg)):
+        pc.write_info_to_csv(imps[i],f'D:/DCIM/images_12fps/experiment/drivface/pitch_and_yaw_d{i+1}.csv',tpg[i])
     
 
 def some_func(render:bool=True):
@@ -320,6 +336,7 @@ def main():
     #some_func(False)
 
     #save_im_py2()
+    save_im_py3()
 
     return 0
 

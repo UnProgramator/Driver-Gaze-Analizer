@@ -3,14 +3,6 @@ from typing import Final
 from torch import nn, Tensor
 
 
-def train():
-    pass
-
-def test():
-    pass
-
-
-
 class SimpleNN(nn.Module):
     
     fun_name:Final[str]
@@ -33,7 +25,7 @@ class SimpleNN(nn.Module):
 
         modules:OrderedDict[str,nn.Module] = OrderedDict()
 
-        self.fun_name=f'SimpleNN-layers_{sizes[0]}'
+        self.fun_name=f'{type(self).__name__}-layers_{sizes[0]}'
         for i in range(len(sizes)-2):
             modules['layer {}'.format(i)] = nn.Linear(sizes[i], sizes[i+1])
             act_lay:type[nn.Module] = act if act != None else activations[i] # type: ignore

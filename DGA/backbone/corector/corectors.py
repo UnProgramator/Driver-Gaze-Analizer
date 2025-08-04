@@ -45,8 +45,7 @@ def _train(epocs:int,
         if epoch%step == 0:
             string = '|' + '='*(epoch//step) + ' '*(70-epoch//step) + '|'
         perce=f'{epoch/epocs*100:06.2f}%'
-        print(string[0:34], perce, string[35:] ,end='\r',sep=None)
-        model.train()           
+        print(string[0:34], perce, string[35:] ,end='\r',sep=None)          
         optimizer.zero_grad()         # gradients reset to 0
         outputs = model(data)      
         loss = lossFn(outputs, gt)  # loss computation
@@ -107,7 +106,7 @@ def _train(epocs:int,
 
 #     return iacc,ialoss,tacc,taloss
 
-def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, err_ok:float, logFile:IO[str]|None=None, plot_save_file:str|None=None)\
+def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, err_ok:float, logFile:IO[str]|None=None, plot_save_file_template:str|None=None, show_plot:bool=False)\
             -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]:
 
     predictions:torch.Tensor = model(inputVals)
@@ -126,12 +125,18 @@ def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor
         print(f"Initial Error, position{i}: Accuracy(diff < {err_ok:02.2f}): {iacc[i].item():02.2f}%, Avg loss: {ialoss[i].item():08.2f}", file=logFile)
 
     #print([r[4] for r in df['OPWnd'].tolist()])
-    if plot_save_file is not None:
-        raise Exception('Not implemented')
-    #     vdf =  pd.DataFrame({'GT':gtv.squeeze().tolist(), 'l2cs_net':[r[-1] for r in invals.squeeze().tolist()],'Err_corr':predictions.squeeze().tolist()})
-    #     graph = vdf.plot(title='Err correction', figsize=(100,20)) # modify for dinamic dimension
-    #     if plot_save_file: plt.savefig(plot_save_file)
-    #     if show_plot: plt.show()
+    if plot_save_file_template is not None:
+        valDict = {'GT':gtVals.squeeze().tolist(), 'l2cs_net':initialVals.squeeze().tolist(),'Err_corr':predictions.squeeze().tolist()}
+        vdf =  pd.DataFrame(valDict)
+        graph = vdf.plot(title='Err correction', figsize=(100,20)) # modify for dinamic dimension
+        if plot_save_file_template: plt.savefig(plot_save_file_template.format('val'))
+        if show_plot: plt.show()
+
+        valDict = {'l2cs_net-acc':(initialVals==gtVals).type(dtype=torch.int32).squeeze().tolist(),'proces-acc':(torch.abs(predictions-gtVals)>0.000001).type(dtype=torch.int32).squeeze().tolist()}
+        vdf =  pd.DataFrame(valDict)
+        graph = vdf.plot(title='Err correction', figsize=(100,20)) # modify for dinamic dimension
+        if plot_save_file_template: plt.savefig(plot_save_file_template.format('acc'))
+        if show_plot: plt.show()
 
     return iacc,ialoss,tacc,taloss
 
@@ -163,10 +168,10 @@ def train(epocs:int,
 
 def validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, datasetName:str='dataset not specified', err_ok:float=0.05, logFile:IO[str]|None=None, plotSavefile:str|None=None)\
             -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]:
-    print("evaluate on the training data")
+    print(f'evaluate on the {datasetName} data')
     if logFile: print(f'evaluating the model, using data labeled{datasetName}', file=logFile)
     start_time = time.time()
-    r = _validate(model=model, inputVals=inputVals, gtVals=gtVals,initialVals=initialVals, err_ok=err_ok,logFile=logFile,plot_save_file=plotSavefile)
+    r = _validate(model=model, inputVals=inputVals, gtVals=gtVals,initialVals=initialVals, err_ok=err_ok,logFile=logFile,plot_save_file_template=plotSavefile)
     end_time = time.time()
     print(f'validation end in {end_time - start_time} seconds')
     if logFile: print(f'validation end in {end_time - start_time} seconds', file=logFile)

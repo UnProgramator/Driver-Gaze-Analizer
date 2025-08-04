@@ -411,13 +411,14 @@ class Processor:
     def write_info_to_csv(self, imInput:IReader, outFile:str,imPathGen:InputPathGeneratorReader|None = None)->None:
         with open(outFile,'w+') as of:
             name:str = '-'
-            print('Frame id,Yaw,Pitch,FileName,B1,B2,B3,B4',file=of)
+            print('Frame id,Yaw,Pitch,FileName,B1,B2,B3,B4,score',file=of)
             for frid, frame in imInput:
                 try:
                     res, pitch, yaw = self.gaze_pipeline.get_gaze(frame, True)
                     pitch = pitch[0]
                     yaw = yaw[0]
                     bbs:np.ndarray = res.bboxes[0]
+                    scr:np.float32 = res.scores[0]
                     if imPathGen is not None:
                         name = imPathGen.get_crt_image_path()
                         idx:int
@@ -426,6 +427,6 @@ class Processor:
                             try: idx = name.rindex('\\') 
                             except: idx = -1
                         name = name[idx+1:]
-                    print(frid,',', yaw, ',', pitch,',',name, ',',bbs[0], ',',bbs[1], ',',bbs[2], ',',bbs[3], file=of)
+                    print(frid, yaw, pitch, name,bbs[0],bbs[1],bbs[2],bbs[3],scr, sep=',', file=of)
                 except NoFaceException:
                     print(f'No face was detected for {imPathGen.get_crt_image_path() if imPathGen is not None else 'file unkown'}')

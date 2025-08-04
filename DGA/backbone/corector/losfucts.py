@@ -48,7 +48,7 @@ class CustomLoss_v(nn.Module, INamedModule):
         return f'CustomLoss_v_{self.error_ok}'
 
 
-class CustomLossFilter_1(nn.Module):
+class CustomLossFilter_1(nn.Module,INamedModule):
         def __init__(self):
             super().__init__()
 
@@ -65,7 +65,7 @@ class CustomLossFilter_1(nn.Module):
         def name(self)->str:
             return f'CustomLossFilter_1'
 
-class CustomLossFilter_2(nn.Module):
+class CustomLossFilter_2(nn.Module,INamedModule):
         def __init__(self):
             super(CustomLossFilter_2, self).__init__()
 
