@@ -1,3 +1,4 @@
+from typing import Final
 from typing_extensions import override
 import os
 from .InputPathGeneratorReader import InputPathGeneratorReader
@@ -9,10 +10,14 @@ from .InputPathGeneratorReader import InputPathGeneratorReader
 
 class DrivfaceInput(InputPathGeneratorReader):
     set_dim = (0, 179, 170, 167, 90) # the driver number ranges from 1 to 4. 0 is put for convenience only
+    basePath:Final[str]
+    autoCh:Final[bool]
 
-    def __init__(self, iterSet:tuple[int]|int|None=None):
+    def __init__(self, datasetPath:str, iterSet:tuple[int]|int|None=None, autoChangeSet:bool=True):
         self.change_set(1)
         self.iterCrt = None
+        self.basePath=datasetPath
+        self.autoCh=autoChangeSet
         
         if iterSet is None:
             self.iterSet = (1,2,3,4)
@@ -52,7 +57,7 @@ class DrivfaceInput(InputPathGeneratorReader):
         if os.path.exists(pat):
             return pat
 
-        raise Exception(f'bad arguments for function __get_im')
+        raise FileNotFoundError(f'bad arguments for function __get_im')
             
     
     def change_set(self, new_im_set:int) -> None:
@@ -65,23 +70,21 @@ class DrivfaceInput(InputPathGeneratorReader):
     
     @override
     def get_next_image_path(self) -> str:
-        try:
-            if self.last_im >= self.set_size:
-                self.change_set(self.im_set+1)
-            self.last_im+=1
-            return self.__get_im(self.last_im, self.im_set)
-        except:
-            raise IndexError()
+        if self.last_im >= self.set_size:
+            if self.autoCh: self.change_set(self.im_set+1)
+            else: raise IndexError()
+        self.last_im+=1
+        return self.__get_im(self.last_im, self.im_set)
+
     
     @override
     def get_prev_image_path(self) -> str:
-        try:
-            if self.last_im <= 0:
-                self.change_set(self.im_set+1)
-            self.last_im+=1
-            return self.__get_im(self.last_im, self.im_set)
-        except:
-            raise IndexError()
+        if self.last_im <= 0:
+            if self.autoCh: self.change_set(self.im_set+1)
+            else: raise IndexError()
+        self.last_im+=1
+        return self.__get_im(self.last_im, self.im_set)
+            
 
     @override
     def get_crt_image_path(self) -> str:
@@ -89,6 +92,8 @@ class DrivfaceInput(InputPathGeneratorReader):
 
     @override
     def reset(self)->None :
-        self.change_set(0)
+        if self.autoCh: self.change_set(self.iterSet[0])
+        else: self.last_im = 0
+
     
     
