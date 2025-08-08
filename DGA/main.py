@@ -1,4 +1,5 @@
 
+import os
 from cv2.typing import MatLike
 from sklearn.cluster import KMeans
 
@@ -10,6 +11,7 @@ import numpy as np
 import cv2
 
 from backbone.processor import Processor
+from utilities.PathGenerators.FileListGenerator import FileListGenerator
 from utilities.PathGenerators.DrivfaceInput import DrivfaceInput
 from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
 from utilities.PathGenerators.TemplatePathGenerator import TemplatePathGenerator
@@ -311,6 +313,20 @@ def some_func(render:bool=True):
     else:
         pc.verifyImages(imps)
 
+def whyAmIDoingThis():
+    dire='D:/Programming/Datasets/drivface/DrivFace/DrivImages/DrivImages/'
+
+    fl=[f for f in os.listdir(dire) if f.find('jpg')!=-1]
+
+    gen = FileListGenerator(
+        directory=dire,
+        fileList=fl
+        )
+    imps = ImageReager(gen)
+    pc=gproc()
+    pc.render(imps,savePath='D:/Programming/Datasets/drivface/adn/im{imNr}.png')
+
+
 def main():
     
     #imgsrc = DrivfaceInput((1,2,3))
@@ -336,7 +352,9 @@ def main():
     #some_func(False)
 
     #save_im_py2()
-    save_im_py3()
+    #save_im_py3()
+
+    whyAmIDoingThis()
 
     return 0
 

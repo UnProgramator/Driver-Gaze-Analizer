@@ -317,7 +317,7 @@ class Processor:
                 cv2.putText(frame, "Predicted direction: " + str(self.__codate(pitch,yaw)), (0, 110), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 0, 250), 1)
 
                 if savePath is not None:
-                    fullPath = savePath.format(imNr=(start_idx+start_idx))
+                    fullPath = savePath.format(imNr=(start_idx))
                     start_idx+=1
                     cv2.imwrite(fullPath, frame)
                 

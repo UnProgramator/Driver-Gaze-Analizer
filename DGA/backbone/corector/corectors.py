@@ -7,16 +7,9 @@ from typing import IO
 
 import pandas as pd
 
-def saveModel(model:torch.nn.Module, fileName:str, epoch_or_msg:str|int, logFile:IO[str]|None=None):
-    print(f"saving model state in file {fileName} for training epoch {epoch_or_msg}", file=logFile)
-    torch.save(model,fileName)
-    print('model saved succesfully',file=logFile)
+from CorectionUtilities import saveModel, loadModel
 
-def loadModel(fileName:str, logFile:IO[str]|None=None) -> torch.nn.Module:
-    print(f'loaging model structure and weights from file {fileName}', file=logFile)
-    model:torch.nn.Module = torch.load(fileName, weights_only=False)
-    print('Model loaded succesfully', file=logFile)
-    return model.eval()
+#training
 
 def _train(epocs:int, 
            model:torch.nn.Module, 
@@ -64,6 +57,33 @@ def _train(epocs:int,
     return model
 
 
+def train(epocs:int, 
+          model:torch.nn.Module, 
+          vals:torch.Tensor, gt:torch.Tensor,  
+          losFn:torch.nn.Module|None=None , 
+          logFile:IO[str]|None=None,
+          saveSteps:list[int]|None=None, modelSaveFileTemplate:str|None=None) -> torch.nn.Module:
+    #training
+
+    if losFn == None:
+        losFn = torch.nn.MSELoss()
+
+    start_time = time.time()
+    model = _train(epocs, model, vals, gt, losFn, 
+                   logFile=logFile,
+                   saveSteps=saveSteps,
+                   modelSaveFileTemplate=modelSaveFileTemplate)
+    end_time = time.time()
+    
+    print(f'training end in {end_time - start_time} seconds')
+    if logFile: print(f'training end in {end_time - start_time} seconds',file=logFile)
+    
+    return model
+
+
+# validation
+
+
 # def _validate_old(model:torch.nn.Module, invals:torch.Tensor, gtv:torch.Tensor, err_ok:float, logFile:IO[str]|None=None, plot_save_file:str|None=None,show_plot:bool=False)\
 #     -> tuple[float,float,float,float]:
 #     #results are (pitch,yaw)
@@ -106,16 +126,27 @@ def _train(epocs:int,
 
 #     return iacc,ialoss,tacc,taloss
 
-def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, err_ok:float, logFile:IO[str]|None=None, plot_save_file_template:str|None=None, show_plot:bool=False)\
-            -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]:
+def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, err_ok:float, logFile:IO[str]|None=None, plot_save_file_template:str|None=None, show_plot:bool=False, mask:torch.Tensor|None=None)\
+            -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]:
 
     predictions:torch.Tensor = model(inputVals)
     
     taloss = torch.sqrt((torch.square(predictions-gtVals)).mean(dim=0,keepdim=True)).flatten()
     ialoss = torch.sqrt((torch.square(initialVals-gtVals)).mean(dim=0,keepdim=True)).flatten()
 
-    tacc = (torch.abs(predictions-gtVals) <= err_ok).mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
-    iacc = (torch.abs(initialVals-gtVals) <= err_ok).mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    tabsdif = (torch.abs(predictions-gtVals) <= err_ok)
+    iabsdif = (torch.abs(initialVals-gtVals) <= err_ok)
+
+    tacc = tabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    iacc = iabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+    ipac = tabsdif[mask==1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    tpac = iabsdif[mask==1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+    inac = tabsdif[mask==0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    tnac = iabsdif[mask==0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+
 
     if(taloss.shape[0]==1):
         print()
@@ -138,36 +169,11 @@ def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor
         if plot_save_file_template: plt.savefig(plot_save_file_template.format('acc'))
         if show_plot: plt.show()
 
-    return iacc,ialoss,tacc,taloss
+    return iacc,ipac,inac,ialoss,tacc,tpac,tnac,taloss
 
-
-
-
-def train(epocs:int, 
-          model:torch.nn.Module, 
-          vals:torch.Tensor, gt:torch.Tensor,  
-          losFn:torch.nn.Module|None=None , 
-          logFile:IO[str]|None=None,
-          saveSteps:list[int]|None=None, modelSaveFileTemplate:str|None=None) -> torch.nn.Module:
-    #training
-
-    if losFn == None:
-        losFn = torch.nn.MSELoss()
-
-    start_time = time.time()
-    model = _train(epocs, model, vals, gt, losFn, 
-                   logFile=logFile,
-                   saveSteps=saveSteps,
-                   modelSaveFileTemplate=modelSaveFileTemplate)
-    end_time = time.time()
-    
-    print(f'training end in {end_time - start_time} seconds')
-    if logFile: print(f'training end in {end_time - start_time} seconds',file=logFile)
-    
-    return model
 
 def validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, datasetName:str='dataset not specified', err_ok:float=0.05, logFile:IO[str]|None=None, plotSavefile:str|None=None)\
-            -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]:
+            -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]:
     print(f'evaluate on the {datasetName} data')
     if logFile: print(f'evaluating the model, using data labeled{datasetName}', file=logFile)
     start_time = time.time()

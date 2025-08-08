@@ -5,7 +5,7 @@
     <ProjectGuid>91a3806a-0e3f-4f56-997c-bf3f7b22ba70</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>Utilities\Adnotator_app\ImagegazeGT_Labeling.py</StartupFile>
+    <StartupFile>backbone\corector\main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -50,6 +50,7 @@
     <Compile Include="backbone\corector\test\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utilities\Adnotator_app\fileBreak.py" />
     <Compile Include="Utilities\Adnotator_app\fileCatUtilities.py" />
     <Compile Include="Utilities\Adnotator_app\ImagegazeGT_Labeling.py" />
     <Compile Include="Utilities\PathGenerators\FileListGenerator.py" />

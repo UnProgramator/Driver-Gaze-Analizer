@@ -26,7 +26,7 @@ modelFile:str = resultsPath+"models/"
 
 dataPath=resultsPath+'data/'
 
-infile:str = "D:/DCIM/results/data/Err_gaze.csv"
+infile:str = resultsPath+'err_bdrivface.csv'
 
 print_train = False
 
@@ -131,7 +131,9 @@ exp_msg = 'experiment {exp_name}, starting at {tm}, with seed {sed}'
 
 def exp1(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None, inputDims:int=5):
     flog = open(logfile, 'a+')
-    pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+    # pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+    vd = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+    pv, pgt, yv, ygt = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
 
     losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
@@ -146,7 +148,9 @@ def exp1(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset
 
 def exp2(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None, inputDims:int=5):
     flog = open(logfile, 'a+')
-    pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets[1:],5)
+    # pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets[1:],5)
+    vd = readCSV_pitch_and_yaw_many_files(datasets[1:],inputDims,offset=offset)
+    pv, pgt, yv, ygt = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
 
     losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
     modtp,layers,losfun = models[exp_no]
@@ -173,7 +177,9 @@ def exp3(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(), offse
 
 def exp4(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None,inputDims:int=5):
     flog = open(logfile, 'a+')
-    pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets,inputDims,offset=offset)
+    # pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets,inputDims,offset=offset)
+    dd = readCSV_pitch_and_yaw_together_many_files(datasets,inputDims,offset=offset)
+    pv, pgt = dd[FieldNames.Vals], dd[FieldNames.GT]
 
     losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
@@ -186,7 +192,9 @@ def exp4(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset
 
 def exp5(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None,inputDims:int=5):
     flog = open(logfile, 'a+')
-    pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets,inputDims,offset=offset)
+    # pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets,inputDims,offset=offset)
+    dd = readCSV_pitch_and_yaw_together_many_files(datasets,inputDims,offset=offset)
+    pv, pgt = dd[FieldNames.Vals], dd[FieldNames.GT]
 
     losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
@@ -275,7 +283,9 @@ trainLog:Any
 def exp9(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None,inputDims:int=5, seed:int|None=0):
     try:
         flog = open(logfile, 'a+')
-        pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets[2:],inputDims,offset=offset)
+        # pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets[2:],inputDims,offset=offset)
+        dd = readCSV_pitch_and_yaw_together_many_files(datasets[2:],inputDims,offset=offset)
+        pv, pgt = dd[FieldNames.Vals], dd[FieldNames.GT]
 
         losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
@@ -296,7 +306,9 @@ def exp9(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset
 def exp10(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None,inputDims:int=5, seed:int|None=0):
     try:
         flog = open(logfile, 'a+')
-        pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets[2:],inputDims,offset=offset)
+        # pv, pgt = readCSV_pitch_and_yaw_together_many_files(datasets[2:],inputDims,offset=offset)
+        dd = readCSV_pitch_and_yaw_together_many_files(datasets,inputDims,offset=offset)
+        pv, pgt = dd[FieldNames.Vals], dd[FieldNames.GT]
 
         losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
@@ -318,7 +330,8 @@ def exp10(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offse
 def exp11(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None, inputDims:int=5, seed:int|None=0):
     try:
         flog = open(logfile, 'a+')
-        pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+        vd = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+        pv, pgt, yv, ygt = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
 
         pft = (pgt == pv[:,offset]).type(dtype=torch.float32)
 

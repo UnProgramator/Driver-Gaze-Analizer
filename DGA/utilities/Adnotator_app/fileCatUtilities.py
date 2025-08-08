@@ -23,10 +23,15 @@ def catFile(base:str, gt:str,out:str)->None:
                     file = fileDesc,
                     sep=',')
 
-
 def main():
+    print('start')
     for i in range(1,10):
+        print(f'starting processing file {i}')
         catFile(base_file.format(i), gt_file.format(i), out_file.format(i))
+        print(f'finished processing file {i}')
+
 
 if __name__=='__main__':
     main()
+
+    catFile(base_file.format('drivface'),gt_file.format('drivface'), out_file.format('drivface'))
