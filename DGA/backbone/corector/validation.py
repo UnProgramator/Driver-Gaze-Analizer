@@ -1,3 +1,4 @@
+from math import e
 import ntpath
 import os
 import time
@@ -12,7 +13,7 @@ from SimpleNN import SimpleNN
 
 resultsPath='D:/DCIM/images_12fps/experiment/'
 
-experiment='e1'
+experiment='e8'
 
 prefix=f'{experiment}-'
 
@@ -119,9 +120,16 @@ class Validation():
         info['out']=int(struct[-1])
         info['ofs']=int(tokens[5][6:]) if tokens[5][6]!='N' else info['indim']-1
         info['dtype']=3 if dts=='pitch_and_yaw' else 2 if dts=='yaw' else 1
-        if len(tokens[2]) > 4: 
+        #backwards Compatible
+        if tokens[2].find('_')>=0: 
             if tokens[2].find('iset'):
                 info['iset']=int(tokens[2][9]) if tokens[2][9] != 'N' else 9
+        elif tokens[-1].find('iset'):
+            vset=tokens[-1].split('_')[1]
+            info['iset']=int(vset) if vset[0] != 'N' else 9
+        elif tokens[-1].find('exclude'):
+            vset=tokens[-1].split('_')[1]
+            info['exclude']=int(vset)
         # match tokens[0]:
         #     case 'DeciderNN':
         #         info['GT']='eq'
@@ -159,7 +167,7 @@ class Validation():
                 dd = readCSV_pitch_and_yaw_together_many_files(datasets,inputDim=tup[1],offset=tup[2])
                 v,gt = dd[FieldNames.Vals], dd[FieldNames.GT]
                 self.loadedDatasets[tup]=[('training',(v,gt))]
-                self.loadedDatasets[tup]= [(f'{FieldNames.fErr}-t', dd[FieldNames.fErr])]
+                self.loadedDatasets[tup].append((f'{FieldNames.fErr}-t', dd[FieldNames.fErr]))
 
 
                 # v,gt = readCSV_pitch_and_yaw_together(infile,inputDim=tup[1],offset=tup[2])
@@ -169,35 +177,52 @@ class Validation():
                 # gt = torch.cat((pgt1,ygt1),dim=1)
 
                 dd1 = readCSV_drivface_sep(infile,inputDim=tup[1],offset=tup[2],bCat=True)
-                v = torch.cat((dd1[FieldNames.pVals],dd1[FieldNames.yVals]), dim=1, dtype=dd1[FieldNames.pVals].dtype)
-                gt = torch.cat((dd1[FieldNames.pGT],dd1[FieldNames.yGT]), dim=1, dtype=dd1[FieldNames.pGT].dtype)
-                self.loadedDatasets[tup].append(('validation',(v,gt)))
-                self.loadedDatasets[tup]= [(f'{FieldNames.fErr}-v', dd1[FieldNames.fErr])]
+                v = torch.cat((dd1[FieldNames.pVals],dd1[FieldNames.yVals]), dim=1)
+                gt = torch.cat((dd1[FieldNames.pGT],dd1[FieldNames.yGT]), dim=1)
+                self.loadedDatasets[tup].append(('testing',(v,gt)))
+                self.loadedDatasets[tup].append((f'{FieldNames.fErr}-v', dd1[FieldNames.fErr]))
             else:
                 if 'iset' not in info: #OK
                     tp=(1,tup[1],tup[2],tup[3])
                     ty=(2,tup[1],tup[2],tup[3])
                     if tup[1]==tup[3]:
-                        dd = readCSV_pitch_and_yaw_many_files(datasets,inputDim=tup[1],offset=tup[2])
-                        pv,pgt,yv,ygt = dd[FieldNames.pvals], dd[FieldNames.pGT], dd[FieldNames.yVals], dd[FieldNames.yGT]
-                        pv,pgt = self.preproces(info,pv,pgt,tup[2])
-                        yv,ygt = self.preproces(info,yv,ygt,tup[2])
-                        self.loadedDatasets[tp]=[('training',(pv,pgt))]
-                        self.loadedDatasets[ty]=[('training',(yv,ygt))]
-                        self.loadedDatasets[tp]=self.loadedDatasets[ty]= [(f'{FieldNames.fErr}-t', dd[FieldNames.fErr])]
+                        if 'exclude' not in info:
+                            dd = readCSV_pitch_and_yaw_many_files(datasets,inputDim=tup[1],offset=tup[2])
+                            pv,pgt,yv,ygt = dd[FieldNames.pVals], dd[FieldNames.pGT], dd[FieldNames.yVals], dd[FieldNames.yGT]
+                            pv,pgt = self.preproces(info,pv,pgt,tup[2])
+                            yv,ygt = self.preproces(info,yv,ygt,tup[2])
+                            self.loadedDatasets[tp]=[('training',(pv,pgt))]
+                            self.loadedDatasets[ty]=[('training',(yv,ygt))]
+                            self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-t', dd[FieldNames.fErr])]
+                            self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-t', dd[FieldNames.fErr])]
+                        else:
+                            dd = readCSV_pitch_and_yaw_many_files(datasets[1:],inputDim=tup[1],offset=tup[2])
+                            vd = readCSV_pitch_and_yaw(datasets[0],inputDim=tup[1],offset=tup[2])
+                            pv,pgt,yv,ygt = dd[FieldNames.pVals], dd[FieldNames.pGT], dd[FieldNames.yVals], dd[FieldNames.yGT]
+                            pvv,pgtv,yvv,ygtv = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
+                            pv,pgt = self.preproces(info,pv,pgt,tup[2])
+                            yv,ygt = self.preproces(info,yv,ygt,tup[2])
+                            self.loadedDatasets[tp]=[('training-1',(pv,pgt))]
+                            self.loadedDatasets[ty]=[('training-1',(yv,ygt))]
+                            self.loadedDatasets[tp]=[('validation-1',(pvv,pgtv))]
+                            self.loadedDatasets[ty]=[('validation-1',(yvv,ygtv))]
+                            self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-t', dd[FieldNames.fErr])]
+                            self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-t', dd[FieldNames.fErr])]
+
 
                         #pv1,pgt1,yv1,ygt1 = readCSV_pitch_and_yaw(infile,inputDim=tup[1],offset=tup[2])
                         # pv1,pgt1,_,_ = drivface_readPitch(infile,inputDim=tup[1],offset=tup[2])
                         # yv1,ygt1,_,_ = drivface_readYaw  (infile,inputDim=tup[1],offset=tup[2])
 
-                        dd1 = readCSV_drivface_sep(infile,inputDim=tup[1],offset=tup[2],bCat=False)
+                        dd1 = readCSV_drivface_sep(infile,inputDim=tup[1],offset=tup[2],bCat=True)
                         # pv1,pgt1=self.preproces(info,pv1,pgt1,tup[2])
                         # yv1,ygt1=self.preproces(info,yv1,ygt1,tup[2])
-                        pv1, pgt1, yv1, ygt1 = dd1[FieldNames.pvals], dd1[FieldNames.pGT], dd1[FieldNames.yVals], dd1[FieldNames.yGT]
-                        self.loadedDatasets[tp]+=[('validation',(pv1,pgt1))]
-                        self.loadedDatasets[ty]+=[('validation',(yv1,ygt1))]
-                        self.loadedDatasets[tp]=self.loadedDatasets[ty]= [(f'{FieldNames.fErr}-v', dd1[FieldNames.fErr])]
-                    else: #NOOOOOOOOOOOOOOOOOOOO
+                        pv1, pgt1, yv1, ygt1 = dd1[FieldNames.pVals], dd1[FieldNames.pGT], dd1[FieldNames.yVals], dd1[FieldNames.yGT]
+                        self.loadedDatasets[tp]+=[('testing',(pv1,pgt1))]
+                        self.loadedDatasets[ty]+=[('testing',(yv1,ygt1))]
+                        self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-v', dd1[FieldNames.fErr])]
+                        self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-v', dd1[FieldNames.fErr])]
+                    else: 
                         dd = readCSV_pitch_and_yaw_together_many_files(datasets,inputDim=tup[1],offset=tup[2])
                         v,gt = dd[FieldNames.Vals], dd[FieldNames.GT]
                         pgt=gt[:,0].view(-1,1)
@@ -206,21 +231,23 @@ class Validation():
                         yv,ygt=self.preproces(info,v,ygt,tup[2])
                         self.loadedDatasets[tp]=[('training',(pv,pgt))]
                         self.loadedDatasets[ty]=[('training',(yv,ygt))]
-                        self.loadedDatasets[tp]=self.loadedDatasets[ty]= [(f'{FieldNames.fErr}-v', dd[FieldNames.fErr])]
+                        self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-t', dd[FieldNames.fErr])]
+                        self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-t', dd[FieldNames.fErr])]
 
                         # v,gt = readCSV_pitch_and_yaw_together(infile,inputDim=tup[1],offset=tup[2])
                         # pv1,pgt1,_,_ = drivface_readPitch(infile,inputDim=tup[1],offset=tup[2])
                         # yv1,ygt1,_,_ = drivface_readYaw  (infile,inputDim=tup[1],offset=tup[2])
 
-                        dd1 = readCSV_drivface_sep(infile,inputDim=tup[1],offset=tup[2],bCat=False)
-                        pv1, pgt1, yv1, ygt1= dd1[FieldNames.pvals], dd1[FieldNames.pGT], dd1[FieldNames.yVals], dd1[FieldNames.yGT]
+                        dd1 = readCSV_drivface_sep(infile,inputDim=tup[1],offset=tup[2],bCat=True)
+                        pv1, pgt1, yv1, ygt1= dd1[FieldNames.pVals], dd1[FieldNames.pGT], dd1[FieldNames.yVals], dd1[FieldNames.yGT]
                         v1 = torch.cat((pv1,yv1),dim=1)
                         pv1,pgt1=self.preproces(info,v1,pgt1,tup[2])
                         yv1,ygt1=self.preproces(info,v1,ygt1,tup[2])
                         print('='*80,'\nError: Driovface values not read properly\n','='*80)
-                        self.loadedDatasets[tp]+=[('validation',(v1,pgt1))]
-                        self.loadedDatasets[ty]+=[('validation',(v1,ygt1))]
-                        self.loadedDatasets[tp]=self.loadedDatasets[ty]= [(f'{FieldNames.fErr}-v', dd1[FieldNames.fErr])]
+                        self.loadedDatasets[tp]+=[('testing',(v1,pgt1))]
+                        self.loadedDatasets[ty]+=[('testing',(v1,ygt1))]
+                        self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-v', dd1[FieldNames.fErr])]
+                        self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-v', dd1[FieldNames.fErr])]
                 else:
                     tp=(10+info['iset'],tup[1],tup[2],tup[3])
                     ty=(20+info['iset'],tup[1],tup[2],tup[3])
@@ -230,19 +257,22 @@ class Validation():
                         # yvt,ygtt,yvv,ygtv =   drivface_readYaw(infile,inputDim=tup[1],offset=tup[2],iset=info['iset'])
 
                         dd1 = readCSV_drivface_sep(infile,inputDim=tup[1],offset=tup[2],bCat=False)
-                        pv1, pgt1, yv1, ygt1= dd1[FieldNames.pvals], dd1[FieldNames.pGT], dd1[FieldNames.yVals], dd1[FieldNames.yGT]
+                        pv1, pgt1, yv1, ygt1, fErr= dd1[FieldNames.pVals], dd1[FieldNames.pGT], dd1[FieldNames.yVals], dd1[FieldNames.yGT], dd1[FieldNames.fErr]
 
                         iset=info['iset']
 
                         pvv = pv1.pop(iset)
-                        pvt = torch.cat(pv1, dtype=pvv.dtype)
+                        pvt = torch.cat(pv1)
                         pgtv = pgt1.pop(iset)
-                        pgtt = torch.cat(pgt1, dtype=pgtv.dtype)
+                        pgtt = torch.cat(pgt1)
 
                         yvv = yv1.pop(iset)
-                        yvt = torch.cat(yv1, dtype=yvv.dtype)
+                        yvt = torch.cat(yv1)
                         ygtv = ygt1.pop(iset)
-                        ygtt = torch.cat(pgt1, dtype=ygtv.dtype)
+                        ygtt = torch.cat(pgt1)
+
+                        ferv = fErr.pop(iset)
+                        fert = torch.cat(fErr)
 
                         self.loadedDatasets[tp]=[(f'training-{info['iset']}',(pvt,pgtt))]
                         self.loadedDatasets[ty]=[(f'training-{info['iset']}',(yvt,ygtt))]
@@ -250,31 +280,38 @@ class Validation():
                         self.loadedDatasets[tp]+=[(f'validation-{info['iset']}',(pvv,pgtv))]
                         self.loadedDatasets[ty]+=[(f'validation-{info['iset']}',(yvv,ygtv))]
 
-                        self.loadedDatasets[tp]=self.loadedDatasets[ty]= [(f'{FieldNames.fErr}-s{info['iset']}', dd1[FieldNames.fErr])]
+                        self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-st{info['iset']}', fert)]
+                        self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-st{info['iset']}', fert)]
+
+                        self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-sv{info['iset']}', ferv)]
+                        self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-sv{info['iset']}', ferv)]
 
                         dd = readCSV_pitch_and_yaw_many_files(datasets,inputDim=tup[1],offset=tup[2])
-                        pv,pgt,yv,ygt = dd[FieldNames.pvals], dd[FieldNames.pGT], dd[FieldNames.yVals], dd[FieldNames.yGT]
-                        self.loadedDatasets[tp]+=[('validation-u',(pv,pgt))]
-                        self.loadedDatasets[ty]+=[('validation-u',(yv,ygt))]
-                        self.loadedDatasets[tp]=self.loadedDatasets[ty]= [(f'{FieldNames.fErr}-v', dd[FieldNames.fErr])]
+                        pv,pgt,yv,ygt = dd[FieldNames.pVals], dd[FieldNames.pGT], dd[FieldNames.yVals], dd[FieldNames.yGT]
+                        self.loadedDatasets[tp]+=[('testing',(pv,pgt))]
+                        self.loadedDatasets[ty]+=[('testing',(yv,ygt))]
+                        self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-v', dd[FieldNames.fErr])]
+                        self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-v', dd[FieldNames.fErr])]
                     else: # OK
                         dd = readCSV_pitch_and_yaw_many_files(datasets,inputDim=tup[1],offset=tup[2])
-                        pv,pgt,yv,ygt = dd[FieldNames.pvals], dd[FieldNames.pGT], dd[FieldNames.yVals], dd[FieldNames.yGT]
-                        self.loadedDatasets[tp]=[('validation',(pv,pgt))]
-                        self.loadedDatasets[ty]=[('validation',(yv,ygt))]
-                        self.loadedDatasets[tp]=self.loadedDatasets[ty]= [(f'{FieldNames.fErr}-v', dd[FieldNames.fErr])]
+                        pv,pgt,yv,ygt = dd[FieldNames.pVals], dd[FieldNames.pGT], dd[FieldNames.yVals], dd[FieldNames.yGT]
+                        self.loadedDatasets[tp]=[('testing',(pv,pgt))]
+                        self.loadedDatasets[ty]=[('testing',(yv,ygt))]
+                        self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-v', dd[FieldNames.fErr])]
+                        self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-v', dd[FieldNames.fErr])]
 
                         # v,gt = readCSV_pitch_and_yaw_together(infile,inputDim=tup[1],offset=tup[2])
                         # pv1,pgt1,_,_ = drivface_readPitch(infile,inputDim=tup[1],offset=tup[2])
                         # yv1,ygt1,_,_ = drivface_readYaw  (infile,inputDim=tup[1],offset=tup[2])
 
                         dd1 = readCSV_drivface_sep(infile,inputDim=tup[1],offset=tup[2],bCat=True)
-                        pv1, pgt1, yv1, ygt1= dd1[FieldNames.pvals], dd1[FieldNames.pGT], dd1[FieldNames.yVals], dd1[FieldNames.yGT]
+                        pv1, pgt1, yv1, ygt1= dd1[FieldNames.pVals], dd1[FieldNames.pGT], dd1[FieldNames.yVals], dd1[FieldNames.yGT]
                         
                         print('='*80,'\nError: Driovface values not read properly\n','='*80)
                         self.loadedDatasets[tp]+=[('training',(pv1,pgt1))]
                         self.loadedDatasets[ty]+=[('training',(yv1,ygt1))]
-                        self.loadedDatasets[tp]=self.loadedDatasets[ty]= [(f'{FieldNames.fErr}-t', dd1[FieldNames.fErr])]
+                        self.loadedDatasets[tp]+= [(f'{FieldNames.fErr}-t', dd1[FieldNames.fErr])]
+                        self.loadedDatasets[ty]+= [(f'{FieldNames.fErr}-t', dd1[FieldNames.fErr])]
 
         return self.loadedDatasets[tup]
    
@@ -284,6 +321,25 @@ class Validation():
             return 'pitch' if info['dtype']==1 else 'yaw'
         else:
             return 'pitch' if info['dtype']//10==1 else 'yaw'
+    
+    def __getFErr(self,name:str,datasets:list[tuple[str,torch.Tensor|tuple[torch.Tensor,torch.Tensor]]])->torch.Tensor:     
+        match name.split('-'):
+            case ['validation']:
+                fn=f'{FieldNames.fErr}-v'
+            case ['training']:
+                fn=f'{FieldNames.fErr}-t'
+            case ['validation','u']:
+                fn=f'{FieldNames.fErr}-v'
+            case ['training',x]:
+                fn=f'{FieldNames.fErr}-st{x}'
+            case ['validation',x]:
+                fn=f'{FieldNames.fErr}-sv{x}'
+            case _:
+                raise Exception('critical unforseen error: wtf has happened? change part of the code but not all?')
+        for p,t in datasets:
+            if p==fn:
+                return t
+        raise Exception('critical unforseen error: wtf has happened? change part of the code but not all?')
 
     def validateModel(self,modelPath:str,log:IO[str]|None=None, results:IO[str]|None=None, csvFile:IO[str]|None=None, plotFileTemplate:str|None=None)->None:
             
@@ -300,8 +356,13 @@ class Validation():
         testType=self.__getType(info)
 
         for validationName,t in dts:
+            if validationName.find(FieldNames.fErr) >= 0:
+                continue
+
+            fErt:torch.Tensor=self.__getFErr(validationName, dts)
+
             v,gt=t
-            pos:list[int]
+            pos:int|list[int]
             if info['dtype'] !=3:
                 if info['indim']==info['inlayer']:
                     pos=info['ofs']  
@@ -313,12 +374,11 @@ class Validation():
             else:
                pos=[info['ofs'],info['ofs']+info['indim']]
             initialv = v[:,pos]
-            if info['out'] == 1 : initialv=initialv.view(-1, 1)
-            assert initialv.shape == gt.shape, 'initial values tensor shape is not right (the as as the shape of the gt)'
-            iacc,ipac,inac,ialoss,tacc,tpac,tnac,taloss = validate(model=model,inputVals=v,gtVals=gt,initialVals=initialv,datasetName=validationName, logFile=results,
+            if type(pos) is int: 
+                initialv=initialv.view(-1, 1)
+            assert initialv.shape == gt.shape, f'initial values tensor shape ({initialv.shape}) is not right (the as as the shape of the gt ({gt.shape}))'
+            iacc,ipac,inac,ialoss,tacc,tpac,tnac,taloss = validate(model=model,inputVals=v,gtVals=gt,initialVals=initialv,datasetName=validationName, logFile=results, mask=fErt,
                                                                     plotSavefile=plotFileTemplate.format(validationName) if plotFileTemplate else None)
-
-            
 
             if info['out'] == 1:
                 print(experiment,self.expcode,modelName,validationName,testType,

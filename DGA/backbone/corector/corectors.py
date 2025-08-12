@@ -3,7 +3,7 @@ import time
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-from typing import IO
+from typing import IO, Any, Callable
 
 import pandas as pd
 
@@ -18,8 +18,14 @@ def _train(epocs:int,
            lossFn:torch.nn.Module,
            logFile:IO[str]|None=None,
            saveSteps:list[int]|None=None,
-           modelSaveFileTemplate:str|None=None
+           modelSaveFileTemplate:str|None=None,
+           validIn:torch.Tensor|None=None,
+           validGt:torch.Tensor|None=None,
+           validComp:Callable[[torch.Tensor,torch.Tensor,Any],tuple[bool,Any]]|None=None
            ) -> torch.nn.Module:
+
+
+
     # NN loss and optimizer
     #criterion = nn.MSELoss()  # Mean Squared Error Loss
     #criterion = CustomLoss(err_ok)
@@ -28,13 +34,19 @@ def _train(epocs:int,
     assert saveSteps is None or modelSaveFileTemplate is not None ,\
            'modelSaveFileTemplate not given when saveSteps given'
 
+    assert validIn is None and validGt is None or validGt is not None and validIn is not None,\
+           'one tensor foe validation given, not both'
+
     model.train()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     step = epocs//70
     string='|'+' '*70+'|'
+    newBest:Any=None
+    betterEpoc:int|None=None
     # NN training
     for epoch in range(1,epocs+1):
+        model.train()
         if epoch%step == 0:
             string = '|' + '='*(epoch//step) + ' '*(70-epoch//step) + '|'
         perce=f'{epoch/epocs*100:06.2f}%'
@@ -45,14 +57,26 @@ def _train(epocs:int,
         loss.backward()               # backpropagation
         optimizer.step()              # weights adjustement
         
+        if validIn is not None:
+            model=model.eval()
+            res = model(validIn)
+            bBetter, newBest = validComp(res, validGt, newBest)
+            if bBetter:
+                betterEpoc=epoch
+                saveModel(model,modelSaveFileTemplate.format('Best'), epoch, logFile)
+
         if saveSteps is not None and epoch in saveSteps: # do not save at the last step, as it will be saved anyway
             saveModel(model,modelSaveFileTemplate.format(epoch), epoch, logFile)
 
         if logFile and (epoch + 1) % (epocs/10) == 0:
             print(f"Epoch {epoch+1}/{epocs}, Loss: {loss.item():.4f}", file=logFile) # display loss during training
     print()
-    if modelSaveFileTemplate is not None and (saveSteps is None or epocs not in saveSteps):
+    if modelSaveFileTemplate is not None and (saveSteps is None or epocs not in saveSteps) and validIn is None: # ???
         saveModel(model,modelSaveFileTemplate.format(epocs), 'finish of training', logFile)
+
+    if validIn is not None:
+        print(f'Validation results: For model {model.fun_name} the best accuracy during validation was {newBest} oftained at epcoh {betterEpoc}', file=logFile)
+        print(f'Validation results: For model {model.fun_name} the best accuracy during validation was {newBest} oftained at epcoh {betterEpoc}')
 
     return model
 
@@ -62,7 +86,11 @@ def train(epocs:int,
           vals:torch.Tensor, gt:torch.Tensor,  
           losFn:torch.nn.Module|None=None , 
           logFile:IO[str]|None=None,
-          saveSteps:list[int]|None=None, modelSaveFileTemplate:str|None=None) -> torch.nn.Module:
+          saveSteps:list[int]|None=None, modelSaveFileTemplate:str|None=None,
+           validIn:torch.Tensor|None=None,
+           validGt:torch.Tensor|None=None,
+           validComp:Callable[[torch.Tensor,torch.Tensor,Any],tuple[bool,Any]]|None=None
+           ) -> torch.nn.Module:
     #training
 
     if losFn == None:
@@ -72,7 +100,10 @@ def train(epocs:int,
     model = _train(epocs, model, vals, gt, losFn, 
                    logFile=logFile,
                    saveSteps=saveSteps,
-                   modelSaveFileTemplate=modelSaveFileTemplate)
+                   modelSaveFileTemplate=modelSaveFileTemplate,
+                   validIn=validIn,
+                   validGt=validGt,
+                   validComp=validComp)
     end_time = time.time()
     
     print(f'training end in {end_time - start_time} seconds')
@@ -127,24 +158,34 @@ def train(epocs:int,
 #     return iacc,ialoss,tacc,taloss
 
 def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, err_ok:float, logFile:IO[str]|None=None, plot_save_file_template:str|None=None, show_plot:bool=False, mask:torch.Tensor|None=None)\
-            -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]:
+            -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]|tuple[torch.Tensor,None,None,torch.Tensor,torch.Tensor,None,None,torch.Tensor]:
 
     predictions:torch.Tensor = model(inputVals)
-    
+
+    #assert gtVals.shape == initialVals.shape, f'shape not corect GT{gtVals.shape} initial{initialVals.shape}'
+
     taloss = torch.sqrt((torch.square(predictions-gtVals)).mean(dim=0,keepdim=True)).flatten()
     ialoss = torch.sqrt((torch.square(initialVals-gtVals)).mean(dim=0,keepdim=True)).flatten()
 
-    tabsdif = (torch.abs(predictions-gtVals) <= err_ok)
-    iabsdif = (torch.abs(initialVals-gtVals) <= err_ok)
+    tabsdif = torch.abs(predictions-gtVals) <= err_ok
+    iabsdif = torch.abs(initialVals-gtVals) <= err_ok
 
     tacc = tabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
     iacc = iabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
 
-    ipac = tabsdif[mask==1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
-    tpac = iabsdif[mask==1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    if mask is not None:
+        m1 = mask == 1
+        ipac = iabsdif[m1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+        tpac = tabsdif[m1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
 
-    inac = tabsdif[mask==0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
-    tnac = iabsdif[mask==0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+        m0=mask == 0
+        inac = iabsdif[m0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+        tnac = tabsdif[m0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    else:
+        ipac=None
+        tpac=None
+        inac=None
+        tnac=None
 
 
 
@@ -172,12 +213,12 @@ def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor
     return iacc,ipac,inac,ialoss,tacc,tpac,tnac,taloss
 
 
-def validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, datasetName:str='dataset not specified', err_ok:float=0.05, logFile:IO[str]|None=None, plotSavefile:str|None=None)\
-            -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]:
+def validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor, initialVals:torch.Tensor, datasetName:str='dataset not specified', err_ok:float=0.05, logFile:IO[str]|None=None, plotSavefile:str|None=None, mask:torch.Tensor|None=None)\
+            -> tuple[torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor]|tuple[torch.Tensor,None,None,torch.Tensor,torch.Tensor,None,None,torch.Tensor]:
     print(f'evaluate on the {datasetName} data')
     if logFile: print(f'evaluating the model, using data labeled{datasetName}', file=logFile)
     start_time = time.time()
-    r = _validate(model=model, inputVals=inputVals, gtVals=gtVals,initialVals=initialVals, err_ok=err_ok,logFile=logFile,plot_save_file_template=plotSavefile)
+    r = _validate(model=model, inputVals=inputVals, gtVals=gtVals,initialVals=initialVals, err_ok=err_ok,logFile=logFile,plot_save_file_template=plotSavefile, mask=mask)
     end_time = time.time()
     print(f'validation end in {end_time - start_time} seconds')
     if logFile: print(f'validation end in {end_time - start_time} seconds', file=logFile)

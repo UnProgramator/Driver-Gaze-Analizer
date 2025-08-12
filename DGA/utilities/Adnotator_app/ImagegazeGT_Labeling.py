@@ -15,7 +15,7 @@ from backbone import my_pipeline
 
 # Parameters
 
-batch = 'drivface' # to correct 2 # 1-4
+batch = '2' # to correct 2 # 1-4
 
 basePath = 'D:/DCIM/images_12fps/'
 

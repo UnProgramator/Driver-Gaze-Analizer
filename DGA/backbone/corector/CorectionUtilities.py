@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 import marshal
-from warnings import deprecated
+#from warnings import deprecated
 import torch
 import numpy as np
 
 import pandas as pd
 import ast
 
-from typing import Any, Final, Iterable, List, Tuple
+from typing import IO, Any, Final, Iterable, List, Tuple
 
 
 
@@ -41,7 +41,7 @@ class FieldNames:
 # 178, 170, 167, 90
 __pic_idx = {0:(1,178), 1:(179,348), 2:(349,515), 3:(516,605)}
 
-@deprecated
+#@deprecated
 def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int=5, offset:int|None=None, iset:int|None = None, vf:str='Original Pitch',gtf:str='Ground Truth Pitch') \
             -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor|None, torch.Tensor|None]:
     '''
@@ -158,9 +158,9 @@ def readCSV_drivface_sep(fpath:str, inputDim:int=5, offset:int|None=None,
     for i in range(4):
         i1,i2 = __pic_idx[i]
         _pvals_set[i]= __getRangeVals(_pvals[i1:i2+1])
-        _pgt_set[i]  = __getRangeGtEr(_pgt[i1:i2+1])
+        _pgt_set[i]  = __getRangeGtEr(_pgt[i1:i2+1]).view(-1,1)
         _yvals_set[i]= __getRangeVals(_yvals[i1:i2+1])
-        _ygt_set[i]  = __getRangeGtEr(_ygt[i1:i2+1])
+        _ygt_set[i]  = __getRangeGtEr(_ygt[i1:i2+1]).view(-1,1)
         _fer_set[i]  = __getRangeGtEr(_fer[i1:i2+1])
 
     if bCat:
@@ -318,7 +318,8 @@ def readCSV_pitch_and_yaw_together(fpath:str, inputDim:int, pvf:str='Original Pi
 
     Vals = torch.tensor(vals_tup, dtype=torch.float32)
     GT = torch.tensor(gt, dtype=torch.float32)
-    FErr = torch.tensor(gt, dtype=torch.float32)
+    FErr = torch.tensor(fer[stgt:len(fer)-endgt], dtype=torch.uint8)#.view(-1,1)
+    #FErr = torch.cat((FErr,FErr),dim=1)
 
     return {FieldNames.Vals:Vals, FieldNames.GT:GT, FieldNames.fErr:FErr}
 
@@ -347,7 +348,8 @@ def readCSV_pitch_and_yaw_together_many_files(fpaths:Iterable[str], inputDim:int
     fer:list[torch.Tensor] = []
 
     for fpath in fpaths:
-        v, gt,fe = readCSV_pitch_and_yaw_together(fpath, inputDim, pvf, pgf, yvf, ygf, offset=offset)
+        dd = readCSV_pitch_and_yaw_together(fpath, inputDim, pvf, pgf, yvf, ygf, offset=offset)
+        v, gt,fe = dd[FieldNames.Vals], dd[FieldNames.GT], dd[FieldNames.fErr]
         p.append(v)
         pgt.append(gt)
         fer.append(fe)

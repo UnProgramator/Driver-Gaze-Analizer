@@ -149,7 +149,7 @@ def exp1(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset
 def exp2(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None, inputDims:int=5):
     flog = open(logfile, 'a+')
     # pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets[1:],5)
-    vd = readCSV_pitch_and_yaw_many_files(datasets[1:],inputDims,offset=offset)
+    vd = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
     pv, pgt, yv, ygt = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
 
     losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
@@ -161,6 +161,7 @@ def exp2(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset
     model_y=modtp(layers,losfun)
     model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp2-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-exp2-pitch-epoch{}.model')
 
+
 def exp3(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(), offset:int|None=None, inputDims:int=5):
     flog = open(logfile, 'a+')
     pv, pgt, _, _ = readCSV_gt_evaled_loo_drivface(infile, 5, None)
@@ -171,9 +172,9 @@ def exp3(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(), offse
     model_p=modtp(layers,losfun)
     seed=torch.seed()
     print(exp_msg.format(exp_name='exp3'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
-    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp3-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-exp3-yaw-epoch{}.model')
+    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp3_isetNone-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-exp3-yaw-epoch{}.model')
     model_y=modtp(layers,losfun)
-    model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp3-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-exp3-pitch-epoch{}.model')
+    model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp3_isetNone-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-exp3-pitch-epoch{}.model')
 
 def exp4(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offset:int|None=None,inputDims:int=5):
     flog = open(logfile, 'a+')
@@ -259,7 +260,7 @@ def exp8(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(), offse
         pv, pgt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset)
         # yv, ygt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset, vf='Original Yaw', gtf='Ground Truth Yaw')
 
-        torch.manual_seed(0)
+        torch.manual_seed(seed)
         model_p=modtp(layers,losfun)
         print(exp_msg.format(exp_name='exp3'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
         model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp8_iset{iset}-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
@@ -273,7 +274,7 @@ def exp8(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(), offse
     torch.manual_seed(seed)
     model_p=modtp(layers,losfun)
     print(exp_msg.format(exp_name='exp3'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
-    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp8-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
+    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-exp8_isetNone-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
     # torch.manual_seed(0)
     # model_y=modtp(layers,losfun)
     # model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp8-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'  +'-epoch{}.model')
@@ -355,6 +356,138 @@ def exp11(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offse
         print(exp_msg.format(exp_name='exp1'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
     except Exception as e:
         print(f'eroare la modeId:{exp_no} ofs:{offset} idms:{inputDims} with {e}',file=trainLog)
+
+
+#final experiemnt for paper submision
+def exp12(losFn:torch.nn.Module= torch.nn.MSELoss()):
+    epocs = 15_000
+    check_points=None
+
+    flog = open(logfile, 'a+')
+
+    losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
+
+    def validComp1(netvals:torch.Tensor, gt:torch.Tensor, oldRes:float):
+        tabsdif = torch.abs(netvals-gt) <= err_ok
+        tacc = tabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+        nv = tacc.item()
+        if oldRes < nv:
+            return True, nv
+        else:
+            return False, oldRes
+    
+
+    def test_model1(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        modtp,layers,losfun = models[exp_no]
+        layers[0]=inputDims
+
+        for i in range(4):
+            iset = i 
+            pv, pgt, vv, vgt = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset)
+            # yv, ygt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset, vf='Original Yaw', gtf='Ground Truth Yaw')
+
+            torch.manual_seed(seed)
+            model_p=modtp(layers,losfun)
+            print(exp_msg.format(exp_name='exp3'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+            model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, 
+                            modelFile+model_p.fun_name+f'-expc-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}-epoch{{}}-iset_{iset}.model',
+                            validIn=vv,
+                            validGt=vgt,
+                            validComp=validComp1
+                            )
+            # torch.manual_seed(0)
+            # model_y=modtp(layers,losfun)
+            # model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp8_iset{iset}-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'  +'-epoch{}.model')
+    
+        # pv, pgt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=None)
+        # yv, ygt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=None, vf='Original Yaw', gtf='Ground Truth Yaw')
+
+        #================================================================================================================ to decomant for final experiment
+        # torch.manual_seed(seed)
+        # model_p=modtp(layers,losfun)
+        # print(exp_msg.format(exp_name='exp3'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+        # dd = readCSV_pitch_and_yaw(datasets,inputDims,offset=offset)
+        # pv, pgt = dd[FieldNames.pVals], dd[FieldNames.pGT]
+        # vd = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
+        # vpv, vpgt = vd[FieldNames.pVals], vd[FieldNames.pGT]
+        # train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-expc-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}-epoch{{}}-iset_None.model')
+        # torch.manual_seed(0)
+        # model_y=modtp(layers,losfun)
+        # model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp8-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'  +'-epoch{}.model')
+
+    def test_model2(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        modtp,layers,losfun = models[exp_no]
+        layers[0]=inputDims
+        dd = readCSV_pitch_and_yaw_many_files(datasets[1:],inputDims,offset=offset)
+        pv, pgt = dd[FieldNames.pVals], dd[FieldNames.pGT]
+        vd = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
+        vpv, vpgt = vd[FieldNames.pVals], vd[FieldNames.pGT]
+        
+
+
+        torch.manual_seed(seed)
+        model_p=modtp(layers,losfun)
+        train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-expc-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}-epoch{{}}-exclude_0.model',
+                            validIn=vpv,
+                            validGt=vpgt,
+                            validComp=validComp1)
+
+    def _test(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        test_model1(exp_no, inputDims, offset, seed)
+        test_model2(exp_no, inputDims, offset, seed)
+
+    exp_nos =[0,4,10]
+
+    #chosing the best nn
+    #================================================================================================================
+    for ex in exp_nos:
+        sed = 0
+        _test(ex,5,4,sed)
+        _test(ex,5,2,sed)
+        _test(ex,7,6,sed)
+        _test(ex,7,4,sed)
+
+        sed = 397601119700
+        _test(ex,5,4,sed)
+        _test(ex,5,2,sed)
+        _test(ex,7,6,sed)
+        _test(ex,7,4,sed)
+
+        sed = 4957487248900
+        _test(ex,5,4,sed)
+        _test(ex,5,2,sed)
+        _test(ex,7,6,sed)
+        _test(ex,7,4,sed)
+
+        sed = 5582204839100
+        _test(ex,5,4,sed)
+        _test(ex,5,2,sed)
+        _test(ex,7,6,sed)
+        _test(ex,7,4,sed)
+
+    # candidates
+    #================================================================================================================
+    # SimpleNN-layers_7_Tanh_15_Tanh_25_1-exp6_iset3-pitch-input7-offset4-losfnMSELoss-seed5582204839100-epoch5000
+    # _test(10,7,4,5582204839100)
+    # SimpleNN-layers_5_ReLU_15_ReLU_25_ReLU_5_1-exp6_iset2-pitch-input5-offsetNone-losfnMSELoss-seed397601119700-epoch10000
+    # _test(4,7,4,397601119700)
+    # SimpleNN-layers_5_ReLU_100_1-exp6_iset3-pitch-input5-offset2-losfnMSELoss-seed4957487248900-epoch10000
+    # _test(0,5,2,4957487248900)
+    # SimpleNN-layers_5_ReLU_100_1-exp7_iset3-pitch-input5-offset2-losfnMSELoss-seed0-epoch500
+    #inclusa
+    #SimpleNN-layers_7_Tanh_15_Tanh_25_1-exp8_iset0-pitch-input7-offsetNone-losfnMSELoss-seed0-epoch500
+    #inclusa
+    #SimpleNN-layers_7_Tanh_15_Tanh_25_1-exp8_iset0-pitch-input7-offsetNone-losfnMSELoss-seed397601119700-epoch500
+    # _test(10,7,6,397601119700)
+    #SimpleNN-layers_7_Tanh_15_Tanh_25_1-exp8_iset0-pitch-input7-offsetNone-losfnMSELoss-seed5582204839100-epoch500
+    # _test(10,7,6,5582204839100)
+    #================================================================================================================
+
+    #final experiment
+    #================================================================================================================
+
+    #================================================================================================================
+
 
 
 def validate2():
@@ -756,6 +889,6 @@ def main_train():
     
 
 if __name__ == '__main__':
-    main_train()
+    #main_train()
 
     validate2()
