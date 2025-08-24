@@ -26,7 +26,7 @@ modelFile:str = resultsPath+"models/"
 
 dataPath=resultsPath+'data/'
 
-infile:str = resultsPath+'err_bdrivface.csv'
+infile:str = dataPath+'err_bdrivface.csv'
 
 print_train = False
 
@@ -360,18 +360,18 @@ def exp11(exp_no:int, epocs:int, losFn:torch.nn.Module= torch.nn.MSELoss(),offse
 
 #final experiemnt for paper submision
 def exp12(losFn:torch.nn.Module= torch.nn.MSELoss()):
-    epocs = 15_000
-    check_points=None
+    epocs = 6_000
+    check_points = None # [5,10,100,200,300,500,1000,2_000,5_000, 10_000]
 
     flog = open(logfile, 'a+')
 
     losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
-    def validComp1(netvals:torch.Tensor, gt:torch.Tensor, oldRes:float):
+    def validComp1(netvals:torch.Tensor, gt:torch.Tensor, oldRes:float|None):
         tabsdif = torch.abs(netvals-gt) <= err_ok
         tacc = tabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
         nv = tacc.item()
-        if oldRes < nv:
+        if oldRes is None or oldRes < nv:
             return True, nv
         else:
             return False, oldRes
@@ -381,8 +381,8 @@ def exp12(losFn:torch.nn.Module= torch.nn.MSELoss()):
         modtp,layers,losfun = models[exp_no]
         layers[0]=inputDims
 
-        for i in range(4):
-            iset = i 
+        for i in range(5):
+            iset = i if i < 4 else None
             pv, pgt, vv, vgt = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset)
             # yv, ygt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset, vf='Original Yaw', gtf='Ground Truth Yaw')
 
@@ -402,7 +402,7 @@ def exp12(losFn:torch.nn.Module= torch.nn.MSELoss()):
         # pv, pgt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=None)
         # yv, ygt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=None, vf='Original Yaw', gtf='Ground Truth Yaw')
 
-        #================================================================================================================ to decomant for final experiment
+        # ================================================================================================================ to decomant for final experiment
         # torch.manual_seed(seed)
         # model_p=modtp(layers,losfun)
         # print(exp_msg.format(exp_name='exp3'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
@@ -436,34 +436,34 @@ def exp12(losFn:torch.nn.Module= torch.nn.MSELoss()):
         test_model1(exp_no, inputDims, offset, seed)
         test_model2(exp_no, inputDims, offset, seed)
 
-    exp_nos =[0,4,10]
+    exp_nos =[0]#,4,10]
 
     #chosing the best nn
     #================================================================================================================
     for ex in exp_nos:
-        sed = 0
-        _test(ex,5,4,sed)
-        _test(ex,5,2,sed)
-        _test(ex,7,6,sed)
-        _test(ex,7,4,sed)
+        # sed = 0
+        # # _test(ex,5,4,sed)
+        # _test(ex,5,2,sed)
+        # # _test(ex,7,6,sed)
+        # _test(ex,7,4,sed)
 
-        sed = 397601119700
-        _test(ex,5,4,sed)
-        _test(ex,5,2,sed)
-        _test(ex,7,6,sed)
-        _test(ex,7,4,sed)
+        # sed = 397601119700
+        # # _test(ex,5,4,sed)
+        # _test(ex,5,2,sed)
+        # # _test(ex,7,6,sed)
+        # _test(ex,7,4,sed)
 
-        sed = 4957487248900
-        _test(ex,5,4,sed)
-        _test(ex,5,2,sed)
-        _test(ex,7,6,sed)
-        _test(ex,7,4,sed)
+        # sed = 4957487248900
+        # # _test(ex,5,4,sed)
+        # _test(ex,5,2,sed)
+        # # _test(ex,7,6,sed)
+        # _test(ex,7,4,sed)
 
         sed = 5582204839100
-        _test(ex,5,4,sed)
+        # _test(ex,5,4,sed)
         _test(ex,5,2,sed)
-        _test(ex,7,6,sed)
-        _test(ex,7,4,sed)
+        # _test(ex,7,6,sed)
+        # _test(ex,7,4,sed)
 
     # candidates
     #================================================================================================================
@@ -489,13 +489,206 @@ def exp12(losFn:torch.nn.Module= torch.nn.MSELoss()):
     #================================================================================================================
 
 
+#geting the final networks
+def exp13(losFn:torch.nn.Module= torch.nn.MSELoss()):
+    epocs = 10_000
+    check_points = None # [5,10,100,200,300,500,1000,2_000,5_000, 10_000]
+
+    flog = open(logfile, 'a+')
+
+    losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
+
+    def validComp1(netvals:torch.Tensor, gt:torch.Tensor, oldRes:float|None):
+        tabsdif = torch.abs(netvals-gt) <= err_ok
+        tacc = tabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+        nv = tacc.item()
+        if oldRes is None or oldRes < nv:
+            return True, nv
+        else:
+            return False, oldRes
+    
+
+    def test_model1(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        modtp,layers,losfun = models[exp_no]
+        layers[0]=inputDims
+
+        for i in range(4):
+            iset = i 
+            pv, pgt, vv, vgt = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset)
+            # yv, ygt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset, vf='Original Yaw', gtf='Ground Truth Yaw')
+
+            torch.manual_seed(seed)
+            model_p=modtp(layers,losfun)
+            print(exp_msg.format(exp_name='exp3'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+            model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, 
+                            modelFile+model_p.fun_name+f'-expc-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}-epoch_{{}}-iset_{iset}.model',
+                            validIn=vv,
+                            validGt=vgt,
+                            validComp=validComp1
+                            )
+            # torch.manual_seed(0)
+            # model_y=modtp(layers,losfun)
+            # model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-exp8_iset{iset}-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'  +'-epoch{}.model')
+    
+    def test_model12(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        modtp,layers,losfun = models[exp_no]
+        layers[0]=inputDims
+
+        dd = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
+        vv, vgt = dd[FieldNames.pVals], dd[FieldNames.pGT]
+
+        pv, pgt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=None)
+        # yv, ygt, _, _ = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=iset, vf='Original Yaw', gtf='Ground Truth Yaw')
+
+        torch.manual_seed(seed)
+        model_p=modtp(layers,losfun)
+        print(exp_msg.format(exp_name='exp3'+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+        model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, 
+                        modelFile+model_p.fun_name+f'-expc-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}-epoch_{{}}-iset_None.model',
+                        validIn=vv,
+                        validGt=vgt,
+                        validComp=validComp1
+                        )
+
+    def test_model2(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        modtp,layers,losfun = models[exp_no]
+        layers[0]=inputDims
+        dd = readCSV_pitch_and_yaw_many_files(datasets[1:],inputDims,offset=offset)
+        pv, pgt = dd[FieldNames.pVals], dd[FieldNames.pGT]
+        vd = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
+        vpv, vpgt = vd[FieldNames.pVals], vd[FieldNames.pGT]
+        
+
+
+        torch.manual_seed(seed)
+        model_p=modtp(layers,losfun)
+        train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-expc-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}-epoch{{}}-exclude_0.model',
+                            validIn=vpv,
+                            validGt=vpgt,
+                            validComp=validComp1)
+
+    def test_model22(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        modtp,layers,losfun = models[exp_no]
+        layers[0]=inputDims
+        dd = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+        pv, pgt = dd[FieldNames.pVals], dd[FieldNames.pGT]
+        # vd = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
+        # vpv, vpgt = vd[FieldNames.pVals], vd[FieldNames.pGT]
+        _,_, vpv, vpgt = readCSV_gt_evaled_loo_drivface(infile, inputDims, offset, iset=0)
+
+        torch.manual_seed(seed)
+        model_p=modtp(layers,losfun)
+        train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-expc-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}-epoch{{}}.model',
+                            validIn=vpv,
+                            validGt=vpgt,
+                            validComp=validComp1)
+
+    def test_model23(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        modtp,layers,losfun = models[exp_no]
+        layers[0]=inputDims
+        dd = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+        pv, pgt = dd[FieldNames.pVals], dd[FieldNames.pGT]
+        vd = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
+        vpv, vpgt = vd[FieldNames.pVals], vd[FieldNames.pGT]
+
+        torch.manual_seed(seed)
+        model_p=modtp(layers,losfun)
+        train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-expc-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}-epoch{{}}-exclude_0.model',
+                            validIn=vpv,
+                            validGt=vpgt,
+                            validComp=validComp1)
+
+    def _test(exp_no:int, inputDims:int=5, offset:int|None=None, seed:int|None=0):
+        test_model1 (exp_no, inputDims, offset, seed)
+        test_model12(exp_no, inputDims, offset, seed)
+        test_model2 (exp_no, inputDims, offset, seed)
+        test_model22(exp_no, inputDims, offset, seed)
+
+    ex = 0
+
+    sed = 5582204839100
+
+    _test(ex,5,2,sed)
+
+
+def printVals():
+    ft = open(logFolder+'dimensions.log','a+')
+    dd = readCSV_pitch_and_yaw_many_files(datasets,1)
+    df = readCSV_drivface_sep(infile,1)
+
+    our_e = dd[FieldNames.fErr]
+    dfc_e = df[FieldNames.fErr]
+    tdf_e = torch.cat(dfc_e)
+
+    print('total', file=ft)
+    print(f'for us {our_e.shape[0]} total processed frames from which {torch.sum(our_e).item()} were frames marked with errors', file=ft)
+    print('\n===================================================================================================================\n', file=ft)
+    print(f'for df {tdf_e.shape[0]} total processed frames from which {torch.sum(tdf_e).item()} were frames marked with errors', file=ft)
+    for i in range(4):
+        fer = dfc_e[i]
+        print('\n===================================================================================================================\n', file=ft)
+        print(f'for d{i} {fer.shape[0]} total processed frames from which {torch.sum(fer).item()} were frames marked with errors', file=ft)
+   
+    for i in range(4):
+        mask = dfc_e[i]
+
+        predictions=df[FieldNames.pVals][i]
+        gtVals=df[FieldNames.pGT][i]
+
+        iabsdif = torch.abs(predictions-gtVals) <= err_ok
+
+        iacc = iabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+        m1 = mask == 1
+        tpac = iabsdif[m1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+        m0=mask == 0
+        tnac = iabsdif[m0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+        print(f'for driver {i}', file=ft)
+        print(f'initial accuracy on entire dataset {iacc.item()}\n initial positive accuracy {tpac.item()}\n initial negative accuracy {tnac.item()}', file=ft)
+
+    mask = our_e
+
+    predictions=dd[FieldNames.pVals]
+    gtVals=dd[FieldNames.pGT]
+
+    iabsdif = torch.abs(predictions-gtVals) <= err_ok
+
+    iacc = iabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+    m1 = mask == 1
+    tpac = iabsdif[m1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+    m0=mask == 0
+    tnac = iabsdif[m0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    print(f'for our dataset', file=ft)
+    print(f'initial accuracy on entire dataset {iacc.item()}\n initial positive accuracy {tpac.item()}\n initial negative accuracy {tnac.item()}', file=ft)
+
+    mask = tdf_e
+
+    predictions=torch.cat(df[FieldNames.pVals])
+    gtVals=torch.cat(df[FieldNames.pGT])
+
+    iabsdif = torch.abs(predictions-gtVals) <= err_ok
+
+    iacc = iabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+    m1 = mask == 1
+    tpac = iabsdif[m1].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+
+    m0=mask == 0
+    tnac = iabsdif[m0].mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    print(f'for drivface', file=ft)
+    print(f'initial accuracy on entire dataset {iacc.item()}\n initial positive accuracy {tpac.item()}\n initial negative accuracy {tnac.item()}', file=ft)
+
+    ft.close()
 
 def validate2():
     Validation().validateManyModels()
 
 
 #check_points= [2000, 5000, 10_000, 15_000, 20_000, 25_000, 30_000, 40_000, 50_000]
-check_points= [5000, 10_000, 15_000, 20_000, 30_000, 40_000, 50_000, 75_000, 100_000, 125_000, 150_000]
+check_points = [5000, 10_000, 15_000, 20_000, 30_000, 40_000, 50_000, 75_000, 100_000, 125_000, 150_000]
 models= {
          0:(SimpleNN,[5, 100, 1],None),
          1:(SimpleNN,[5, 15, 1],None),
@@ -890,5 +1083,8 @@ def main_train():
 
 if __name__ == '__main__':
     #main_train()
+    exp13()
 
     validate2()
+
+    #printVals()

@@ -39,7 +39,7 @@ class FieldNames:
 
 # 179, 170, 167, 90 total 606, in csv = 605 ???
 # 178, 170, 167, 90
-__pic_idx = {0:(1,178), 1:(179,348), 2:(349,515), 3:(516,605)}
+__pic_idx:Final = {0:(1,178), 1:(179,348), 2:(349,515), 3:(516,605)}
 
 #@deprecated
 def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int=5, offset:int|None=None, iset:int|None = None, vf:str='Original Pitch',gtf:str='Ground Truth Pitch') \
@@ -79,7 +79,7 @@ def readCSV_gt_evaled_loo_drivface(fpath:str, inputDim:int=5, offset:int|None=No
 
     for i in range(4):
         i1,i2 = __pic_idx[i]
-        _vals_set[i], _gt_set[i] =__getRange(_vals[i1:i2+1],_gt[i1:i2+1])
+        _vals_set[i], _gt_set[i] =__getRange(_vals[i1-1:i2],_gt[i1-1:i2])
         
     _vals = []
     _gt = []
@@ -149,6 +149,8 @@ def readCSV_drivface_sep(fpath:str, inputDim:int=5, offset:int|None=None,
     _ygt   = df[ygtf].tolist()
     _fer   = df[fef].tolist()
 
+    x = len(_fer)
+
     _pvals_set = [None, None, None, None]
     _pgt_set = [None, None, None, None]
     _yvals_set = [None, None, None, None]
@@ -157,11 +159,12 @@ def readCSV_drivface_sep(fpath:str, inputDim:int=5, offset:int|None=None,
 
     for i in range(4):
         i1,i2 = __pic_idx[i]
-        _pvals_set[i]= __getRangeVals(_pvals[i1:i2+1])
-        _pgt_set[i]  = __getRangeGtEr(_pgt[i1:i2+1]).view(-1,1)
-        _yvals_set[i]= __getRangeVals(_yvals[i1:i2+1])
-        _ygt_set[i]  = __getRangeGtEr(_ygt[i1:i2+1]).view(-1,1)
-        _fer_set[i]  = __getRangeGtEr(_fer[i1:i2+1])
+        i1 -= 1
+        _pvals_set[i]= __getRangeVals(_pvals[i1:i2])
+        _pgt_set[i]  = __getRangeGtEr(_pgt[i1:i2]).view(-1,1)
+        _yvals_set[i]= __getRangeVals(_yvals[i1:i2])
+        _ygt_set[i]  = __getRangeGtEr(_ygt[i1:i2]).view(-1,1)
+        _fer_set[i]  = __getRangeGtEr(_fer[i1:i2])
 
     if bCat:
         po = torch.cat(_pvals_set)
