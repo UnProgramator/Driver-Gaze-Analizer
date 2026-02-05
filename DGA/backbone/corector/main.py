@@ -15,9 +15,11 @@ from SimpleNN import SimpleNN
 
 import torch
 
+import os
+
 # infile1:str = "C:/Users/apesc/Downloads/pitch_train_data.csv"
 
-resultsPath='D:/DCIM/images_12fps/experiment/'
+resultsPath=  os.environ['DATASETS_ROOT'] + '/DCIM/images_12fps/experiment/' # 'D:/DCIM/images_12fps/experiment/'
 
 plotfile:str  = resultsPath+"plots/{}.png"
 logFolder = resultsPath+'logs/'
@@ -611,6 +613,57 @@ def exp13(losFn:torch.nn.Module= torch.nn.MSELoss()):
     _test(ex,5,2,sed)
 
 
+def exp14(exp_no:int, epocs:int=5_000, losFn:torch.nn.Module= torch.nn.MSELoss(), offset:int|None=None, inputDims:int=5, seed:int|None=None):
+    global logfile, datasets
+    exp:str = "exp14"
+    flog = open(logfile, 'a+')
+    # pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
+    vd = readCSV_pitch_and_yaw_many_files(datasets[1:],inputDims,offset=offset)
+    pv, pgt, yv, ygt = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
+
+    vv = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
+    pvval, pgtval, yvval, ygtval = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
+
+    losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
+
+    modtp,layers,activFun = models[exp_no]
+    layers[0]=inputDims
+
+    model_p=modtp(layers,activFun)
+    if seed is None: seed=torch.seed()
+    print(exp_msg.format(exp_name=exp+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-{exp}-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
+
+    if seed is None: seed=torch.seed()
+    print(exp_msg.format(exp_name=exp+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+    model_y=modtp(layers,activFun)
+    model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-{exp}-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
+
+
+def main_feb2026():
+    global err_ok
+    
+    print(torch.cuda.is_available())
+    
+    epocs = 5_000
+
+    torch.use_deterministic_algorithms(True)
+    torch.manual_seed(0)
+    trainLog=open(logFolder+'trainLog.log','a+')
+    print(f'--------------------------------------------\n Experiment at {'fst'}',file = trainLog)
+
+    for i in models.keys():
+        print(f'running experiment no {i}')
+        exp14(exp_no=i, epocs=epocs)
+        exp14(exp_no=i, epocs=epocs,losFn=CustomLoss_v(err_ok))
+
+        exp14(exp_no=i, epocs=epocs, offset=2)
+        exp14(exp_no=i, epocs=epocs, offset=2,losFn=CustomLoss_v(err_ok))
+
+        exp14(exp_no=i, epocs=epocs, offset=4, inputDims=7)
+        exp14(exp_no=i, epocs=epocs, offset=4, inputDims=7,losFn=CustomLoss_v(err_ok))
+
+
 def printVals():
     ft = open(logFolder+'dimensions.log','a+')
     dd = readCSV_pitch_and_yaw_many_files(datasets,1)
@@ -1083,7 +1136,7 @@ def main_train():
 
 if __name__ == '__main__':
     #main_train()
-    exp13()
+    main_feb2026()
 
     validate2()
 

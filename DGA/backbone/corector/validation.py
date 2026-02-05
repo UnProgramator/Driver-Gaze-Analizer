@@ -11,7 +11,7 @@ from corectors import validate, loadModel
 from CorectionUtilities import *
 from SimpleNN import SimpleNN
 
-resultsPath='D:/DCIM/images_12fps/experiment/'
+resultsPath=  os.environ['DATASETS_ROOT'] + '/DCIM/images_12fps/experiment/' # 'D:/DCIM/images_12fps/experiment/' 'D:/DCIM/images_12fps/experiment/'
 
 experiment='e11'
 
