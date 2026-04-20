@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 
+@deprecated
 class InputPathGeneratorReader(Iterable[str]):
     def get_next_image_path(self) -> str: raise NotImplementedError
     def get_prev_image_path(self) -> str: raise NotImplementedError

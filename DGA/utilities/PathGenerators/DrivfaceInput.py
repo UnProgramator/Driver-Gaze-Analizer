@@ -1,7 +1,8 @@
 from typing import Final
 from typing_extensions import override
 import os
-from .InputPathGeneratorReader import InputPathGeneratorReader
+from pathutils.pathgenerators.InputPathGeneratorReader import InputPathGeneratorReader
+# from .InputPathGeneratorReader import InputPathGeneratorReader # uncoment if pathutils not installed
 
 #20130529_01_Driv_001_f  20130529_01_Driv_179_ll
 #20130529_02_Driv_001_f  20130529_02_Driv_170_f 

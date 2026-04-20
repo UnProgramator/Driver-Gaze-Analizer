@@ -4,6 +4,7 @@ from typing_extensions import override
 
 from .InputPathGeneratorReader import InputPathGeneratorReader
 
+@deprecated
 class TemplatePathGenerator(InputPathGeneratorReader, Iterable[str]):
     
     temp_path:str

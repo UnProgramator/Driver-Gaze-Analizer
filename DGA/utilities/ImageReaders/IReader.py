@@ -1,7 +1,9 @@
 from typing import Callable, Iterator, List, Tuple
 from types import NotImplementedType
+from typing_extensions import deprecated
 from cv2.typing import MatLike
 
+@deprecated
 class IReader(Iterator[Tuple[int, MatLike]]):
     def getNextFrame(self) -> Tuple[int, MatLike]: raise NotImplementedType()
     def getPrevFrame(self)-> Tuple[int, MatLike]:  raise NotImplementedType()

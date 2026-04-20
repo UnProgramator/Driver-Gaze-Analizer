@@ -3,44 +3,59 @@ import os
 from cv2.typing import MatLike
 from sklearn.cluster import KMeans
 
-from utilities.ImageReaders import ImageReader
-from utilities.ImageReaders.IReader import IReader
-from utilities.ImageReaders.ImageReader import ImageReager
-from utilities.ImageReaders.VideoReader import VideoReader
+from imutils.imparse.IReader import IReader
+from imutils.imparse.ImageReader import ImageReager
+from imutils.imparse.VideoReader import VideoReader
+# from utilities.ImageReaders.IReader import IReader
+# from utilities.ImageReaders.ImageReader import ImageReager
+# from utilities.ImageReaders.VideoReader import VideoReader
 import numpy as np
 import cv2
 
 from backbone.processor import Processor
-from utilities.PathGenerators.FileListGenerator import FileListGenerator
+
 from utilities.PathGenerators.DrivfaceInput import DrivfaceInput
-from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
-from utilities.PathGenerators.TemplatePathGenerator import TemplatePathGenerator
+
+# from utilities.PathGenerators.FileListGenerator import FileListGenerator
+# from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
+# from utilities.PathGenerators.TemplatePathGenerator import TemplatePathGenerator
+
+from pathutils.pathgenerators.FileListGenerator import FileListGenerator
+from pathutils.pathgenerators.InputPathGeneratorReader import InputPathGeneratorReader
+from pathutils.pathgenerators.TemplatePathGenerator import TemplatePathGenerator
 
 #from utilities.Validation.dreyeve_validation import drvalidation
 
+from imutils.filters.corections import ColorCorection,LuminosityCorection
 
-def darken(img:MatLike) -> MatLike:
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    # value = -80 #whatever value you want to add
-    value = -50 #whatever value you want to add
-    hsv[:,:,2] = cv2.add(hsv[:,:,2], value)
-    image:MatLike = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-    return image
 
-def correct_blue(image:MatLike) -> MatLike:
-    image[:,:,0] = image[:,:,0]/200*150 #blue channel
-    return image
+# def darken(img:MatLike) -> MatLike:
+#     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+#     # value = -80 #whatever value you want to add
+#     value = -50 #whatever value you want to add
+#     hsv[:,:,2] = cv2.add(hsv[:,:,2], value)
+#     image:MatLike = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+#     return image
 
-def correct_green(image:MatLike) -> MatLike:
-    image[:,:,1] = image[:,:,1]/180*150 #green channel
-    return image
+# def correct_blue(image:MatLike) -> MatLike:
+#     image[:,:,0] = image[:,:,0]/200*150 #blue channel
+#     return image
 
-def lighten(img:MatLike) -> MatLike:
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    value = 30 #whatever value you want to add
-    hsv[:,:,2] = cv2.add(hsv[:,:,2], value)
-    image:MatLike = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-    return image
+# def correct_green(image:MatLike) -> MatLike:
+#     image[:,:,1] = image[:,:,1]/180*150 #green channel
+#     return image
+
+# def lighten(img:MatLike) -> MatLike:
+#     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+#     value = 30 #whatever value you want to add
+#     hsv[:,:,2] = cv2.add(hsv[:,:,2], value)
+#     image:MatLike = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+#     return image
+
+darken = LuminosityCorection.DarkenCorection()
+lighten = LuminosityCorection.LuminosityCorection()
+correct_blue = ColorCorection.BlueStdCorection()
+correct_green = ColorCorection.GreenStdCorection()
 
 def gproc():
     return Processor(-0.65, 0.2, -0.5, 0.8, 2, 30 )

@@ -1,9 +1,10 @@
 from typing import Final, Tuple, override
+from typing_extensions import deprecated
 import cv2
 from .IReader import IReader
 
 
-
+@deprecated
 class VideoReader(IReader):
     video:cv2.VideoCapture
     frame:cv2.typing.MatLike

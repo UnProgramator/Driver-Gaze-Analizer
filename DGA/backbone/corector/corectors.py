@@ -209,6 +209,7 @@ def _validate(model:torch.nn.Module, inputVals:torch.Tensor, gtVals:torch.Tensor
         graph = vdf.plot(title='Err correction', figsize=(100,20)) # modify for dinamic dimension
         if plot_save_file_template: plt.savefig(plot_save_file_template.format('acc'))
         if show_plot: plt.show()
+        plt.close('all')
 
     return iacc,ipac,inac,ialoss,tacc,tpac,tnac,taloss
 

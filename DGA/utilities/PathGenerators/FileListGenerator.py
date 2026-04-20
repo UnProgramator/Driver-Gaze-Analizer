@@ -1,8 +1,9 @@
 import os
 from typing import Iterable, Final
-from typing_extensions import override
+from typing_extensions import deprecated, override
 from .InputPathGeneratorReader import InputPathGeneratorReader
 
+@deprecated
 class FileListGenerator(InputPathGeneratorReader, Iterable[str]):
     dr:Final[str]
     files:Final[list[str]]

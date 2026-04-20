@@ -1,11 +1,13 @@
 from typing import Tuple, override
+from typing_extensions import deprecated
 
 import cv2
 from cv2.typing import MatLike
 from .IReader import IReader
-from ..PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
+from pathutils.pathgenerators.InputPathGeneratorReader import InputPathGeneratorReader
+# from ..PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
 
-
+@deprecated
 class ImageReager(IReader):
     imReader:InputPathGeneratorReader
     fid:int=-1

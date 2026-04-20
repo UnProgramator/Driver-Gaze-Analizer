@@ -1,5 +1,7 @@
-from utilities.ImageReaders.IReader import IReader
-from utilities.ImageReaders.VideoReader import VideoReader
+from imutils.imparse.IReader import IReader
+from imutils.imparse.VideoReader import VideoReader
+# from utilities.ImageReaders.IReader import IReader
+# from utilities.ImageReaders.VideoReader import VideoReader
 import cv2
 
 

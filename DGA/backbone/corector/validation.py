@@ -13,7 +13,7 @@ from SimpleNN import SimpleNN
 
 resultsPath=  os.environ['DATASETS_ROOT'] + '/DCIM/images_12fps/experiment/' # 'D:/DCIM/images_12fps/experiment/' 'D:/DCIM/images_12fps/experiment/'
 
-experiment='e11'
+experiment='e14'
 
 prefix=''#f'{experiment}-'
 
@@ -408,8 +408,10 @@ class Validation():
         with open(logFolder+'validationsLogs.log','a+') as lf, open(logFolder+'validationResults.log','a+') as resf, open(logFolder+'mean_error_and_loss.csv','w+') as csvFile:
             print('expid,exptimestamp,model,validset,validation,iacc,ipac,inac,ialoss,tacc,tpac,tnac,taloss,improvment',file=csvFile)
             for f in files:
-                model_name=ntpath.basename(plotPath)
-                self.validateModel(f,lf,resf,csvFile,plotFileTemplate=f'{model_name}{f}_{{}}.plot.png')
+                model_name=ntpath.basename(f)
+                self.validateModel(f,lf,resf,csvFile
+                                   #,plotFileTemplate=f'{plotPath}{model_name}_{{}}.plot.png'
+                                   )
 
     
 

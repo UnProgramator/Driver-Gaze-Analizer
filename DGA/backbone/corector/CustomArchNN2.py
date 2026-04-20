@@ -16,6 +16,7 @@ class CustomNN_MArch(nn.Module):
 
         sizesCommon = sizes[0]
         sizesSpecific = sizes[1]
+        sizesSpecific[0]=sizesCommon[0]//2+sizesCommon[-1]
 
         if activations is None:
             act = nn.ReLU

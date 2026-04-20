@@ -612,32 +612,85 @@ def exp13(losFn:torch.nn.Module= torch.nn.MSELoss()):
 
     _test(ex,5,2,sed)
 
+def validSingleValue(netvals:torch.Tensor, gt:torch.Tensor, oldRes:float|None):
+    tabsdif = torch.abs(netvals-gt) <= err_ok
+    tacc = tabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    nv = tacc.item()
+    if oldRes is None or oldRes < nv:
+        return True, nv
+    else:
+        return False, oldRes
 
-def exp14(exp_no:int, epocs:int=5_000, losFn:torch.nn.Module= torch.nn.MSELoss(), offset:int|None=None, inputDims:int=5, seed:int|None=None):
+def gtAccTens(old,new)->bool: # old < new
+    if(old.shape != new.shape):
+        raise Exception("Tensorsm shape missmatched")
+    nv:torch.Tensor = old - new
+    if new.shape[0]==1:
+        return nv.item() < 0
+    elif new.shape[0]==2:
+        p=nv[0].item()
+        y=nv[1].item()
+        return p+y<0 # if p<0 and y<0 then is surely good, else if the accuracy either the pitch or the yaw which is better is far better than the worst one, then is acceptable, else it is not
+    else:
+        raise NotImplemented("branch for more than 2 dimensions is not implemented")
+
+def validMultieValue(netvals:torch.Tensor, gt:torch.Tensor, oldRes:torch.Tensor|None):
+    tabsdif = torch.abs(netvals-gt) <= err_ok
+    tacc = tabsdif.mean(dim=0,keepdim=True,dtype=torch.float32).flatten()*100
+    if oldRes is None or gtAccTens(oldRes,tacc):
+        return True, tacc
+    else:
+        return False, oldRes
+    
+    
+def exp14(exp_no:int, epocs:int=5_000, losFn:torch.nn.Module= torch.nn.MSELoss(), offset:int|None=None, inputDims:int=5, seed:int|None=0):
     global logfile, datasets
+
     exp:str = "exp14"
     flog = open(logfile, 'a+')
     # pv, pgt, yv, ygt = readCSV_pitch_and_yaw_many_files(datasets,inputDims,offset=offset)
-    vd = readCSV_pitch_and_yaw_many_files(datasets[1:],inputDims,offset=offset)
-    pv, pgt, yv, ygt = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
 
-    vv = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
-    pvval, pgtval, yvval, ygtval = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
+    modtp,layers,activFun = models[exp_no]
 
     losName:str = type(losFn).__name__ if not isinstance(losFn,INamedModule) else losFn.name()
 
-    modtp,layers,activFun = models[exp_no]
-    layers[0]=inputDims
+    if isinstance(layers[0],int) and layers[0]<10 or isinstance(layers[0],list) and layers[0][0]<10:
+        layers[0]=inputDims
 
-    model_p=modtp(layers,activFun)
-    if seed is None: seed=torch.seed()
-    print(exp_msg.format(exp_name=exp+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
-    model_p = train(epocs, model_p, pv, pgt, losFn, flog, check_points, modelFile+model_p.fun_name+f'-{exp}-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
+        vd = readCSV_pitch_and_yaw_many_files(datasets[1:],inputDims,offset=offset)
+        pv, pgt, yv, ygt = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
 
-    if seed is None: seed=torch.seed()
-    print(exp_msg.format(exp_name=exp+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
-    model_y=modtp(layers,activFun)
-    model_y = train(epocs, model_y, yv, ygt, losFn, flog, check_points, modelFile+model_y.fun_name+f'-{exp}-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
+        vv = readCSV_pitch_and_yaw(datasets[0],inputDims,offset=offset)
+        pvval, pgtval, yvval, ygtval = vd[FieldNames.pVals], vd[FieldNames.pGT], vd[FieldNames.yVals], vd[FieldNames.yGT]
+
+        if seed is None: seed=torch.seed()
+        model_p=modtp(layers,activFun)
+        print(exp_msg.format(exp_name=exp+model_p.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+        model_p = train(epocs, model_p, pv, pgt, losFn, flog, validIn=pvval, validGt=pgtval, validComp=validMultieValue,
+                        modelSaveFileTemplate=modelFile+model_p.fun_name+f'-{exp}-pitch-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
+
+        if seed is None: seed=torch.seed()
+        model_y=modtp(layers,activFun)
+        print(exp_msg.format(exp_name=exp+model_y.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+        model_y = train(epocs, model_y, yv, ygt, losFn, flog, validIn=yvval, validGt=ygtval, validComp=validMultieValue,
+                        modelSaveFileTemplate=modelFile+model_y.fun_name+f'-{exp}-yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
+    else:
+         if isinstance(layers[0],int):
+            layers[0]=2*inputDims
+         else:
+            layers[0][0]=2*inputDims
+
+         dd = readCSV_pitch_and_yaw_together_many_files(datasets[1:],inputDims,offset=offset)
+         vt, gtt = dd[FieldNames.Vals], dd[FieldNames.GT]
+
+         dv = readCSV_pitch_and_yaw_together(datasets[0],inputDims,offset=offset)
+         vv, gtv = dd[FieldNames.Vals], dd[FieldNames.GT]
+
+         if seed is None: seed=torch.seed()
+         model_b=modtp(layers,activFun)
+         print(exp_msg.format(exp_name=exp+model_b.fun_name,tm=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),sed=seed), file=flog)
+         model_b = train(epocs, model_b, vt, gtt, losFn, flog, validIn=vv, validGt=gtv, validComp=validMultieValue,
+                        modelSaveFileTemplate=modelFile+model_b.fun_name+f'-{exp}-pitch_and_yaw-input{inputDims}-offset{offset}-losfn{losName}-seed{seed}'+'-epoch{}.model')
 
 
 def main_feb2026():
@@ -645,7 +698,7 @@ def main_feb2026():
     
     print(torch.cuda.is_available())
     
-    epocs = 5_000
+    epocs = 10_000
 
     torch.use_deterministic_algorithms(True)
     torch.manual_seed(0)
@@ -774,11 +827,11 @@ models= {
         72:(CustomNN_MArch,[[10,100,25],[30,100,1]],torch.nn.ReLU),
         73:(CustomNN_MArch,[[10,15,1],[6,25,1]],torch.nn.ReLU),
 
-        100:(DeciderNN,[5, 100, 1],None),
-        101:(DeciderNN,[5, 15, 1],None),
-        102:(DeciderNN,[5, 15, 1],torch.nn.Tanh),
-        103:(DeciderNN,[5, 25, 1],None),
-        104:(DeciderNN,[5, 25, 1],torch.nn.Tanh),
+        # 100:(DeciderNN,[5, 100, 1],None),
+        # 101:(DeciderNN,[5, 15, 1],None),
+        # 102:(DeciderNN,[5, 15, 1],torch.nn.Tanh),
+        # 103:(DeciderNN,[5, 25, 1],None),
+        # 104:(DeciderNN,[5, 25, 1],torch.nn.Tanh),
 }
 
 

@@ -3,8 +3,10 @@ from typing import Any, Callable, Final, List, Tuple
 from cv2.typing import MatLike
 from typing_extensions import Self
 
-from utilities.ImageReaders.IReader import IReader
-from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader
+from imutils.imparse.IReader import IReader
+# from utilities.ImageReaders.IReader import IReader # uncoment if imutils is not available
+# from utilities.PathGenerators.InputPathGeneratorReader import InputPathGeneratorReader # uncoment if pathutils is not available
+from pathutils.pathgenerators.InputPathGeneratorReader import InputPathGeneratorReader
 from .my_pipeline import my_pipeline, FirstFrameNoFaceException, NoFaceException
 from l2cs import render
 import numpy as np
